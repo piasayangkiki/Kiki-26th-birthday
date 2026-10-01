@@ -4,213 +4,379 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Mini Game for Kiki 🥳</title>
+  <!-- Google Fonts & Confetti CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  
   <style>
     :root {
-      --bg-color: #fff9f0;
-      --card-bg: #ffffff;
-      --accent: #ff6b81;
-      --accent-hover: #ff4757;
-      --text: #2d3436;
-      --subtext: #636e72;
-      --border: #ffeaa7;
+      --primary: #ff758c;
+      --primary-hover: #ff4b6e;
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --text-main: #333333;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Fredoka', 'Quicksand', sans-serif;
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text);
+      background: linear-gradient(-45deg, #ffdde1, #ee9ca7, #ffc3a0, #ffafbd);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 15px;
       overflow-x: hidden;
+      position: relative;
     }
 
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Particles BG */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: floatUp 7s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+
+    /* Container Box / Scrapbook Card */
     .container {
       width: 100%;
       max-width: 420px;
       background: var(--card-bg);
-      border-radius: 20px;
-      padding: 25px 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 30px 22px;
+      box-shadow: 0 20px 40px rgba(255, 117, 140, 0.3), 0 0 0 8px rgba(255, 255, 255, 0.5);
       position: relative;
       text-align: center;
-      border: 2px solid var(--border);
+      z-index: 10;
+      overflow: visible;
     }
 
-    h1, h2 {
-      color: var(--accent);
-      margin-bottom: 12px;
+    /* Music Player Button (Floating Top Right) */
+    .music-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: white;
+      border: 3px solid #ff758c;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
       font-size: 1.4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      animation: rotateMusic 4s linear infinite;
+    }
+
+    .music-btn.paused {
+      animation-play-state: paused;
+      opacity: 0.7;
+    }
+
+    @keyframes rotateMusic {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Animated GIF Corner Stickers */
+    .gif-sticker-topleft {
+      position: absolute;
+      top: -25px;
+      left: -20px;
+      width: 65px;
+      z-index: 20;
+      pointer-events: none;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      animation: floatSticker 3s infinite ease-in-out alternate;
+    }
+
+    .gif-sticker-topright {
+      position: absolute;
+      top: -25px;
+      right: -20px;
+      width: 60px;
+      z-index: 20;
+      pointer-events: none;
+      animation: floatSticker 2.5s infinite ease-in-out alternate-reverse;
+    }
+
+    @keyframes floatSticker {
+      0% { transform: translateY(0) rotate(-5deg); }
+      100% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    h2 {
+      color: #ff2a6d;
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 2px 2px 0px #fff;
+      animation: pulseText 2s infinite alternate;
+    }
+
+    @keyframes pulseText {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.03); }
     }
 
     p {
-      color: var(--subtext);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 18px;
+      color: #4a4a4a;
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 20px;
+      font-weight: 500;
     }
 
     .btn {
-      background: var(--accent);
+      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
       color: white;
       border: none;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 0.95rem;
+      padding: 14px 24px;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 1rem;
       cursor: pointer;
       width: 100%;
-      margin-top: 8px;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 10px rgba(255,107,129,0.3);
+      margin-top: 10px;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 18px rgba(255, 117, 140, 0.4);
+      letter-spacing: 0.5px;
     }
 
     .btn:active {
-      transform: scale(0.97);
+      transform: scale(0.94);
     }
 
     .btn-secondary {
-      background: #e0e0e0;
-      color: #555;
-      box-shadow: none;
+      background: linear-gradient(135deg, #a8a8a8 0%, #c4c4c4 100%);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
     }
 
     input[type="password"] {
       width: 100%;
-      padding: 12px;
-      border: 2px solid #dfe6e9;
-      border-radius: 10px;
+      padding: 14px;
+      border: 3px solid #ffccd5;
+      border-radius: 16px;
       margin-bottom: 15px;
       text-align: center;
-      font-size: 1.1rem;
-      letter-spacing: 2px;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
       outline: none;
+      background: #fff;
+      color: #ff2a6d;
+      font-weight: bold;
     }
 
-    input[type="password"]:focus {
-      border-color: var(--accent);
+    /* Polaroid Frame for Aib Photo (JUMPSCARE EFEK) */
+    .polaroid-frame {
+      background: white;
+      padding: 12px 12px 28px 12px;
+      border-radius: 14px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+      margin: 15px 0;
+    }
+
+    /* Animasi Foto Aib Ngagetin */
+    .jumpscare-anim {
+      animation: jumpscareIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5) forwards, shakeHard 0.5s ease-in-out 0.2s infinite alternate;
+    }
+
+    @keyframes jumpscareIn {
+      0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
+      50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+      100% { transform: scale(1) rotate(-3deg); opacity: 1; }
+    }
+
+    @keyframes shakeHard {
+      0% { transform: rotate(-4deg) scale(1); }
+      100% { transform: rotate(4deg) scale(1.05); }
+    }
+
+    /* Layar Goyang saat Salah Password */
+    .screen-shake {
+      animation: containerShake 0.4s ease-in-out;
+    }
+
+    @keyframes containerShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-12px) rotate(-2deg); }
+      40%, 80% { transform: translateX(12px) rotate(2deg); }
     }
 
     .aib-photo {
       width: 100%;
-      max-height: 250px;
+      height: 230px;
       object-fit: cover;
-      border-radius: 12px;
-      margin: 12px 0;
-      border: 3px solid var(--border);
+      border-radius: 8px;
     }
 
+    /* Step Video Transitions */
     .step {
       display: none;
     }
 
     .step.active {
       display: block;
-      animation: fadeIn 0.4s ease-in-out;
+      animation: videoPan 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
+    @keyframes videoPan {
+      0% { opacity: 0; transform: scale(0.85) rotate(-2deg); filter: blur(4px); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
+    }
+
+    /* Grid Box Styling */
     .grid-boxes {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 15px 0;
+      gap: 15px;
+      margin: 18px 0;
     }
 
     .gift-box-btn {
-      background: #fff0f3;
-      border: 2px dashed var(--accent);
-      padding: 20px;
-      border-radius: 12px;
-      font-size: 2rem;
+      background: #fff;
+      border: 3px dashed #ff758c;
+      padding: 22px 10px;
+      border-radius: 20px;
+      font-size: 2.2rem;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 15px rgba(255, 117, 140, 0.15);
+      animation: boxBounce 2s infinite ease-in-out alternate;
     }
 
-    .gift-box-btn:active {
-      transform: scale(0.95);
+    @keyframes boxBounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
     }
 
-    /* MINI GAME 1: LOVE CATCH */
+    /* Mini Game 1: Heart Catch Area */
     .heart-arena {
       width: 100%;
-      height: 200px;
-      background: #fff0f3;
-      border-radius: 15px;
+      height: 220px;
+      background: radial-gradient(circle, #fff0f3 0%, #ffe3e8 100%);
+      border-radius: 20px;
       position: relative;
       overflow: hidden;
       margin: 15px 0;
-      border: 2px dashed var(--accent);
+      border: 3px dashed #ff758c;
     }
 
     .floating-heart {
       position: absolute;
-      font-size: 2.2rem;
+      font-size: 2.8rem;
       cursor: pointer;
       user-select: none;
-      transition: all 0.2s ease;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      animation: heartPulse 0.8s infinite alternate;
     }
 
-    /* MINI GAME 2: CANDLE BLOW */
+    @keyframes heartPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
+
+    /* Mini Game 2: Cake & Candle */
     .cake-container {
-      font-size: 4rem;
+      font-size: 4.5rem;
       margin: 15px 0;
       cursor: pointer;
       user-select: none;
-      position: relative;
+      display: inline-block;
     }
 
     .flame {
       display: inline-block;
-      animation: flicker 0.3s infinite alternate;
+      animation: flicker 0.2s infinite alternate;
+      filter: drop-shadow(0 0 10px orange);
     }
 
     @keyframes flicker {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(1.2); opacity: 0.8; }
+      0% { transform: scale(1) rotate(-3deg); }
+      100% { transform: scale(1.3) rotate(3deg); }
     }
 
+    /* Progress Bar Delivery */
     .progress-bar-bg {
       width: 100%;
-      background: #eee;
-      height: 16px;
-      border-radius: 8px;
+      background: #ffe3e8;
+      height: 20px;
+      border-radius: 10px;
       overflow: hidden;
       margin: 15px 0;
+      border: 2px solid #ff758c;
     }
 
     .progress-bar-fill {
       height: 100%;
       width: 0%;
-      background: var(--accent);
+      background: linear-gradient(90deg, #ff758c, #ff7eb3);
+      border-radius: 10px;
       transition: width 0.1s linear;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
     .bounce {
-      animation: bounce 0.6s infinite;
+      animation: bounceAnim 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes bounceAnim {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-12px); }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
+  <!-- Floating Particles Background -->
+  <div class="bg-particles" id="particle-container"></div>
+
+  <!-- Music Toggle Button -->
+  <button class="music-btn paused" id="musicToggleBtn" onclick="toggleMusic()">🎵</button>
+
+  <!-- Audio Element (Bisa ganti URL mp3-nya jika punya lagu sendiri) -->
+  <audio id="bgMusic" loop>
+    <source src="https://assets.mixkit.co/music/preview/mixkit-cute-family-happiness-121.mp3" type="audio/mpeg">
+  </audio>
+
+<div class="container" id="mainContainer">
+
+  <!-- Animated GIF Stickers Floating on Corners -->
+  <img src="https://media.giphy.com/media/26hpW38b1ebk7tHqg/giphy.gif" class="gif-sticker-topleft" alt="Sticker">
+  <img src="https://media.giphy.com/media/l41K3o5Tz21gDdt4I/giphy.gif" class="gif-sticker-topright" alt="Sticker">
 
   <!-- STEP 1: PASSWORD -->
   <div id="step1" class="step active">
@@ -218,25 +384,32 @@
     <p>Halooo Kiki... Aku punya sesuatu buat kamu, sayang.<br>Tapi sebelum masuk, password dulu yaa.<br>Jangan asal nebak, seng 😭</p>
 
     <div id="attempt-default">
-      <input type="password" id="passInput" placeholder="Masukkan Password">
-      <button class="btn" onclick="checkPassword()">MASUK</button>
+      <input type="password" id="passInput" placeholder="ENTER PASSWORD">
+      <button class="btn" onclick="checkPassword()">MASUK 🗝️</button>
     </div>
 
+    <!-- Attempt 1 Result -->
     <div id="attempt1-res" style="display:none;">
-      <p><b>SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
-      <img src="aib1.jpg" alt="Foto Aib 1" class="aib-photo">
-      <button class="btn" onclick="resetPasswordStep()">COBA LAGI</button>
+      <p><b style="color:#ff2a6d; font-size:1.1rem;">SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
+      <div class="polaroid-frame jumpscare-anim">
+        <img src="aib1.jpg" alt="Foto Aib 1" class="aib-photo">
+      </div>
+      <button class="btn" onclick="resetPasswordStep()">COBA LAGI 🔄</button>
     </div>
 
+    <!-- Attempt 2 Result -->
     <div id="attempt2-res" style="display:none;">
-      <p><b>SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
-      <img src="aib2.jpg" alt="Foto Aib 2" class="aib-photo">
-      <button class="btn" onclick="resetPasswordStep()">COBA LAGI</button>
+      <p><b style="color:#ff2a6d; font-size:1.1rem;">SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
+      <div class="polaroid-frame jumpscare-anim">
+        <img src="aib2.jpg" alt="Foto Aib 2" class="aib-photo">
+      </div>
+      <button class="btn" onclick="resetPasswordStep()">COBA LAGI 🔄</button>
     </div>
 
+    <!-- Attempt 3 Result -->
     <div id="attempt3-res" style="display:none;">
       <p><b>YEEEAY, BENER SAYANG! 🔓</b><br>Akhirnya ketemu juga passwordnya, seng 😭</p>
-      <button class="btn" onclick="goToStep('step2')">MASUK 🎁</button>
+      <button class="btn" onclick="triggerConfetti(); goToStep('step2');">MASUK 🎁</button>
     </div>
   </div>
 
@@ -246,22 +419,22 @@
     <p id="teaser-text">Aku sebenernya punya sesuatu buat kamu.<br>Mau lihat gak, beb?</p>
 
     <div id="teaser-choice-1">
-      <button class="btn" onclick="teaserYes()">MAU LAH SAYANG</button>
-      <button class="btn btn-secondary" onclick="teaserNo()">GAK MAU AH</button>
+      <button class="btn" onclick="teaserYes()">MAU LAH SAYANG ❤️</button>
+      <button class="btn btn-secondary" onclick="teaserNo()">GAK MAU AH 😜</button>
     </div>
 
     <div id="teaser-choice-no" style="display:none;">
       <button class="btn btn-secondary" onclick="teaserYakinNo()">YAKIN, GAK MAU</button>
-      <button class="btn" onclick="teaserEhhMau()">EHH MAU DING</button>
+      <button class="btn" onclick="teaserEhhMau()">EHH MAU DING 😭</button>
     </div>
 
     <div id="teaser-walkaway" style="display:none;">
-      <div class="bounce" style="font-size:3rem; margin:10px 0;">🚶‍♂️🎁</div>
-      <button class="btn" onclick="teaserWait()">WAITTT SAYANG</button>
+      <div class="bounce" style="font-size:3.5rem; margin:15px 0;">🚶‍♂️🎁</div>
+      <button class="btn" onclick="teaserWait()">WAITTT SAYANG 😭</button>
     </div>
 
     <div id="teaser-final" style="display:none;">
-      <button class="btn" onclick="goToStep('game-catch')">SIAP BEB</button>
+      <button class="btn" onclick="goToStep('game-catch')">SIAP BEB 🚀</button>
     </div>
 
     <div id="teaser-mau-banget" style="display:none;">
@@ -272,11 +445,11 @@
   <!-- EXTRA GAME 1: LOVE CATCH -->
   <div id="game-catch" class="step">
     <h2>💖 MISSION 1: TANGKAP HATI!</h2>
-    <p>Eits, sebelum milih kotak, kumpulin dulu <b>5 Love</b> yang kabur ini, seng! 😭<br>Sisa target: <b id="heart-count" style="color:var(--accent);">5</b></p>
+    <p>Eits, sebelum milih kotak, kumpulin dulu <b>5 Love</b> yang kabur ini, seng! 😭<br>Sisa target: <b id="heart-count" style="color:#ff2a6d; font-size:1.3rem;">5</b></p>
     <div class="heart-arena" id="heart-arena">
       <div class="floating-heart" id="target-heart" onclick="catchHeart()">💖</div>
     </div>
-    <button class="btn" id="catch-next-btn" style="display:none;" onclick="goToStep('game-cake')">MISSION CLEARED! LANJUT ➡️</button>
+    <button class="btn" id="catch-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-cake');">MISSION CLEARED! LANJUT ➡️</button>
   </div>
 
   <!-- EXTRA GAME 2: BLOW CANDLE -->
@@ -286,8 +459,8 @@
     <div class="cake-container" onclick="blowCandle()">
       <span id="flame-icon" class="flame">🔥</span><br>🎂
     </div>
-    <p id="blow-status" style="font-weight:bold; color:var(--accent);">Ketukan: <span id="tap-count">0</span>/5</p>
-    <button class="btn" id="cake-next-btn" style="display:none;" onclick="goToStep('game-quiz')">MAKE A WISH DONE! LANJUT ➡️</button>
+    <p id="blow-status" style="font-weight:bold; color:#ff2a6d;">Ketukan: <span id="tap-count">0</span>/5</p>
+    <button class="btn" id="cake-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-quiz');">MAKE A WISH DONE! LANJUT ➡️</button>
   </div>
 
   <!-- EXTRA GAME 3: LOVE QUIZ -->
@@ -300,7 +473,7 @@
     </div>
     <div id="quiz-result" style="display:none;">
       <p id="quiz-msg"></p>
-      <button class="btn" id="quiz-next-btn" onclick="goToStep('step3')">MASUK KE KOTAK HADIAH 🎁</button>
+      <button class="btn" id="quiz-next-btn" onclick="triggerConfetti(); goToStep('step3');">MASUK KE KOTAK HADIAH 🎁</button>
     </div>
   </div>
 
@@ -318,8 +491,8 @@
 
     <div id="box-result" style="display:none;">
       <p id="box-result-text"></p>
-      <button class="btn" id="box-retry-btn" onclick="resetBoxes()">PILIH LAGI</button>
-      <button class="btn" id="box-win-btn" style="display:none;" onclick="goToStep('card1')">BUKA HADIAHNYA...</button>
+      <button class="btn" id="box-retry-btn" onclick="resetBoxes()">PILIH LAGI 🔄</button>
+      <button class="btn" id="box-win-btn" style="display:none;" onclick="triggerConfetti(); goToStep('card1');">BUKA HADIAHNYA... ✨</button>
     </div>
   </div>
 
@@ -337,7 +510,7 @@
   </div>
 
   <div id="card3" class="step">
-    <p>Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.<br><br>I really love having you in my life.<br><br>Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.</p>
+    <p style="font-size:1.05rem; line-height:1.7;">Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.<br><br><b>I really love having you in my life.</b><br><br>Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.</p>
     <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
   </div>
 
@@ -349,14 +522,14 @@
 
   <div id="card5" class="step">
     <h2>NAH, TAPI INI PENTING 😭</h2>
-    <p>Jangan lupa buat jaga diri juga yaa seng.<br><br>Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭<br><br><b>Aku kan masih mau punya Kiki yang sehat buat aku gangguin.</b></p>
+    <p>Jangan lupa buat jaga diri juga yaa seng.<br><br>Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭<br><br><b style="color:#ff2a6d; font-size:1.05rem;">Aku kan masih mau punya Kiki yang sehat buat aku gangguin.</b></p>
     <button class="btn" onclick="goToStep('card6')">LANJUT ➡️</button>
   </div>
 
   <div id="card6" class="step">
     <h2>POKOKNYA...</h2>
-    <p>Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum.<br><br>Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.<br><br><b>I LOVE YOU SOOO MUCH, KIKI ❤️</b></p>
-    <button class="btn" onclick="goToStep('step5')">LANJUT ➡️</button>
+    <p>Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum.<br><br>Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.<br><br><b style="color:#ff2a6d; font-size:1.15rem;">I LOVE YOU SOOO MUCH, KIKI ❤️</b></p>
+    <button class="btn" onclick="triggerConfetti(); goToStep('step5');">LANJUT ➡️</button>
   </div>
 
   <!-- STEP 5: LAST TEASE -->
@@ -369,34 +542,34 @@
   <!-- STEP 6: FINAL GIFT REVEAL -->
   <div id="step6" class="step">
     <h2>📦 YOUR GIFT IS ON THE WAY</h2>
-    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b>TUNGGU DI RUMAH YAAA</b></p>
+    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b style="font-size:1.1rem; color:#ff2a6d;">TUNGGU DI RUMAH YAAA</b></p>
 
-    <div style="text-align: left; font-size: 0.85rem; margin: 15px 0; background:#f9f9f9; padding:10px; border-radius:8px;">
+    <div style="text-align: left; font-size: 0.9rem; margin: 15px 0; background:rgba(255,255,255,0.85); padding:12px 15px; border-radius:12px; border:2px solid #ffccd5;">
       ✓ Hadiah disiapkan<br>
       ✓ Hadiah dikirim<br>
       ✓ Dibawa mamang kurir<br>
       <b>→ Kiki dimohon menunggu di rumah</b>
     </div>
 
-    <div style="font-size:2.5rem;" id="motor-anim">🏍️💨</div>
+    <div style="font-size:3.2rem;" id="motor-anim" class="bounce">🏍️💨</div>
 
     <div class="progress-bar-bg">
       <div id="progress-fill" class="progress-bar-fill"></div>
     </div>
-    <p id="progress-text" style="font-size:0.85rem;">0%</p>
+    <p id="progress-text" style="font-weight:bold; color:#ff2a6d;">0%</p>
 
-    <div id="delivery-done" style="display:none;">
-      <p style="color:var(--accent); font-weight:bold;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
-      <p style="font-size:0.85rem;">Jangan tidur.<br>Jangan pergi.<br>Jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
-      <button class="btn" onclick="goToStep('ending')">UDAH, AKU TUNGGU ❤️</button>
+    <div id="delivery-done" style="display:none; margin-top:15px;">
+      <p style="color:#ff2a6d; font-weight:bold; font-size:1rem;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
+      <p style="font-size:0.9rem; margin-top:5px;">Jangan tidur.<br>Jangan pergi.<br>Jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
+      <button class="btn" onclick="triggerConfetti(); goToStep('ending');">UDAH, AKU TUNGGU ❤️</button>
     </div>
   </div>
 
   <!-- ENDING -->
   <div id="ending" class="step">
     <h2>SELAMAT MENUNGGU HADIAHNYA, KIKIII 🥳</h2>
-    <p>Semoga kamu suka yaa, sayang.<br><br>Dari semua yang aku kasih hari ini,<br>semoga yang paling kamu inget tetep aku 😌<br><br><b>HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️</b><br><br>I LOVE YOU SOOO MUCH, KIKI ❤️<br>TAYANGNYA AKUU ❤️</p>
-    <div style="font-size:2rem; margin-top:15px;">🎉🥳🎈❤️</div>
+    <p>Semoga kamu suka yaa, sayang.<br><br>Dari semua yang aku kasih hari ini,<br>semoga yang paling kamu inget tetep aku 😌<br><br><b style="font-size:1.15rem; color:#ff2a6d;">HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️</b><br><br>I LOVE YOU SOOO MUCH, KIKI ❤️<br>TAYANGNYA AKUU ❤️</p>
+    <div style="font-size:2.8rem; margin-top:15px;" class="bounce">🎉🥳🎈✨❤️</div>
   </div>
 
 </div>
@@ -406,6 +579,55 @@
   let correctBox = Math.floor(Math.random() * 4) + 1;
   let heartsLeft = 5;
   let candleTaps = 0;
+  let isMusicPlaying = false;
+
+  // Background Animated Particles Generator
+  const particleSymbols = ['💖', '✨', '🌸', '⭐', '💕', '🎈', '🎀'];
+  const particleContainer = document.getElementById('particle-container');
+
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.innerText = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (Math.random() * 4 + 5) + 's';
+    p.style.animationDelay = (Math.random() * 5) + 's';
+    particleContainer.appendChild(p);
+  }
+
+  /* Music Controller */
+  function startMusic() {
+    const audio = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicToggleBtn');
+    audio.play().then(() => {
+      isMusicPlaying = true;
+      btn.classList.remove('paused');
+    }).catch(e => console.log("Audio waiting for user click"));
+  }
+
+  function toggleMusic() {
+    const audio = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicToggleBtn');
+    if (isMusicPlaying) {
+      audio.pause();
+      btn.classList.add('paused');
+      isMusicPlaying = false;
+    } else {
+      audio.play();
+      btn.classList.remove('paused');
+      isMusicPlaying = true;
+    }
+  }
+
+  function triggerConfetti() {
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    }
+  }
 
   function goToStep(stepId) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
@@ -413,20 +635,30 @@
     if (stepId === 'game-catch') moveHeart();
   }
 
-  /* STEP 1 LOGIC */
+  /* STEP 1 LOGIC WITH SHAKE & JUMPSCARE */
   function checkPassword() {
+    startMusic(); // Mulai musik saat tombol ditekan
     const val = document.getElementById('passInput').value.trim();
     attemptCount++;
 
+    const container = document.getElementById('mainContainer');
     document.getElementById('attempt-default').style.display = 'none';
 
     if (val === '240901' || attemptCount === 1) {
+      triggerShake(container);
       document.getElementById('attempt1-res').style.display = 'block';
     } else if (val === '221125' || attemptCount === 2) {
+      triggerShake(container);
       document.getElementById('attempt2-res').style.display = 'block';
     } else if (val === '081000' || attemptCount >= 3) {
       document.getElementById('attempt3-res').style.display = 'block';
     }
+  }
+
+  function triggerShake(element) {
+    element.classList.remove('screen-shake');
+    void element.offsetWidth; // Trigger reflow
+    element.classList.add('screen-shake');
   }
 
   function resetPasswordStep() {
@@ -471,14 +703,14 @@
   function moveHeart() {
     const arena = document.getElementById('heart-arena');
     const heart = document.getElementById('target-heart');
-    const maxX = arena.clientWidth - 50;
-    const maxY = arena.clientHeight - 50;
+    const maxX = arena.clientWidth - 65;
+    const maxY = arena.clientHeight - 65;
     
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
-    heart.style.left = randomX + 'px';
-    heart.style.top = randomY + 'px';
+    heart.style.left = Math.max(10, randomX) + 'px';
+    heart.style.top = Math.max(10, randomY) + 'px';
   }
 
   function catchHeart() {
@@ -502,7 +734,7 @@
       if (candleTaps === 5) {
         document.getElementById('flame-icon').innerHTML = '💨';
         document.getElementById('flame-icon').classList.remove('flame');
-        document.getElementById('cake-text').innerHTML = "<b>YEEAY LILINNYA PADAM! 🥳✨</b><br>Semoga semua harapan Kiki tahun ini terkabul yaa, sayang ❤️";
+        document.getElementById('cake-text').innerHTML = "<b style='color:#ff2a6d;'>YEEAY LILINNYA PADAM! 🥳✨</b><br>Semoga semua harapan Kiki tahun ini terkabul yaa, sayang ❤️";
         document.getElementById('blow-status').style.display = 'none';
         document.getElementById('cake-next-btn').style.display = 'block';
       }
@@ -515,9 +747,9 @@
     document.getElementById('quiz-result').style.display = 'block';
 
     if (isCorrect) {
-      document.getElementById('quiz-msg').innerHTML = "<b>BENER BANGETTT 😭❤️</b><br>Pinter banget emang pacar aku satu ini WKWKWK.";
+      document.getElementById('quiz-msg').innerHTML = "<b style='color:#ff2a6d;'>BENER BANGETTT 😭❤️</b><br>Pinter banget emang pacar aku satu ini WKWKWK.";
     } else {
-      document.getElementById('quiz-msg').innerHTML = "<b>EH SALAHHH 😭</b><br>Masa lupa sih WKWKWK. Tapi gapapa, yang penting kamu tetep tayangnya aku ❤️";
+      document.getElementById('quiz-msg').innerHTML = "<b style='color:#ff2a6d;'>EH SALAHHH 😭</b><br>Masa lupa sih WKWKWK. Tapi gapapa, yang penting kamu tetep tayangnya aku ❤️";
     }
   }
 
@@ -527,7 +759,7 @@
     document.getElementById('box-result').style.display = 'block';
 
     if (boxNum === correctBox) {
-      document.getElementById('box-result-text').innerHTML = "<b>YOU GOT IT, SAYANGGG! 😭❤️</b><br><br>Akhirnyaaa.<br>Aku kira kamu bakal sampai besok WKWKWK.";
+      document.getElementById('box-result-text').innerHTML = "<b style='color:#ff2a6d; font-size:1.15rem;'>YOU GOT IT, SAYANGGG! 😭❤️</b><br><br>Akhirnyaaa.<br>Aku kira kamu bakal sampai besok WKWKWK.";
       document.getElementById('box-retry-btn').style.display = 'none';
       document.getElementById('box-win-btn').style.display = 'block';
     } else {
@@ -564,7 +796,7 @@
         clearInterval(interval);
         document.getElementById('delivery-done').style.display = 'block';
       }
-    }, 150);
+    }, 120);
   }
 </script>
 
