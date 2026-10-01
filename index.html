@@ -367,9 +367,9 @@
   <!-- Music Toggle Button -->
   <button class="music-btn paused" id="musicToggleBtn" onclick="toggleMusic()">🎵</button>
 
-  <!-- Audio Element (Bisa ganti URL mp3-nya jika punya lagu sendiri) -->
+  <!-- Audio Element (Memanggil lagu.mp3 yang kamu upload) -->
   <audio id="bgMusic" loop>
-    <source src="https://assets.mixkit.co/music/preview/mixkit-cute-family-happiness-121.mp3" type="audio/mpeg">
+    <source src="lagu.mp3" type="audio/mpeg">
   </audio>
 
 <div class="container" id="mainContainer">
@@ -637,7 +637,7 @@
 
   /* STEP 1 LOGIC WITH SHAKE & JUMPSCARE */
   function checkPassword() {
-    startMusic(); // Mulai musik saat tombol ditekan
+    startMusic(); // Mulai lagu.mp3 saat tombol MASUK diklik
     const val = document.getElementById('passInput').value.trim();
     attemptCount++;
 
