@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Mini Game for Kiki 🥳</title>
+  <style>
+    :root {
+      --bg-color: #fff9f0;
+      --card-bg: #ffffff;
+      --accent: #ff6b81;
+      --accent-hover: #ff4757;
+      --text: #2d3436;
+      --subtext: #636e72;
+      --border: #ffeaa7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 15px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 25px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      position: relative;
+      text-align: center;
+      border: 2px solid var(--border);
+    }
+
+    h1, h2 {
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    p {
+      color: var(--subtext);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(255,107,129,0.3);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-secondary {
+      background: #e0e0e0;
+      color: #555;
+      box-shadow: none;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #dfe6e9;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      outline: none;
+    }
+
+    input[type="password"]:focus {
+      border-color: var(--accent);
+    }
+
+    .aib-photo {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 12px 0;
+      border: 3px solid var(--border);
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .grid-boxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .gift-box-btn {
+      background: #fff0f3;
+      border: 2px dashed var(--accent);
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .gift-box-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* MINI GAME 1: LOVE CATCH */
+    .heart-arena {
+      width: 100%;
+      height: 200px;
+      background: #fff0f3;
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      margin: 15px 0;
+      border: 2px dashed var(--accent);
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 2.2rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    /* MINI GAME 2: CANDLE BLOW */
+    .cake-container {
+      font-size: 4rem;
+      margin: 15px 0;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    .flame {
+      display: inline-block;
+      animation: flicker 0.3s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      background: #eee;
+      height: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.1s linear;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .bounce {
+      animation: bounce 0.6s infinite;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- STEP 1: PASSWORD -->
+  <div id="step1" class="step active">
+    <h2>🔐 SECRET PASSWORD</h2>
+    <p>Halooo Kiki... Aku punya sesuatu buat kamu, sayang.<br>Tapi sebelum masuk, password dulu yaa.<br>Jangan asal nebak, seng 😭</p>
+
+    <div id="attempt-default">
+      <input type="password" id="passInput" placeholder="Masukkan Password">
+      <button class="btn" onclick="checkPassword()">MASUK</button>
+    </div>
+
+    <div id="attempt1-res" style="display:none;">
+      <p><b>SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
+      <img src="aib1.jpg" alt="Foto Aib 1" class="aib-photo">
+      <button class="btn" onclick="resetPasswordStep()">COBA LAGI</button>
+    </div>
+
+    <div id="attempt2-res" style="display:none;">
+      <p><b>SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
+      <img src="aib2.jpg" alt="Foto Aib 2" class="aib-photo">
+      <button class="btn" onclick="resetPasswordStep()">COBA LAGI</button>
+    </div>
+
+    <div id="attempt3-res" style="display:none;">
+      <p><b>YEEEAY, BENER SAYANG! 🔓</b><br>Akhirnya ketemu juga passwordnya, seng 😭</p>
+      <button class="btn" onclick="goToStep('step2')">MASUK 🎁</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: GIFT TEASER -->
+  <div id="step2" class="step">
+    <h2>🎁 GIFT TEASER</h2>
+    <p id="teaser-text">Aku sebenernya punya sesuatu buat kamu.<br>Mau lihat gak, beb?</p>
+
+    <div id="teaser-choice-1">
+      <button class="btn" onclick="teaserYes()">MAU LAH SAYANG</button>
+      <button class="btn btn-secondary" onclick="teaserNo()">GAK MAU AH</button>
+    </div>
+
+    <div id="teaser-choice-no" style="display:none;">
+      <button class="btn btn-secondary" onclick="teaserYakinNo()">YAKIN, GAK MAU</button>
+      <button class="btn" onclick="teaserEhhMau()">EHH MAU DING</button>
+    </div>
+
+    <div id="teaser-walkaway" style="display:none;">
+      <div class="bounce" style="font-size:3rem; margin:10px 0;">🚶‍♂️🎁</div>
+      <button class="btn" onclick="teaserWait()">WAITTT SAYANG</button>
+    </div>
+
+    <div id="teaser-final" style="display:none;">
+      <button class="btn" onclick="goToStep('game-catch')">SIAP BEB</button>
+    </div>
+
+    <div id="teaser-mau-banget" style="display:none;">
+      <button class="btn" onclick="goToStep('game-catch')">MAU BANGET BEB ❤️</button>
+    </div>
+  </div>
+
+  <!-- EXTRA GAME 1: LOVE CATCH -->
+  <div id="game-catch" class="step">
+    <h2>💖 MISSION 1: TANGKAP HATI!</h2>
+    <p>Eits, sebelum milih kotak, kumpulin dulu <b>5 Love</b> yang kabur ini, seng! 😭<br>Sisa target: <b id="heart-count" style="color:var(--accent);">5</b></p>
+    <div class="heart-arena" id="heart-arena">
+      <div class="floating-heart" id="target-heart" onclick="catchHeart()">💖</div>
+    </div>
+    <button class="btn" id="catch-next-btn" style="display:none;" onclick="goToStep('game-cake')">MISSION CLEARED! LANJUT ➡️</button>
+  </div>
+
+  <!-- EXTRA GAME 2: BLOW CANDLE -->
+  <div id="game-cake" class="step">
+    <h2>🎂 MISSION 2: TIUP LILINNYA!</h2>
+    <p id="cake-text">Tap/ketuk kue di bawah <b>5 kali cepat</b> buat tiup lilinnya dan buat permohonan! 🥳</p>
+    <div class="cake-container" onclick="blowCandle()">
+      <span id="flame-icon" class="flame">🔥</span><br>🎂
+    </div>
+    <p id="blow-status" style="font-weight:bold; color:var(--accent);">Ketukan: <span id="tap-count">0</span>/5</p>
+    <button class="btn" id="cake-next-btn" style="display:none;" onclick="goToStep('game-quiz')">MAKE A WISH DONE! LANJUT ➡️</button>
+  </div>
+
+  <!-- EXTRA GAME 3: LOVE QUIZ -->
+  <div id="game-quiz" class="step">
+    <h2>❓ MISSION 3: KUIS ASMARA</h2>
+    <p id="quiz-question">Siapa yang paling kangenan di antara kita berdua? 😭</p>
+    <div id="quiz-options">
+      <button class="btn" onclick="answerQuiz(true)">Aku (Kiki) lah pastinya 😌</button>
+      <button class="btn btn-secondary" style="margin-top:8px;" onclick="answerQuiz(false)">Gak tau, lupa 🤪</button>
+    </div>
+    <div id="quiz-result" style="display:none;">
+      <p id="quiz-msg"></p>
+      <button class="btn" id="quiz-next-btn" onclick="goToStep('step3')">MASUK KE KOTAK HADIAH 🎁</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: FOUR GIFT BOXES -->
+  <div id="step3" class="step">
+    <h2>🎁 OKEEE KIKIII, SEKARANG PILIH SATU!</h2>
+    <p id="box-instruction">Ada 4 kotak di depan kamu.<br>Katanya sih salah satunya ada sesuatu spesial buat kamu 😌<br>Jangan asal pilih yaa, sayang.<br>Feeling kamu lagi bagus gak nih? 😭</p>
+
+    <div id="boxes-grid" class="grid-boxes">
+      <button class="gift-box-btn" onclick="pickBox(1)">🎁 1</button>
+      <button class="gift-box-btn" onclick="pickBox(2)">🎁 2</button>
+      <button class="gift-box-btn" onclick="pickBox(3)">🎁 3</button>
+      <button class="gift-box-btn" onclick="pickBox(4)">🎁 4</button>
+    </div>
+
+    <div id="box-result" style="display:none;">
+      <p id="box-result-text"></p>
+      <button class="btn" id="box-retry-btn" onclick="resetBoxes()">PILIH LAGI</button>
+      <button class="btn" id="box-win-btn" style="display:none;" onclick="goToStep('card1')">BUKA HADIAHNYA...</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: BIRTHDAY CARDS SLIDESHOW -->
+  <div id="card1" class="step">
+    <h2>HAPPY 26TH BIRTHDAY, KIKIII!! 🥳❤️</h2>
+    <p>cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭<br>Gimana rasanya makin tua, seng? WKWKWK<br>Tenang, aku masih mau kok nemenin kamu walaupun udah 26 😌</p>
+    <button class="btn" onclick="goToStep('card2')">LANJUT ➡️</button>
+  </div>
+
+  <div id="card2" class="step">
+    <h2>OKAY, SEKARANG SERIUS DIKIT</h2>
+    <p>Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini.<br><br>Makasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng.<br><br>Bahkan ngobrolin hal random yang sebenernya ga penting pun tetep seru kalau sama kamu 😭</p>
+    <button class="btn" onclick="goToStep('card3')">LANJUT ➡️</button>
+  </div>
+
+  <div id="card3" class="step">
+    <p>Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.<br><br>I really love having you in my life.<br><br>Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.</p>
+    <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
+  </div>
+
+  <div id="card4" class="step">
+    <h2>DI UMUR 26 INI...</h2>
+    <p>Aku cuma pengen kamu selalu sehat dan bahagia.<br><br>Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai.<br><br>I hope this year brings you lots of good things, sayang ❤️</p>
+    <button class="btn" onclick="goToStep('card5')">LANJUT ➡️</button>
+  </div>
+
+  <div id="card5" class="step">
+    <h2>NAH, TAPI INI PENTING 😭</h2>
+    <p>Jangan lupa buat jaga diri juga yaa seng.<br><br>Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭<br><br><b>Aku kan masih mau punya Kiki yang sehat buat aku gangguin.</b></p>
+    <button class="btn" onclick="goToStep('card6')">LANJUT ➡️</button>
+  </div>
+
+  <div id="card6" class="step">
+    <h2>POKOKNYA...</h2>
+    <p>Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum.<br><br>Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.<br><br><b>I LOVE YOU SOOO MUCH, KIKI ❤️</b></p>
+    <button class="btn" onclick="goToStep('step5')">LANJUT ➡️</button>
+  </div>
+
+  <!-- STEP 5: LAST TEASE -->
+  <div id="step5" class="step">
+    <h2>EH BEB 👀</h2>
+    <p>Jangan seneng dulu 😭<br>Game-nya belom selesai WKWKWK<br>Masa kamu kira hadiah ulang tahun cuma tulisan doang?</p>
+    <button class="btn" onclick="goToStep('step6'); startDelivery();">APAAN LAGI SIH 😭</button>
+  </div>
+
+  <!-- STEP 6: FINAL GIFT REVEAL -->
+  <div id="step6" class="step">
+    <h2>📦 YOUR GIFT IS ON THE WAY</h2>
+    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b>TUNGGU DI RUMAH YAAA</b></p>
+
+    <div style="text-align: left; font-size: 0.85rem; margin: 15px 0; background:#f9f9f9; padding:10px; border-radius:8px;">
+      ✓ Hadiah disiapkan<br>
+      ✓ Hadiah dikirim<br>
+      ✓ Dibawa mamang kurir<br>
+      <b>→ Kiki dimohon menunggu di rumah</b>
+    </div>
+
+    <div style="font-size:2.5rem;" id="motor-anim">🏍️💨</div>
+
+    <div class="progress-bar-bg">
+      <div id="progress-fill" class="progress-bar-fill"></div>
+    </div>
+    <p id="progress-text" style="font-size:0.85rem;">0%</p>
+
+    <div id="delivery-done" style="display:none;">
+      <p style="color:var(--accent); font-weight:bold;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
+      <p style="font-size:0.85rem;">Jangan tidur.<br>Jangan pergi.<br>Jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
+      <button class="btn" onclick="goToStep('ending')">UDAH, AKU TUNGGU ❤️</button>
+    </div>
+  </div>
+
+  <!-- ENDING -->
+  <div id="ending" class="step">
+    <h2>SELAMAT MENUNGGU HADIAHNYA, KIKIII 🥳</h2>
+    <p>Semoga kamu suka yaa, sayang.<br><br>Dari semua yang aku kasih hari ini,<br>semoga yang paling kamu inget tetep aku 😌<br><br><b>HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️</b><br><br>I LOVE YOU SOOO MUCH, KIKI ❤️<br>TAYANGNYA AKUU ❤️</p>
+    <div style="font-size:2rem; margin-top:15px;">🎉🥳🎈❤️</div>
+  </div>
+
+</div>
+
+<script>
+  let attemptCount = 0;
+  let correctBox = Math.floor(Math.random() * 4) + 1;
+  let heartsLeft = 5;
+  let candleTaps = 0;
+
+  function goToStep(stepId) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(stepId).classList.add('active');
+    if (stepId === 'game-catch') moveHeart();
+  }
+
+  /* STEP 1 LOGIC */
+  function checkPassword() {
+    const val = document.getElementById('passInput').value.trim();
+    attemptCount++;
+
+    document.getElementById('attempt-default').style.display = 'none';
+
+    if (val === '240901' || attemptCount === 1) {
+      document.getElementById('attempt1-res').style.display = 'block';
+    } else if (val === '221125' || attemptCount === 2) {
+      document.getElementById('attempt2-res').style.display = 'block';
+    } else if (val === '081000' || attemptCount >= 3) {
+      document.getElementById('attempt3-res').style.display = 'block';
+    }
+  }
+
+  function resetPasswordStep() {
+    document.getElementById('attempt1-res').style.display = 'none';
+    document.getElementById('attempt2-res').style.display = 'none';
+    document.getElementById('attempt-default').style.display = 'block';
+    document.getElementById('passInput').value = '';
+  }
+
+  /* STEP 2 LOGIC */
+  function teaserYes() {
+    document.getElementById('teaser-text').innerHTML = "Hehe, gitu dong seng 😌<br>Aku tau kamu pasti penasaran.<br>Tapiii... hadiahnya belum boleh dikasih sekarang.<br>Kamu harus lakuin satu hal dulu 😈<br>Siap, sayang?";
+    document.getElementById('teaser-choice-1').style.display = 'none';
+    document.getElementById('teaser-final').style.display = 'block';
+  }
+
+  function teaserNo() {
+    document.getElementById('teaser-text').innerHTML = "HAH?!<br>Gak mau?? 😭<br>Serius, seng? Aku udah susah payah siapin ini buat kamu loh...<br>Yakin gak mau?";
+    document.getElementById('teaser-choice-1').style.display = 'none';
+    document.getElementById('teaser-choice-no').style.display = 'block';
+  }
+
+  function teaserEhhMau() {
+    document.getElementById('teaser-text').innerHTML = "NAHHH GITU DONG 😭<br>Dari tadi sok jual mahal sih, seng.<br>Sini, kita lanjut...";
+    document.getElementById('teaser-choice-no').style.display = 'none';
+    document.getElementById('teaser-final').style.display = 'block';
+  }
+
+  function teaserYakinNo() {
+    document.getElementById('teaser-text').innerHTML = "OHHH... KITU NYA, KIKI? 😔<br>Nyaudah atuh... kalau emang gak mau,<br>aku simpen lagi hadiahnya.<br><br>Dadah, beb.";
+    document.getElementById('teaser-choice-no').style.display = 'none';
+    document.getElementById('teaser-walkaway').style.display = 'block';
+  }
+
+  function teaserWait() {
+    document.getElementById('teaser-text').innerHTML = "...<br>WAIT.<br><br>Kamu beneran gak mau?! 😭<br><br>NAHHH GITU DONG 😭<br>Dari tadi sok jual mahal sih, seng.<br>Sini, aku kasih kesempatan terakhir deh.<br>Sekarang mau lihat hadiahnya gak, sayang?";
+    document.getElementById('teaser-walkaway').style.display = 'none';
+    document.getElementById('teaser-mau-banget').style.display = 'block';
+  }
+
+  /* EXTRA GAME 1: LOVE CATCH */
+  function moveHeart() {
+    const arena = document.getElementById('heart-arena');
+    const heart = document.getElementById('target-heart');
+    const maxX = arena.clientWidth - 50;
+    const maxY = arena.clientHeight - 50;
+    
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    heart.style.left = randomX + 'px';
+    heart.style.top = randomY + 'px';
+  }
+
+  function catchHeart() {
+    heartsLeft--;
+    document.getElementById('heart-count').innerText = heartsLeft;
+
+    if (heartsLeft > 0) {
+      moveHeart();
+    } else {
+      document.getElementById('target-heart').style.display = 'none';
+      document.getElementById('catch-next-btn').style.display = 'block';
+    }
+  }
+
+  /* EXTRA GAME 2: CANDLE BLOW */
+  function blowCandle() {
+    if (candleTaps < 5) {
+      candleTaps++;
+      document.getElementById('tap-count').innerText = candleTaps;
+
+      if (candleTaps === 5) {
+        document.getElementById('flame-icon').innerHTML = '💨';
+        document.getElementById('flame-icon').classList.remove('flame');
+        document.getElementById('cake-text').innerHTML = "<b>YEEAY LILINNYA PADAM! 🥳✨</b><br>Semoga semua harapan Kiki tahun ini terkabul yaa, sayang ❤️";
+        document.getElementById('blow-status').style.display = 'none';
+        document.getElementById('cake-next-btn').style.display = 'block';
+      }
+    }
+  }
+
+  /* EXTRA GAME 3: LOVE QUIZ */
+  function answerQuiz(isCorrect) {
+    document.getElementById('quiz-options').style.display = 'none';
+    document.getElementById('quiz-result').style.display = 'block';
+
+    if (isCorrect) {
+      document.getElementById('quiz-msg').innerHTML = "<b>BENER BANGETTT 😭❤️</b><br>Pinter banget emang pacar aku satu ini WKWKWK.";
+    } else {
+      document.getElementById('quiz-msg').innerHTML = "<b>EH SALAHHH 😭</b><br>Masa lupa sih WKWKWK. Tapi gapapa, yang penting kamu tetep tayangnya aku ❤️";
+    }
+  }
+
+  /* STEP 3 LOGIC */
+  function pickBox(boxNum) {
+    document.getElementById('boxes-grid').style.display = 'none';
+    document.getElementById('box-result').style.display = 'block';
+
+    if (boxNum === correctBox) {
+      document.getElementById('box-result-text').innerHTML = "<b>YOU GOT IT, SAYANGGG! 😭❤️</b><br><br>Akhirnyaaa.<br>Aku kira kamu bakal sampai besok WKWKWK.";
+      document.getElementById('box-retry-btn').style.display = 'none';
+      document.getElementById('box-win-btn').style.display = 'block';
+    } else {
+      const zonks = [
+        "HAHAHAHA 😭<br>Box ini isinya angin doang, beb.<br>Coba lagi!",
+        "ZONK SAYANG 😭<br>Kok feeling kamu hari ini begini banget sih.",
+        "MAAF KIKI 😭<br>Hadiahnya belum mau ketemu kamu."
+      ];
+      const randomZonk = zonks[Math.floor(Math.random() * zonks.length)];
+      document.getElementById('box-result-text').innerHTML = randomZonk;
+      document.getElementById('box-retry-btn').style.display = 'block';
+      document.getElementById('box-win-btn').style.display = 'none';
+    }
+  }
+
+  function resetBoxes() {
+    correctBox = Math.floor(Math.random() * 4) + 1;
+    document.getElementById('box-result').style.display = 'none';
+    document.getElementById('boxes-grid').style.display = 'grid';
+  }
+
+  /* STEP 6 LOGIC */
+  function startDelivery() {
+    let progress = 0;
+    const fill = document.getElementById('progress-fill');
+    const text = document.getElementById('progress-text');
+
+    const interval = setInterval(() => {
+      progress += 5;
+      fill.style.width = progress + '%';
+      text.innerText = progress + '%';
+
+      if (progress >= 100) {
+        clearInterval(interval);
+        document.getElementById('delivery-done').style.display = 'block';
+      }
+    }, 150);
+  }
+</script>
+
+</body>
+</html>
