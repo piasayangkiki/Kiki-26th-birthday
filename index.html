@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Mini Game for Kiki 🥳</title>
+  <title>Special Birthday Invitation for Kiki 🥳💌</title>
   <!-- Google Fonts: Pilihan Font Bersih & Estetik -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,500;0,700;1,500&family=Sniglet:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,600;0,800;1,600&family=Playfair+Display:ital,wght@0,600;1,600&family=Sniglet:wght@800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   
   <style>
     :root {
       --primary: #ff758c;
       --primary-hover: #ff4b6e;
+      --envelope-bg: #fff0f3;
       --card-bg: rgba(255, 255, 255, 0.96);
       --text-main: #2c2c2c;
     }
@@ -46,405 +47,260 @@
     /* Floating Particles BG */
     .bg-particles {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
     }
 
     .particle {
-      position: absolute;
-      font-size: 1.5rem;
-      animation: floatUp 7s linear infinite;
-      opacity: 0.7;
+      position: absolute; font-size: 1.4rem;
+      animation: floatUp 7s linear infinite; opacity: 0.6;
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-      20% { opacity: 0.9; }
-      100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
     /* Flash Overlay for Jumpscare */
     .flash-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(255, 0, 76, 0.35);
-      z-index: 99;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.1s ease-in-out;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(255, 0, 76, 0.35); z-index: 99;
+      pointer-events: none; opacity: 0; transition: opacity 0.1s ease-in-out;
     }
 
-    .flash-active {
-      animation: flashAnim 0.4s ease-out;
-    }
-
-    @keyframes flashAnim {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    /* Container Box / Scrapbook Card */
-    .container {
-      width: 100%;
-      max-width: 380px;
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 28px;
-      padding: 26px 20px;
-      box-shadow: 0 20px 40px rgba(255, 117, 140, 0.35), 0 0 0 8px rgba(255, 255, 255, 0.6);
-      position: relative;
-      text-align: center;
-      z-index: 10;
-      overflow: hidden;
-      perspective: 1000px;
-    }
+    .flash-active { animation: flashAnim 0.4s ease-out; }
+    @keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
 
     /* Music Player Button */
     .music-btn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: white;
-      border: 3px solid #ff758c;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      font-size: 1.4rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 100;
+      position: fixed; top: 15px; right: 15px;
+      background: white; border: 3px solid #ff758c; border-radius: 50%;
+      width: 48px; height: 48px; font-size: 1.4rem;
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; z-index: 100;
       box-shadow: 0 6px 15px rgba(0,0,0,0.15);
       animation: rotateMusic 4s linear infinite;
     }
 
-    .music-btn.paused {
-      animation-play-state: paused;
-      opacity: 0.7;
+    .music-btn.paused { animation-play-state: paused; opacity: 0.7; }
+    @keyframes rotateMusic { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Main Container Card Scrapbook */
+    .container {
+      width: 100%; max-width: 390px;
+      background: var(--card-bg); backdrop-filter: blur(12px);
+      border-radius: 28px; padding: 26px 20px;
+      box-shadow: 0 20px 40px rgba(255, 117, 140, 0.35), 0 0 0 8px rgba(255, 255, 255, 0.6);
+      position: relative; z-index: 10; overflow: hidden;
+      perspective: 1000px; transition: all 0.5s ease;
     }
 
-    @keyframes rotateMusic {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    /* ==========================================
+       ANIMASI AMPLOP SURAT UNTUK STEP 1
+       ========================================== */
+    .envelope-wrapper {
+      position: relative; width: 100%; height: 260px;
+      background: #f7aef8; border-radius: 18px;
+      margin: 15px 0 20px 0; cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      display: flex; justify-content: center; align-items: center;
+      overflow: hidden; border: 3px solid #ff758c;
     }
 
-    .gif-sticker-topleft {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      font-size: 1.6rem;
-      z-index: 20;
-      pointer-events: none;
-      animation: floatSticker 3s infinite ease-in-out alternate;
+    .envelope-flap {
+      position: absolute; top: 0; left: 0; width: 100%; height: 0;
+      border-left: 180px solid transparent; border-right: 180px solid transparent;
+      border-top: 130px solid #ff85a1; transform-origin: top;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); z-index: 4;
     }
 
-    .gif-sticker-topright {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      font-size: 1.6rem;
-      z-index: 20;
-      pointer-events: none;
-      animation: floatSticker 2.5s infinite ease-in-out alternate-reverse;
+    .envelope-pocket {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 160px;
+      background: #f72585; opacity: 0.25; z-index: 3;
+      clip-path: polygon(0% 100%, 0% 0%, 50% 50%, 100% 0%, 100% 100%);
     }
 
-    @keyframes floatSticker {
-      0% { transform: translateY(0) rotate(-5deg); }
-      100% { transform: translateY(-8px) rotate(5deg); }
+    .wax-seal {
+      position: absolute; z-index: 5;
+      width: 65px; height: 65px; background: radial-gradient(circle, #ff0054, #9e0031);
+      border-radius: 50%; display: flex; justify-content: center; align-items: center;
+      font-size: 1.8rem; box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      border: 2px dashed #ffccd5; animation: sealPulse 1.8s infinite alternate;
+    }
+
+    @keyframes sealPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); box-shadow: 0 8px 18px rgba(255, 0, 84, 0.6); }
+    }
+
+    .letter-paper {
+      position: absolute; bottom: 10px; width: 88%; height: 220px;
+      background: #ffffff; border-radius: 12px; padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 2;
+      transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px dashed #ffccd5; display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+    }
+
+    /* Animasi Amplop Kebuka */
+    .envelope-wrapper.open .envelope-flap {
+      transform: rotateX(180deg); z-index: 1;
+    }
+    .envelope-wrapper.open .wax-seal {
+      display: none;
+    }
+    .envelope-wrapper.open .letter-paper {
+      transform: translateY(-25px) scale(1.02); z-index: 5;
+    }
+
+    /* ==========================================
+       TATA LETAK DINAMIS & VARIATIF
+       ========================================== */
+    .text-left-align { text-align: left !important; }
+    .text-center-align { text-align: center !important; }
+
+    .stamp-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: #fff0f3; border: 2px dashed #ff758c; padding: 4px 8px;
+      border-radius: 6px; font-size: 0.75rem; font-weight: bold; color: #ff2a6d;
+      transform: rotate(6deg);
     }
 
     h2 {
       font-family: 'Sniglet', 'Fredoka', cursive;
-      color: #ff2a6d;
-      font-size: 1.55rem;
-      letter-spacing: 0.5px;
-      margin-bottom: 14px;
-      text-shadow: 1px 1px 0px #fff;
-      animation: titleBounce 2.5s infinite ease-in-out alternate;
-      display: inline-block;
-      word-wrap: break-word;
-      max-width: 100%;
-    }
-
-    @keyframes titleBounce {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-4px) scale(1.02); }
-      100% { transform: translateY(2px) scale(0.98); }
+      color: #ff2a6d; font-size: 1.5rem; letter-spacing: 0.5px;
+      margin-bottom: 12px; text-shadow: 1px 1px 0px #fff;
+      display: inline-block; word-wrap: break-word; max-width: 100%;
     }
 
     p {
-      font-family: 'Nunito', sans-serif;
-      color: #383838;
-      font-size: 0.96rem;
-      line-height: 1.55;
-      font-weight: 600;
-      margin-bottom: 18px;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      text-align: center;
+      font-family: 'Nunito', sans-serif; color: #383838;
+      font-size: 0.95rem; line-height: 1.6; font-weight: 600;
+      margin-bottom: 16px; word-wrap: break-word; overflow-wrap: break-word;
       max-width: 100%;
     }
 
-    /* FRAME FOTO GANTENG BLING-BLING */
+    /* FRAME FOTO GANTENG BLING-BLING DINAMIS */
     .handsome-frame-container {
-      position: relative;
-      display: inline-block;
-      margin: 10px auto 16px auto;
-      padding: 8px;
+      position: relative; display: inline-block;
+      margin: 12px auto; padding: 8px;
       background: linear-gradient(135deg, #ffffff, #fff0f3, #ffe3e8);
-      border-radius: 18px;
-      box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4), 0 0 18px rgba(255, 182, 193, 0.8);
-      border: 3px solid #ff758c;
+      border-radius: 18px; box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4);
+      border: 3px solid #ff758c; transform: rotate(-3deg);
       animation: frameFloatBling 3.5s infinite ease-in-out alternate;
-      max-width: 100%;
     }
 
     @keyframes frameFloatBling {
-      0% { transform: translateY(0) rotate(-2deg); box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
-      50% { transform: translateY(-6px) rotate(2deg); box-shadow: 0 14px 30px rgba(255, 117, 140, 0.6), 0 0 25px #ffafbd; }
-      100% { transform: translateY(2px) rotate(-1deg); box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
+      0% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-6px) rotate(2deg); }
+      100% { transform: translateY(2px) rotate(-1deg); }
     }
 
     .handsome-photo {
-      width: 100%;
-      max-width: 220px;
-      height: 210px;
-      object-fit: cover;
-      border-radius: 12px;
-      display: block;
+      width: 100%; max-width: 210px; height: 200px;
+      object-fit: cover; border-radius: 12px; display: block;
     }
 
     .sparkle-badge {
-      position: absolute;
-      font-size: 1.5rem;
-      pointer-events: none;
+      position: absolute; font-size: 1.5rem; pointer-events: none;
       animation: sparkleGlow 1.5s infinite alternate;
     }
-
-    .sparkle-1 { top: -8px; left: -8px; animation-delay: 0s; }
-    .sparkle-2 { top: -8px; right: -8px; animation-delay: 0.5s; }
-    .sparkle-3 { bottom: 18px; left: -6px; animation-delay: 1s; }
-    .sparkle-4 { bottom: 18px; right: -6px; animation-delay: 0.3s; }
+    .sparkle-1 { top: -8px; left: -8px; }
+    .sparkle-2 { top: -8px; right: -8px; }
 
     @keyframes sparkleGlow {
-      0% { transform: scale(0.8) rotate(0deg); filter: drop-shadow(0 0 2px gold); }
-      100% { transform: scale(1.3) rotate(20deg); filter: drop-shadow(0 0 10px #ff2a6d); }
+      0% { transform: scale(0.8); } 100% { transform: scale(1.3); }
     }
 
     .handsome-caption {
-      margin-top: 6px;
-      font-family: 'Sniglet', cursive;
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: #ff2a6d;
+      margin-top: 6px; font-family: 'Sniglet', cursive;
+      font-size: 1.1rem; font-weight: bold; color: #ff2a6d; text-align: center;
     }
 
     .btn {
       font-family: 'Sniglet', 'Fredoka', cursive;
       background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-      color: white;
-      border: none;
-      padding: 13px 20px;
-      border-radius: 16px;
-      font-weight: 700;
-      font-size: 1.05rem;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 8px;
-      transition: all 0.2s ease;
-      box-shadow: 0 6px 16px rgba(255, 117, 140, 0.4);
-      letter-spacing: 0.5px;
-      animation: btnPulse 2s infinite ease-in-out alternate;
+      color: white; border: none; padding: 12px 20px;
+      border-radius: 16px; font-weight: 700; font-size: 1rem;
+      cursor: pointer; width: 100%; margin-top: 8px;
+      transition: all 0.2s ease; box-shadow: 0 6px 16px rgba(255, 117, 140, 0.4);
     }
 
-    @keyframes btnPulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.02); box-shadow: 0 8px 20px rgba(255, 117, 140, 0.6); }
-    }
-
-    .btn:active {
-      transform: scale(0.94) !important;
-    }
+    .btn:active { transform: scale(0.95); }
 
     .btn-secondary {
       background: linear-gradient(135deg, #a8a8a8 0%, #c4c4c4 100%);
       box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-      animation: none;
     }
 
     input[type="password"] {
-      width: 100%;
-      padding: 13px;
-      border: 3px solid #ffccd5;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      text-align: center;
-      font-size: 1.2rem;
-      letter-spacing: 3px;
-      outline: none;
-      background: #fff;
-      color: #ff2a6d;
-      font-weight: bold;
+      width: 100%; padding: 12px; border: 3px solid #ffccd5;
+      border-radius: 16px; margin-bottom: 12px; text-align: center;
+      font-size: 1.1rem; letter-spacing: 3px; outline: none; background: #fff;
+      color: #ff2a6d; font-weight: bold;
     }
 
     .polaroid-frame {
-      background: white;
-      padding: 10px 10px 22px 10px;
-      border-radius: 14px;
-      box-shadow: 0 14px 25px rgba(0,0,0,0.25);
-      margin: 12px 0;
+      background: white; padding: 10px 10px 22px 10px;
+      border-radius: 14px; box-shadow: 0 14px 25px rgba(0,0,0,0.25);
+      margin: 12px 0; transform: rotate(2deg);
     }
 
     .jumpscare-anim {
-      animation: jumpscareExtreme 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6) forwards, shakeHard 0.3s ease-in-out 0.3s infinite alternate;
+      animation: jumpscareExtreme 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6) forwards;
     }
 
     @keyframes jumpscareExtreme {
-      0% { transform: scale(0.1) rotate(-35deg); opacity: 0; filter: contrast(200%); }
-      60% { transform: scale(1.2) rotate(15deg); opacity: 1; filter: contrast(120%); }
-      100% { transform: scale(1) rotate(-3deg); opacity: 1; filter: contrast(100%); }
+      0% { transform: scale(0.1) rotate(-35deg); opacity: 0; }
+      100% { transform: scale(1) rotate(2deg); opacity: 1; }
     }
 
-    @keyframes shakeHard {
-      0% { transform: rotate(-4deg) scale(1); }
-      100% { transform: rotate(4deg) scale(1.04); }
-    }
-
-    .screen-shake {
-      animation: containerShakeHeavy 0.5s cubic-bezier(.36,.07,.19,.97) both;
-    }
-
-    @keyframes containerShakeHeavy {
-      10%, 90% { transform: translate3d(-4px, 0, 0) rotate(-2deg); }
-      20%, 80% { transform: translate3d(6px, 0, 0) rotate(2deg); }
-      30%, 50%, 70% { transform: translate3d(-8px, 0, 0) rotate(-3deg); }
-      40%, 60% { transform: translate3d(8px, 0, 0) rotate(3deg); }
+    .screen-shake { animation: containerShake 0.5s ease; }
+    @keyframes containerShake {
+      10%, 90% { transform: translate3d(-3px, 0, 0); }
+      30%, 70% { transform: translate3d(-6px, 0, 0); }
+      40%, 60% { transform: translate3d(6px, 0, 0); }
     }
 
     .aib-photo, .aib-video {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
+      width: 100%; height: 190px; object-fit: cover; border-radius: 8px;
     }
 
-    .step {
-      display: none;
-      backface-visibility: hidden;
-    }
-
+    .step { display: none; }
     .step.active {
-      display: block;
-      animation: card3DFlip 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      display: block; animation: slideInUp 0.6s ease forwards;
     }
 
-    @keyframes card3DFlip {
-      0% { opacity: 0; transform: rotateY(-70deg) scale(0.8); filter: blur(6px); }
-      100% { opacity: 1; transform: rotateY(0deg) scale(1); filter: blur(0); }
+    @keyframes slideInUp {
+      0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .grid-boxes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 15px 0;
-    }
-
+    .grid-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
     .gift-box-btn {
-      background: #fff;
-      border: 3px dashed #ff758c;
-      padding: 18px 10px;
-      border-radius: 18px;
-      font-size: 2rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
+      background: #fff; border: 3px dashed #ff758c; padding: 18px 10px;
+      border-radius: 18px; font-size: 2rem; cursor: pointer;
       box-shadow: 0 5px 12px rgba(255, 117, 140, 0.15);
-      animation: boxBounce 2s infinite ease-in-out alternate;
-    }
-
-    @keyframes boxBounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
     }
 
     .heart-arena {
-      width: 100%;
-      height: 190px;
-      background: radial-gradient(circle, #fff0f3 0%, #ffe3e8 100%);
-      border-radius: 18px;
-      position: relative;
-      overflow: hidden;
-      margin: 12px 0;
-      border: 3px dashed #ff758c;
+      width: 100%; height: 180px; background: radial-gradient(circle, #fff0f3 0%, #ffe3e8 100%);
+      border-radius: 18px; position: relative; overflow: hidden; margin: 12px 0; border: 3px dashed #ff758c;
     }
+    .floating-heart { position: absolute; font-size: 2.5rem; cursor: pointer; }
 
-    .floating-heart {
-      position: absolute;
-      font-size: 2.5rem;
-      cursor: pointer;
-      user-select: none;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-      animation: heartPulse 0.8s infinite alternate;
-    }
-
-    @keyframes heartPulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.2); }
-    }
-
-    .cake-container {
-      font-size: 3.8rem;
-      margin: 12px 0;
-      cursor: pointer;
-      user-select: none;
-      display: inline-block;
-    }
-
-    .flame {
-      display: inline-block;
-      animation: flicker 0.2s infinite alternate;
-      filter: drop-shadow(0 0 10px orange);
-    }
-
-    @keyframes flicker {
-      0% { transform: scale(1) rotate(-4deg); }
-      100% { transform: scale(1.3) rotate(4deg); }
-    }
+    .cake-container { font-size: 3.8rem; margin: 12px 0; cursor: pointer; display: inline-block; }
+    .flame { display: inline-block; animation: flicker 0.2s infinite alternate; filter: drop-shadow(0 0 10px orange); }
+    @keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.3); } }
 
     .progress-bar-bg {
-      width: 100%;
-      background: #ffe3e8;
-      height: 18px;
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 12px 0;
-      border: 2px solid #ff758c;
+      width: 100%; background: #ffe3e8; height: 18px; border-radius: 10px; overflow: hidden; margin: 12px 0; border: 2px solid #ff758c;
     }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff758c, #ff7eb3); transition: width 0.1s linear; }
 
-    .progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #ff758c, #ff7eb3);
-      border-radius: 10px;
-      transition: width 0.1s linear;
-    }
-
-    .bounce {
-      animation: bounceAnim 0.8s infinite alternate ease-in-out;
-    }
-
-    @keyframes bounceAnim {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
-    }
+    .bounce { animation: bounceAnim 0.8s infinite alternate ease-in-out; }
+    @keyframes bounceAnim { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
   </style>
 </head>
 <body>
@@ -465,22 +321,32 @@
 
 <div class="container" id="mainContainer">
 
-  <div class="gif-sticker-topleft">🎀</div>
-  <div class="gif-sticker-topright">✨</div>
+  <!-- STEP 1: INTERACTIVE ENVELOPE (UNDANGAN AMPLOP SURAT) -->
+  <div id="step1" class="step active text-center-align">
+    <div class="stamp-badge">SPECIAL INVITATION 💌</div>
+    <h2>SPECIAL LETTER FOR KIKI ✉️</h2>
+    <p style="font-size:0.88rem; color:#777;">Ketuk segel hati di tengah amplop buat buka suratnya ya, seng!</p>
 
-  <!-- STEP 1: PASSWORD -->
-  <div id="step1" class="step active">
-    <h2>🔐 SECRET PASSWORD</h2>
-    <p id="p-step1">Halooo Kiki... Aku punya sesuatu buat kamu, sayang. Tapi sebelum masuk, password dulu yaa. Jangan asal nebak, seng 😭</p>
-
-    <div id="attempt-default">
-      <input type="password" id="passInput" placeholder="ENTER PASSWORD">
-      <button class="btn" onclick="checkPassword()">MASUK 🗝</button>
+    <!-- AMPLOP INTERAKTIF -->
+    <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
+      <div class="envelope-flap"></div>
+      <div class="wax-seal">💌</div>
+      <div class="envelope-pocket"></div>
+      
+      <!-- SURAT DI DALAM AMPLOP -->
+      <div class="letter-paper" id="letterPaper">
+        <p style="font-size:0.85rem; margin-bottom:8px; font-weight:bold; color:#ff2a6d;">PASSWORD CONFIRMATION 🔐</p>
+        
+        <div id="attempt-default" style="width:100%;">
+          <input type="password" id="passInput" placeholder="ENTER PASSWORD" onclick="event.stopPropagation()">
+          <button class="btn" onclick="event.stopPropagation(); checkPassword();">BUKA SEKARANG 🗝</button>
+        </div>
+      </div>
     </div>
 
-    <!-- Attempt 1 Result -->
+    <!-- Attempt 1 Result (VIDEO AIB) -->
     <div id="attempt1-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAHH SAYANG 😭</b><br><br>Masa password aja gak bisa WKWKWK</p>
+      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
       <div class="polaroid-frame jumpscare-anim">
         <video id="v-aib1" class="aib-video" playsinline loop>
           <source src="aib1.mp4" type="video/mp4">
@@ -489,9 +355,9 @@
       <button class="btn" onclick="resetPasswordStep()">COBA LAGI 🔄</button>
     </div>
 
-    <!-- Attempt 2 Result -->
+    <!-- Attempt 2 Result (FOTO AIB) -->
     <div id="attempt2-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAH LAGI SENG 😭</b><br><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
+      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
       <div class="polaroid-frame jumpscare-anim">
         <img src="aib2.jpg" alt="Foto Aib 2" class="aib-photo">
       </div>
@@ -500,15 +366,16 @@
 
     <!-- Attempt 3 Result -->
     <div id="attempt3-res" style="display:none;">
-      <p><b>YEEEAY, BENER SAYANG! 🔓</b><br><br>Akhirnya ketemu juga passwordnya, seng 😭</p>
-      <button class="btn" onclick="triggerConfetti(); goToStep('step2');">MASUK 🎁</button>
+      <p><b>YEEEAY, BENER SAYANG! 🔓</b><br>Akhirnya ketemu juga passwordnya, seng 😭</p>
+      <button class="btn" onclick="triggerConfetti(); goToStep('step2');">MASUK KE INVITATION 🎁</button>
     </div>
   </div>
 
-  <!-- STEP 2: GIFT TEASER -->
-  <div id="step2" class="step">
-    <h2>🎁 GIFT TEASER</h2>
-    <p id="teaser-text">Aku sebenernya punya sesuatu buat kamu. Mau lihat gak, beb?</p>
+  <!-- STEP 2: GIFT TEASER (TATA LETAK KIRI - VARIATIF) -->
+  <div id="step2" class="step text-left-align">
+    <div class="stamp-badge">TEASER 🎁</div>
+    <h2>ARE YOU READY, BEB? 👀</h2>
+    <p id="teaser-text">Aku sebenernya punya sesuatu yang spesial banget buat kamu. Mau lihat gak, seng?</p>
 
     <div id="teaser-choice-1">
       <button class="btn" onclick="teaserYes()">MAU LAH SAYANG ❤️</button>
@@ -520,7 +387,7 @@
       <button class="btn" onclick="teaserEhhMau()">EHH MAU DING 😭</button>
     </div>
 
-    <div id="teaser-walkaway" style="display:none;">
+    <div id="teaser-walkaway" style="display:none; text-align:center;">
       <div class="bounce" style="font-size:3rem; margin:10px 0;">🚶‍♂️🎁</div>
       <button class="btn" onclick="teaserWait()">WAITTT SAYANG 😭</button>
     </div>
@@ -535,9 +402,9 @@
   </div>
 
   <!-- EXTRA GAME 1: LOVE CATCH -->
-  <div id="game-catch" class="step">
+  <div id="game-catch" class="step text-center-align">
     <h2>💖 MISSION 1: TANGKAP HATI!</h2>
-    <p>Eits, sebelum milih kotak, kumpulin dulu 5 Love yang kabur ini, seng! 😭 Sisa target: <b id="heart-count" style="color:#ff2a6d; font-size:1.2rem;">5</b></p>
+    <p>Sebelum milih hadiah, kumpulin dulu 5 Love yang kabur ini, seng! 😭 Sisa: <b id="heart-count" style="color:#ff2a6d;">5</b></p>
     <div class="heart-arena" id="heart-arena">
       <div class="floating-heart" id="target-heart" onclick="catchHeart()">💖</div>
     </div>
@@ -545,9 +412,9 @@
   </div>
 
   <!-- EXTRA GAME 2: BLOW CANDLE -->
-  <div id="game-cake" class="step">
+  <div id="game-cake" class="step text-center-align">
     <h2>🎂 MISSION 2: TIUP LILINNYA!</h2>
-    <p id="cake-text">Tap/ketuk kue di bawah 5 kali cepat buat tiup lilinnya dan buat permohonan! 🥳</p>
+    <p id="cake-text">Ketuk kue di bawah 5 kali cepat buat tiup lilinnya dan buat permohonan! 🥳</p>
     <div class="cake-container" onclick="blowCandle()">
       <span id="flame-icon" class="flame">🔥</span><br>🎂
     </div>
@@ -556,23 +423,23 @@
   </div>
 
   <!-- EXTRA GAME 3: LOVE QUIZ -->
-  <div id="game-quiz" class="step">
+  <div id="game-quiz" class="step text-left-align">
     <h2>❓ MISSION 3: KUIS ASMARA</h2>
     <p id="quiz-question">Siapa yang paling kangenan di antara kita berdua? 😭</p>
     <div id="quiz-options">
       <button class="btn" onclick="answerQuiz(true)">Aku (Kiki) lah pastinya 😌</button>
       <button class="btn btn-secondary" style="margin-top:8px;" onclick="answerQuiz(false)">Gak tau, lupa 🤪</button>
     </div>
-    <div id="quiz-result" style="display:none;">
+    <div id="quiz-result" style="display:none;" class="text-center-align">
       <p id="quiz-msg"></p>
       <button class="btn" id="quiz-next-btn" onclick="triggerConfetti(); goToStep('step3');">MASUK KE KOTAK HADIAH 🎁</button>
     </div>
   </div>
 
   <!-- STEP 3: FOUR GIFT BOXES -->
-  <div id="step3" class="step">
-    <h2>🎁 OKEEE KIKIII, SEKARANG PILIH SATU!</h2>
-    <p id="box-instruction">Ada 4 kotak di depan kamu. Katanya sih salah satunya ada sesuatu spesial buat kamu 😌 Jangan asal pilih yaa, sayang.</p>
+  <div id="step3" class="step text-center-align">
+    <h2>🎁 PILIH SATU KOTAK, KIKI!</h2>
+    <p id="box-instruction">Ada 4 kotak misteri. Salah satunya punya pesan rahasia buat kamu 😌</p>
 
     <div id="boxes-grid" class="grid-boxes">
       <button class="gift-box-btn" onclick="pickBox(1)">🎁 1</button>
@@ -584,51 +451,49 @@
     <div id="box-result" style="display:none;">
       <p id="box-result-text"></p>
       <button class="btn" id="box-retry-btn" onclick="resetBoxes()">PILIH LAGI 🔄</button>
-      <button class="btn" id="box-win-btn" style="display:none;" onclick="triggerConfetti(); goToStep('card1');">BUKA HADIAHNYA... ✨</button>
+      <button class="btn" id="box-win-btn" style="display:none;" onclick="triggerConfetti(); goToStep('card1');">BUKA SURAT UTAMA... ✨</button>
     </div>
   </div>
 
-  <!-- CARD SLIDESHOW -->
-  <div id="card1" class="step">
+  <!-- CARD SLIDESHOW (TATA LETAK VARIASI & RAPI) -->
+  <div id="card1" class="step text-center-align">
     <h2>HAPPY 26TH BIRTHDAY, KIKIII!! 🥳❤️</h2>
     <p id="type-card1"></p>
     <button class="btn" onclick="goToStep('card2')">LANJUT ➡️</button>
   </div>
 
-  <div id="card2" class="step">
-    <h2>OKAY, SEKARANG SERIUS DIKIT</h2>
+  <div id="card2" class="step text-left-align">
+    <h2>OKAY, SEKARANG SERIUS DIKIT 💭</h2>
     <p id="type-card2"></p>
     <button class="btn" onclick="goToStep('card3')">LANJUT ➡️</button>
   </div>
 
-  <div id="card3" class="step">
+  <div id="card3" class="step text-left-align">
     <h2>FOR YOU, SAYANG... ❤️</h2>
     <p id="type-card3"></p>
     <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
   </div>
 
-  <div id="card4" class="step">
-    <h2>DI UMUR 26 INI...</h2>
+  <div id="card4" class="step text-center-align">
+    <h2>DI UMUR 26 INI... ✨</h2>
     <p id="type-card4"></p>
     <button class="btn" onclick="goToStep('card5')">LANJUT ➡️</button>
   </div>
 
-  <div id="card5" class="step">
+  <div id="card5" class="step text-left-align">
     <h2>NAH, TAPI INI PENTING 😭</h2>
     <p id="type-card5"></p>
     <button class="btn" onclick="goToStep('card6')">LANJUT ➡️</button>
   </div>
 
-  <div id="card6" class="step">
-    <h2>POKOKNYA...</h2>
+  <div id="card6" class="step text-center-align">
+    <h2>POKOKNYA... ❤️</h2>
     <p id="type-card6"></p>
 
-    <!-- FOTO GANTENG KIKI DENGAN FRAME BLING-BLING -->
+    <!-- FOTO GANTENG KIKI FRAME BLING-BLING -->
     <div class="handsome-frame-container">
       <span class="sparkle-badge sparkle-1">✨</span>
       <span class="sparkle-badge sparkle-2">💖</span>
-      <span class="sparkle-badge sparkle-3">⭐</span>
-      <span class="sparkle-badge sparkle-4">✨</span>
       <img src="ganteng.png" alt="Foto Ganteng Kiki" class="handsome-photo" onerror="this.src='ganteng.jpg'">
       <div class="handsome-caption">The Birthday Boy ✨❤️</div>
     </div>
@@ -637,32 +502,33 @@
   </div>
 
   <!-- STEP 5: LAST TEASE -->
-  <div id="step5" class="step">
+  <div id="step5" class="step text-center-align">
     <h2>EH BEB 👀</h2>
     <p id="type-step5">Jangan seneng dulu 😭 Game-nya belom selesai WKWKWK Masa kamu kira hadiah ulang tahun cuma tulisan doang?</p>
     <button class="btn" onclick="goToStep('step6'); startDelivery();">APAAN LAGI SIH 😭</button>
   </div>
 
   <!-- STEP 6: FINAL GIFT REVEAL -->
-  <div id="step6" class="step">
-    <h2>📦 YOUR GIFT IS ON THE WAY</h2>
-    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b style="font-size:1.1rem; color:#ff2a6d;">TUNGGU DI RUMAH YAAA</b></p>
+  <div id="step6" class="step text-left-align">
+    <div class="stamp-badge">EXPRESS DELIVERY 📦</div>
+    <h2>YOUR GIFT IS ON THE WAY 🏍️</h2>
+    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b style="font-size:1.05rem; color:#ff2a6d;">TUNGGU DI RUMAH YAAA</b></p>
 
-    <div style="text-align: left; font-size: 0.85rem; margin: 12px 0; background:rgba(255,255,255,0.85); padding:10px 14px; border-radius:12px; border:2px solid #ffccd5; line-height:1.5;">
+    <div style="font-size:0.85rem; margin: 12px 0; background:rgba(255,255,255,0.85); padding:10px 14px; border-radius:12px; border:2px solid #ffccd5; line-height:1.5;">
       ✓ Hadiah disiapkan<br>
       ✓ Hadiah dikirim<br>
       ✓ Dibawa mamang kurir<br>
       <b>→ Kiki dimohon menunggu di rumah</b>
     </div>
 
-    <div style="font-size:2.8rem;" id="motor-anim" class="bounce">🏍💨</div>
+    <div style="font-size:2.8rem; text-align:center;" id="motor-anim" class="bounce">🏍💨</div>
 
     <div class="progress-bar-bg">
       <div id="progress-fill" class="progress-bar-fill"></div>
     </div>
-    <p id="progress-text" style="font-weight:bold; color:#ff2a6d; font-size:0.9rem;">0%</p>
+    <p id="progress-text" style="font-weight:bold; color:#ff2a6d; font-size:0.9rem; text-align:center;">0%</p>
 
-    <div id="delivery-done" style="display:none; margin-top:12px;">
+    <div id="delivery-done" style="display:none; margin-top:12px;" class="text-center-align">
       <p style="color:#ff2a6d; font-weight:bold; font-size:0.95rem;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
       <p style="font-size:0.85rem; margin-top:4px;">Jangan tidur. Jangan pergi.<br>Jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
       <button class="btn" onclick="triggerConfetti(); goToStep('ending');">UDAH, AKU TUNGGU ❤️</button>
@@ -670,7 +536,7 @@
   </div>
 
   <!-- ENDING -->
-  <div id="ending" class="step">
+  <div id="ending" class="step text-center-align">
     <h2>HAPPY BIRTHDAY, KIKIII 🥳</h2>
     <p id="type-ending"></p>
     <div style="font-size:2.5rem; margin-top:10px;" class="bounce">🎉🥳🎈✨❤️</div>
@@ -711,6 +577,13 @@
     particleContainer.appendChild(p);
   }
 
+  /* Envelope Controller */
+  function openEnvelope() {
+    startMusic();
+    const wrapper = document.getElementById('envelopeWrapper');
+    wrapper.classList.add('open');
+  }
+
   /* Music Controller */
   function startMusic() {
     const audio = document.getElementById('bgMusic');
@@ -723,39 +596,27 @@
 
   function pauseMusicForVideo() {
     const audio = document.getElementById('bgMusic');
-    if (isMusicPlaying) {
-      audio.pause();
-    }
+    if (isMusicPlaying) { audio.pause(); }
   }
 
   function resumeMusicAfterVideo() {
     const audio = document.getElementById('bgMusic');
-    if (isMusicPlaying) {
-      audio.play();
-    }
+    if (isMusicPlaying) { audio.play(); }
   }
 
   function toggleMusic() {
     const audio = document.getElementById('bgMusic');
     const btn = document.getElementById('musicToggleBtn');
     if (isMusicPlaying) {
-      audio.pause();
-      btn.classList.add('paused');
-      isMusicPlaying = false;
+      audio.pause(); btn.classList.add('paused'); isMusicPlaying = false;
     } else {
-      audio.play();
-      btn.classList.remove('paused');
-      isMusicPlaying = true;
+      audio.play(); btn.classList.remove('paused'); isMusicPlaying = true;
     }
   }
 
   function triggerConfetti() {
     if (typeof confetti === 'function') {
-      confetti({
-        particleCount: 110,
-        spread: 85,
-        origin: { y: 0.6 }
-      });
+      confetti({ particleCount: 110, spread: 85, origin: { y: 0.6 } });
     }
   }
 
@@ -766,7 +627,7 @@
     flash.classList.add('flash-active');
   }
 
-  /* TYPEWRITER DENGAN PENANGANAN TAG HTML/BREAK SECARA MULUS */
+  /* TYPEWRITER FUNCTION */
   function typeWriter(elementId, text, speed = 25) {
     const elem = document.getElementById(elementId);
     if (!elem) return;
@@ -803,17 +664,15 @@
 
   /* STEP 1 LOGIC */
   function checkPassword() {
-    startMusic();
     const val = document.getElementById('passInput').value.trim();
     attemptCount++;
 
     const container = document.getElementById('mainContainer');
-    document.getElementById('attempt-default').style.display = 'none';
+    document.getElementById('envelopeWrapper').style.display = 'none';
 
     if (val === '240901' || attemptCount === 1) {
       triggerJumpscareFlash();
       triggerShake(container);
-      
       pauseMusicForVideo();
       const videoElem = document.getElementById('v-aib1');
       document.getElementById('attempt1-res').style.display = 'block';
@@ -821,7 +680,6 @@
         videoElem.currentTime = 0;
         videoElem.play().catch(e => console.log(e));
       }
-
     } else if (val === '221125' || attemptCount === 2) {
       triggerJumpscareFlash();
       triggerShake(container);
@@ -839,14 +697,12 @@
 
   function resetPasswordStep() {
     const videoElem = document.getElementById('v-aib1');
-    if (videoElem) {
-      videoElem.pause();
-    }
+    if (videoElem) { videoElem.pause(); }
     resumeMusicAfterVideo();
 
     document.getElementById('attempt1-res').style.display = 'none';
     document.getElementById('attempt2-res').style.display = 'none';
-    document.getElementById('attempt-default').style.display = 'block';
+    document.getElementById('envelopeWrapper').style.display = 'flex';
     document.getElementById('passInput').value = '';
   }
 
@@ -929,7 +785,7 @@
     document.getElementById('quiz-result').style.display = 'block';
 
     if (isCorrect) {
-      document.getElementById('quiz-msg').innerHTML = "<b style='color:#ff2a6d;'>BENER BANGETTT 😭❤️</b><br>Pinter banget emang pacar aku satu ini WKWKWK.";
+      document.getElementById('quiz-msg').innerHTML = "<b style='color:#ff2a6d;'>BENER BANGETTT 😭❤️️</b><br>Pinter banget emang pacar aku satu ini WKWKWK.";
     } else {
       document.getElementById('quiz-msg').innerHTML = "<b style='color:#ff2a6d;'>EH SALAHHH 😭</b><br>Masa lupa sih WKWKWK. Tapi gapapa, yang penting kamu tetep tayangnya aku ❤️";
     }
