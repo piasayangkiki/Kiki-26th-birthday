@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Mini Game for Kiki 🥳</title>
-  <!-- Google Fonts & Confetti CDN -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Kombinasi Font Variatif & Estetik -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Fredoka:wght@400;600;700&family=Gaegu:wght@400;700&family=Pacifico&family=Playfair+Display:ital,wght@0,600;1,400&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   
   <style>
@@ -67,6 +67,29 @@
       100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
     }
 
+    /* Flash Overlay for Jumpscare */
+    .flash-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 0, 76, 0.35);
+      z-index: 99;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.1s ease-in-out;
+    }
+
+    .flash-active {
+      animation: flashAnim 0.4s ease-out;
+    }
+
+    @keyframes flashAnim {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
     /* Container Box / Scrapbook Card */
     .container {
       width: 100%;
@@ -75,14 +98,15 @@
       backdrop-filter: blur(12px);
       border-radius: 28px;
       padding: 30px 22px;
-      box-shadow: 0 20px 40px rgba(255, 117, 140, 0.3), 0 0 0 8px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 20px 40px rgba(255, 117, 140, 0.35), 0 0 0 8px rgba(255, 255, 255, 0.6);
       position: relative;
       text-align: center;
       z-index: 10;
       overflow: visible;
+      perspective: 1000px;
     }
 
-    /* Music Player Button (Floating Top Right) */
+    /* Music Player Button */
     .music-btn {
       position: fixed;
       top: 15px;
@@ -139,26 +163,97 @@
       100% { transform: translateY(-10px) rotate(5deg); }
     }
 
+    /* Moving / Floating Titles */
     h2 {
       color: #ff2a6d;
       font-size: 1.55rem;
       font-weight: 700;
       margin-bottom: 12px;
       text-shadow: 2px 2px 0px #fff;
-      animation: pulseText 2s infinite alternate;
+      animation: titleBounce 2.5s infinite ease-in-out alternate;
+      display: inline-block;
     }
 
-    @keyframes pulseText {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.03); }
+    @keyframes titleBounce {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      50% { transform: translateY(-5px) scale(1.03) rotate(1deg); }
+      100% { transform: translateY(3px) scale(0.98) rotate(-1deg); }
     }
 
     p {
       color: #4a4a4a;
-      font-size: 1rem;
+      font-size: 1.05rem;
       line-height: 1.65;
       margin-bottom: 20px;
       font-weight: 500;
+      min-height: 48px;
+    }
+
+    /* VARIASI FONT TIAP SLIDE */
+    .font-handwriting h2 { font-family: 'Gaegu', cursive; font-size: 2rem; }
+    .font-handwriting p { font-family: 'Gaegu', cursive; font-size: 1.35rem; font-weight: 700; color: #2d2d2d; }
+
+    .font-serif h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; letter-spacing: 0.5px; }
+    .font-serif p { font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height: 1.75; font-style: italic; }
+
+    .font-soft h2 { font-family: 'Comfortaa', cursive; font-size: 1.45rem; font-weight: 700; }
+    .font-soft p { font-family: 'Quicksand', sans-serif; font-size: 1.05rem; font-weight: 700; }
+
+    .font-ending h2 { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #ff2a6d; }
+    .font-ending p { font-family: 'Gaegu', cursive; font-size: 1.35rem; font-weight: 700; }
+
+    /* FRAME FOTO GANTENG BLING-BLING */
+    .handsome-frame-container {
+      position: relative;
+      display: inline-block;
+      margin: 15px auto 20px auto;
+      padding: 10px;
+      background: linear-gradient(135deg, #ffffff, #fff0f3, #ffe3e8);
+      border-radius: 20px;
+      box-shadow: 0 12px 28px rgba(255, 117, 140, 0.4), 0 0 20px rgba(255, 182, 193, 0.8);
+      border: 3px solid #ff758c;
+      animation: frameFloatBling 3.5s infinite ease-in-out alternate;
+    }
+
+    @keyframes frameFloatBling {
+      0% { transform: translateY(0) rotate(-2deg); box-shadow: 0 12px 28px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
+      50% { transform: translateY(-8px) rotate(2deg); box-shadow: 0 18px 35px rgba(255, 117, 140, 0.6), 0 0 30px #ffafbd; }
+      100% { transform: translateY(3px) rotate(-1deg); box-shadow: 0 12px 28px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
+    }
+
+    .handsome-photo {
+      width: 100%;
+      max-width: 260px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .sparkle-badge {
+      position: absolute;
+      font-size: 1.8rem;
+      pointer-events: none;
+      animation: sparkleGlow 1.5s infinite alternate;
+    }
+
+    .sparkle-1 { top: -12px; left: -12px; animation-delay: 0s; }
+    .sparkle-2 { top: -12px; right: -12px; animation-delay: 0.5s; }
+    .sparkle-3 { bottom: 25px; left: -10px; animation-delay: 1s; }
+    .sparkle-4 { bottom: 25px; right: -10px; animation-delay: 0.3s; }
+
+    @keyframes sparkleGlow {
+      0% { transform: scale(0.8) rotate(0deg); filter: drop-shadow(0 0 2px gold); }
+      100% { transform: scale(1.3) rotate(20deg); filter: drop-shadow(0 0 10px #ff2a6d); }
+    }
+
+    .handsome-caption {
+      margin-top: 8px;
+      font-family: 'Gaegu', cursive;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #ff2a6d;
+      letter-spacing: 0.5px;
     }
 
     .btn {
@@ -175,15 +270,22 @@
       transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 8px 18px rgba(255, 117, 140, 0.4);
       letter-spacing: 0.5px;
+      animation: btnPulse 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes btnPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.02); box-shadow: 0 10px 22px rgba(255, 117, 140, 0.6); }
     }
 
     .btn:active {
-      transform: scale(0.94);
+      transform: scale(0.94) !important;
     }
 
     .btn-secondary {
       background: linear-gradient(135deg, #a8a8a8 0%, #c4c4c4 100%);
       box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+      animation: none;
     }
 
     input[type="password"] {
@@ -199,67 +301,70 @@
       background: #fff;
       color: #ff2a6d;
       font-weight: bold;
+      transition: all 0.3s;
     }
 
-    /* Polaroid Frame for Aib Photo (JUMPSCARE EFEK) */
+    input[type="password"]:focus {
+      border-color: #ff758c;
+      box-shadow: 0 0 12px rgba(255, 117, 140, 0.4);
+    }
+
     .polaroid-frame {
       background: white;
       padding: 12px 12px 28px 12px;
       border-radius: 14px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+      box-shadow: 0 16px 30px rgba(0,0,0,0.3);
       margin: 15px 0;
     }
 
-    /* Animasi Foto Aib Ngagetin */
     .jumpscare-anim {
-      animation: jumpscareIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5) forwards, shakeHard 0.5s ease-in-out 0.2s infinite alternate;
+      animation: jumpscareExtreme 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6) forwards, shakeHard 0.3s ease-in-out 0.3s infinite alternate;
     }
 
-    @keyframes jumpscareIn {
-      0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
-      50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
-      100% { transform: scale(1) rotate(-3deg); opacity: 1; }
+    @keyframes jumpscareExtreme {
+      0% { transform: scale(0.1) rotate(-35deg); opacity: 0; filter: contrast(200%); }
+      60% { transform: scale(1.3) rotate(15deg); opacity: 1; filter: contrast(120%); }
+      100% { transform: scale(1) rotate(-3deg); opacity: 1; filter: contrast(100%); }
     }
 
     @keyframes shakeHard {
-      0% { transform: rotate(-4deg) scale(1); }
-      100% { transform: rotate(4deg) scale(1.05); }
+      0% { transform: rotate(-5deg) scale(1) translateY(0); }
+      100% { transform: rotate(5deg) scale(1.06) translateY(-4px); }
     }
 
-    /* Layar Goyang saat Salah Password */
     .screen-shake {
-      animation: containerShake 0.4s ease-in-out;
+      animation: containerShakeHeavy 0.5s cubic-bezier(.36,.07,.19,.97) both;
     }
 
-    @keyframes containerShake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-12px) rotate(-2deg); }
-      40%, 80% { transform: translateX(12px) rotate(2deg); }
+    @keyframes containerShakeHeavy {
+      10%, 90% { transform: translate3d(-4px, 0, 0) rotate(-2deg); }
+      20%, 80% { transform: translate3d(6px, 0, 0) rotate(2deg); }
+      30%, 50%, 70% { transform: translate3d(-8px, 0, 0) rotate(-3deg); }
+      40%, 60% { transform: translate3d(8px, 0, 0) rotate(3deg); }
     }
 
-    .aib-photo {
+    .aib-photo, .aib-video {
       width: 100%;
       height: 230px;
       object-fit: cover;
       border-radius: 8px;
     }
 
-    /* Step Video Transitions */
     .step {
       display: none;
+      backface-visibility: hidden;
     }
 
     .step.active {
       display: block;
-      animation: videoPan 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      animation: card3DFlip 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
-    @keyframes videoPan {
-      0% { opacity: 0; transform: scale(0.85) rotate(-2deg); filter: blur(4px); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
+    @keyframes card3DFlip {
+      0% { opacity: 0; transform: rotateY(-70deg) scale(0.8); filter: blur(6px); }
+      100% { opacity: 1; transform: rotateY(0deg) scale(1); filter: blur(0); }
     }
 
-    /* Grid Box Styling */
     .grid-boxes {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -281,10 +386,9 @@
 
     @keyframes boxBounce {
       0% { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
+      100% { transform: translateY(-8px); }
     }
 
-    /* Mini Game 1: Heart Catch Area */
     .heart-arena {
       width: 100%;
       height: 220px;
@@ -307,10 +411,9 @@
 
     @keyframes heartPulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.2); }
+      100% { transform: scale(1.25); }
     }
 
-    /* Mini Game 2: Cake & Candle */
     .cake-container {
       font-size: 4.5rem;
       margin: 15px 0;
@@ -322,15 +425,14 @@
     .flame {
       display: inline-block;
       animation: flicker 0.2s infinite alternate;
-      filter: drop-shadow(0 0 10px orange);
+      filter: drop-shadow(0 0 12px orange);
     }
 
     @keyframes flicker {
-      0% { transform: scale(1) rotate(-3deg); }
-      100% { transform: scale(1.3) rotate(3deg); }
+      0% { transform: scale(1) rotate(-4deg); }
+      100% { transform: scale(1.35) rotate(4deg); }
     }
 
-    /* Progress Bar Delivery */
     .progress-bar-bg {
       width: 100%;
       background: #ffe3e8;
@@ -361,13 +463,16 @@
 </head>
 <body>
 
+  <!-- Red Flash Effect Overlay -->
+  <div class="flash-overlay" id="flashOverlay"></div>
+
   <!-- Floating Particles Background -->
   <div class="bg-particles" id="particle-container"></div>
 
   <!-- Music Toggle Button -->
   <button class="music-btn paused" id="musicToggleBtn" onclick="toggleMusic()">🎵</button>
 
-  <!-- Audio Element (Memanggil lagu.mp3 yang kamu upload) -->
+  <!-- Audio Element -->
   <audio id="bgMusic" loop>
     <source src="lagu.mp3" type="audio/mpeg">
   </audio>
@@ -381,23 +486,25 @@
   <!-- STEP 1: PASSWORD -->
   <div id="step1" class="step active">
     <h2>🔐 SECRET PASSWORD</h2>
-    <p>Halooo Kiki... Aku punya sesuatu buat kamu, sayang.<br>Tapi sebelum masuk, password dulu yaa.<br>Jangan asal nebak, seng 😭</p>
+    <p id="p-step1">Halooo Kiki... Aku punya sesuatu buat kamu, sayang. Tapi sebelum masuk, password dulu yaa. Jangan asal nebak, seng 😭</p>
 
     <div id="attempt-default">
       <input type="password" id="passInput" placeholder="ENTER PASSWORD">
-      <button class="btn" onclick="checkPassword()">MASUK 🗝️</button>
+      <button class="btn" onclick="checkPassword()">MASUK 🗝</button>
     </div>
 
-    <!-- Attempt 1 Result -->
+    <!-- Attempt 1 Result (VIDEO AIB WITH AUDIO) -->
     <div id="attempt1-res" style="display:none;">
       <p><b style="color:#ff2a6d; font-size:1.1rem;">SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
       <div class="polaroid-frame jumpscare-anim">
-        <img src="aib1.jpg" alt="Foto Aib 1" class="aib-photo">
+        <video id="v-aib1" class="aib-video" playsinline loop>
+          <source src="aib1.mp4" type="video/mp4">
+        </video>
       </div>
       <button class="btn" onclick="resetPasswordStep()">COBA LAGI 🔄</button>
     </div>
 
-    <!-- Attempt 2 Result -->
+    <!-- Attempt 2 Result (FOTO AIB 2) -->
     <div id="attempt2-res" style="display:none;">
       <p><b style="color:#ff2a6d; font-size:1.1rem;">SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
       <div class="polaroid-frame jumpscare-anim">
@@ -416,7 +523,7 @@
   <!-- STEP 2: GIFT TEASER -->
   <div id="step2" class="step">
     <h2>🎁 GIFT TEASER</h2>
-    <p id="teaser-text">Aku sebenernya punya sesuatu buat kamu.<br>Mau lihat gak, beb?</p>
+    <p id="teaser-text">Aku sebenernya punya sesuatu buat kamu. Mau lihat gak, beb?</p>
 
     <div id="teaser-choice-1">
       <button class="btn" onclick="teaserYes()">MAU LAH SAYANG ❤️</button>
@@ -445,7 +552,7 @@
   <!-- EXTRA GAME 1: LOVE CATCH -->
   <div id="game-catch" class="step">
     <h2>💖 MISSION 1: TANGKAP HATI!</h2>
-    <p>Eits, sebelum milih kotak, kumpulin dulu <b>5 Love</b> yang kabur ini, seng! 😭<br>Sisa target: <b id="heart-count" style="color:#ff2a6d; font-size:1.3rem;">5</b></p>
+    <p>Eits, sebelum milih kotak, kumpulin dulu 5 Love yang kabur ini, seng! 😭 Sisa target: <b id="heart-count" style="color:#ff2a6d; font-size:1.3rem;">5</b></p>
     <div class="heart-arena" id="heart-arena">
       <div class="floating-heart" id="target-heart" onclick="catchHeart()">💖</div>
     </div>
@@ -455,7 +562,7 @@
   <!-- EXTRA GAME 2: BLOW CANDLE -->
   <div id="game-cake" class="step">
     <h2>🎂 MISSION 2: TIUP LILINNYA!</h2>
-    <p id="cake-text">Tap/ketuk kue di bawah <b>5 kali cepat</b> buat tiup lilinnya dan buat permohonan! 🥳</p>
+    <p id="cake-text">Tap/ketuk kue di bawah 5 kali cepat buat tiup lilinnya dan buat permohonan! 🥳</p>
     <div class="cake-container" onclick="blowCandle()">
       <span id="flame-icon" class="flame">🔥</span><br>🎂
     </div>
@@ -480,7 +587,7 @@
   <!-- STEP 3: FOUR GIFT BOXES -->
   <div id="step3" class="step">
     <h2>🎁 OKEEE KIKIII, SEKARANG PILIH SATU!</h2>
-    <p id="box-instruction">Ada 4 kotak di depan kamu.<br>Katanya sih salah satunya ada sesuatu spesial buat kamu 😌<br>Jangan asal pilih yaa, sayang.<br>Feeling kamu lagi bagus gak nih? 😭</p>
+    <p id="box-instruction">Ada 4 kotak di depan kamu. Katanya sih salah satunya ada sesuatu spesial buat kamu 😌 Jangan asal pilih yaa, sayang. Feeling kamu lagi bagus gak nih? 😭</p>
 
     <div id="boxes-grid" class="grid-boxes">
       <button class="gift-box-btn" onclick="pickBox(1)">🎁 1</button>
@@ -496,51 +603,64 @@
     </div>
   </div>
 
-  <!-- STEP 4: BIRTHDAY CARDS SLIDESHOW -->
-  <div id="card1" class="step">
+  <!-- CARD 1 & 2: HANDWRITING AESTHETIC FONT -->
+  <div id="card1" class="step font-handwriting">
     <h2>HAPPY 26TH BIRTHDAY, KIKIII!! 🥳❤️</h2>
-    <p>cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭<br>Gimana rasanya makin tua, seng? WKWKWK<br>Tenang, aku masih mau kok nemenin kamu walaupun udah 26 😌</p>
+    <p id="type-card1" class="typewriter-text"></p>
     <button class="btn" onclick="goToStep('card2')">LANJUT ➡️</button>
   </div>
 
-  <div id="card2" class="step">
+  <div id="card2" class="step font-handwriting">
     <h2>OKAY, SEKARANG SERIUS DIKIT</h2>
-    <p>Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini.<br><br>Makasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng.<br><br>Bahkan ngobrolin hal random yang sebenernya ga penting pun tetep seru kalau sama kamu 😭</p>
+    <p id="type-card2" class="typewriter-text"></p>
     <button class="btn" onclick="goToStep('card3')">LANJUT ➡️</button>
   </div>
 
-  <div id="card3" class="step">
-    <p style="font-size:1.05rem; line-height:1.7;">Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.<br><br><b>I really love having you in my life.</b><br><br>Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.</p>
+  <!-- CARD 3 & 4: CLASSIC ROMANTIC SERIF FONT -->
+  <div id="card3" class="step font-serif">
+    <p id="type-card3" class="typewriter-text"></p>
     <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
   </div>
 
-  <div id="card4" class="step">
+  <div id="card4" class="step font-serif">
     <h2>DI UMUR 26 INI...</h2>
-    <p>Aku cuma pengen kamu selalu sehat dan bahagia.<br><br>Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai.<br><br>I hope this year brings you lots of good things, sayang ❤️</p>
+    <p id="type-card4" class="typewriter-text"></p>
     <button class="btn" onclick="goToStep('card5')">LANJUT ➡️</button>
   </div>
 
-  <div id="card5" class="step">
+  <!-- CARD 5 & 6: SOFT MODERN AESTHETIC FONT -->
+  <div id="card5" class="step font-soft">
     <h2>NAH, TAPI INI PENTING 😭</h2>
-    <p>Jangan lupa buat jaga diri juga yaa seng.<br><br>Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭<br><br><b style="color:#ff2a6d; font-size:1.05rem;">Aku kan masih mau punya Kiki yang sehat buat aku gangguin.</b></p>
+    <p id="type-card5" class="typewriter-text"></p>
     <button class="btn" onclick="goToStep('card6')">LANJUT ➡️</button>
   </div>
 
-  <div id="card6" class="step">
+  <div id="card6" class="step font-soft">
     <h2>POKOKNYA...</h2>
-    <p>Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum.<br><br>Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.<br><br><b style="color:#ff2a6d; font-size:1.15rem;">I LOVE YOU SOOO MUCH, KIKI ❤️</b></p>
+    <p id="type-card6" class="typewriter-text"></p>
+
+    <!-- FOTO GANTENG KIKI DENGAN FRAME BLING-BLING -->
+    <div class="handsome-frame-container">
+      <span class="sparkle-badge sparkle-1">✨</span>
+      <span class="sparkle-badge sparkle-2">💖</span>
+      <span class="sparkle-badge sparkle-3">⭐</span>
+      <span class="sparkle-badge sparkle-4">✨</span>
+      <img src="ganteng.png" alt="Foto Ganteng Kiki" class="handsome-photo" onerror="this.src='ganteng.jpg'">
+      <div class="handsome-caption">The Birthday Boy ✨❤️️</div>
+    </div>
+
     <button class="btn" onclick="triggerConfetti(); goToStep('step5');">LANJUT ➡️</button>
   </div>
 
   <!-- STEP 5: LAST TEASE -->
-  <div id="step5" class="step">
+  <div id="step5" class="step font-soft">
     <h2>EH BEB 👀</h2>
-    <p>Jangan seneng dulu 😭<br>Game-nya belom selesai WKWKWK<br>Masa kamu kira hadiah ulang tahun cuma tulisan doang?</p>
+    <p id="type-step5">Jangan seneng dulu 😭 Game-nya belom selesai WKWKWK Masa kamu kira hadiah ulang tahun cuma tulisan doang?</p>
     <button class="btn" onclick="goToStep('step6'); startDelivery();">APAAN LAGI SIH 😭</button>
   </div>
 
   <!-- STEP 6: FINAL GIFT REVEAL -->
-  <div id="step6" class="step">
+  <div id="step6" class="step font-soft">
     <h2>📦 YOUR GIFT IS ON THE WAY</h2>
     <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b style="font-size:1.1rem; color:#ff2a6d;">TUNGGU DI RUMAH YAAA</b></p>
 
@@ -551,7 +671,7 @@
       <b>→ Kiki dimohon menunggu di rumah</b>
     </div>
 
-    <div style="font-size:3.2rem;" id="motor-anim" class="bounce">🏍️💨</div>
+    <div style="font-size:3.2rem;" id="motor-anim" class="bounce">🏍💨</div>
 
     <div class="progress-bar-bg">
       <div id="progress-fill" class="progress-bar-fill"></div>
@@ -565,10 +685,10 @@
     </div>
   </div>
 
-  <!-- ENDING -->
-  <div id="ending" class="step">
+  <!-- ENDING: SWEET ROMANTIC FONT -->
+  <div id="ending" class="step font-ending">
     <h2>SELAMAT MENUNGGU HADIAHNYA, KIKIII 🥳</h2>
-    <p>Semoga kamu suka yaa, sayang.<br><br>Dari semua yang aku kasih hari ini,<br>semoga yang paling kamu inget tetep aku 😌<br><br><b style="font-size:1.15rem; color:#ff2a6d;">HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️</b><br><br>I LOVE YOU SOOO MUCH, KIKI ❤️<br>TAYANGNYA AKUU ❤️</p>
+    <p id="type-ending"></p>
     <div style="font-size:2.8rem; margin-top:15px;" class="bounce">🎉🥳🎈✨❤️</div>
   </div>
 
@@ -580,12 +700,24 @@
   let heartsLeft = 5;
   let candleTaps = 0;
   let isMusicPlaying = false;
+  let typingTimeout = null;
+
+  // Card Text Messages for Typewriter Effect
+  const cardTexts = {
+    'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭 Gimana rasanya makin tua, seng? WKWKWK Tenang, aku masih mau kok nemenin kamu walaupun udah 26 😌',
+    'card2': 'Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini. Makasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng. Bahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
+    'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb. I really love having you in my life. Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.',
+    'card4': 'Aku cuma pengen kamu selalu sehat dan bahagia. Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai. I hope this year brings you lots of good things, sayang ❤️',
+    'card5': 'Jangan lupa buat jaga diri juga yaa seng. Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭 Aku kan masih mau punya Kiki yang sehat buat aku gangguin.',
+    'card6': 'Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum. Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya. I LOVE YOU SOOO MUCH, KIKI ❤️',
+    'ending': 'Semoga kamu suka yaa, sayang. Dari semua yang aku kasih hari ini, semoga yang paling kamu inget tetep aku 😌 HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️ I LOVE YOU SOOO MUCH, KIKI ❤️ TAYANGNYA AKUU ❤️'
+  };
 
   // Background Animated Particles Generator
   const particleSymbols = ['💖', '✨', '🌸', '⭐', '💕', '🎈', '🎀'];
   const particleContainer = document.getElementById('particle-container');
 
-  for (let i = 0; i < 18; i++) {
+  for (let i = 0; i < 22; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
     p.innerText = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
@@ -605,6 +737,20 @@
     }).catch(e => console.log("Audio waiting for user click"));
   }
 
+  function pauseMusicForVideo() {
+    const audio = document.getElementById('bgMusic');
+    if (isMusicPlaying) {
+      audio.pause();
+    }
+  }
+
+  function resumeMusicAfterVideo() {
+    const audio = document.getElementById('bgMusic');
+    if (isMusicPlaying) {
+      audio.play();
+    }
+  }
+
   function toggleMusic() {
     const audio = document.getElementById('bgMusic');
     const btn = document.getElementById('musicToggleBtn');
@@ -622,22 +768,54 @@
   function triggerConfetti() {
     if (typeof confetti === 'function') {
       confetti({
-        particleCount: 100,
-        spread: 80,
+        particleCount: 110,
+        spread: 85,
         origin: { y: 0.6 }
       });
     }
   }
 
-  function goToStep(stepId) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById(stepId).classList.add('active');
-    if (stepId === 'game-catch') moveHeart();
+  function triggerJumpscareFlash() {
+    const flash = document.getElementById('flashOverlay');
+    flash.classList.remove('flash-active');
+    void flash.offsetWidth;
+    flash.classList.add('flash-active');
   }
 
-  /* STEP 1 LOGIC WITH SHAKE & JUMPSCARE */
+  /* Typewriter Effect Function */
+  function typeWriter(elementId, text, speed = 28) {
+    const elem = document.getElementById(elementId);
+    if (!elem) return;
+    elem.innerText = '';
+    let i = 0;
+    if (typingTimeout) clearTimeout(typingTimeout);
+
+    function type() {
+      if (i < text.length) {
+        elem.innerText += text.charAt(i);
+        i++;
+        typingTimeout = setTimeout(type, speed);
+      }
+    }
+    type();
+  }
+
+  function goToStep(stepId) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    const targetStep = document.getElementById(stepId);
+    targetStep.classList.add('active');
+
+    if (stepId === 'game-catch') moveHeart();
+    
+    // Trigger typewriter for cards
+    if (cardTexts[stepId]) {
+      typeWriter('type-' + stepId, cardTexts[stepId]);
+    }
+  }
+
+  /* STEP 1 LOGIC WITH VIDEO AUDIO CONTROL */
   function checkPassword() {
-    startMusic(); // Mulai lagu.mp3 saat tombol MASUK diklik
+    startMusic();
     const val = document.getElementById('passInput').value.trim();
     attemptCount++;
 
@@ -645,9 +823,20 @@
     document.getElementById('attempt-default').style.display = 'none';
 
     if (val === '240901' || attemptCount === 1) {
+      triggerJumpscareFlash();
       triggerShake(container);
+      
+      // Pause lagu background & putar video aib1 dengan suara
+      pauseMusicForVideo();
+      const videoElem = document.getElementById('v-aib1');
       document.getElementById('attempt1-res').style.display = 'block';
+      if (videoElem) {
+        videoElem.currentTime = 0;
+        videoElem.play().catch(e => console.log(e));
+      }
+
     } else if (val === '221125' || attemptCount === 2) {
+      triggerJumpscareFlash();
       triggerShake(container);
       document.getElementById('attempt2-res').style.display = 'block';
     } else if (val === '081000' || attemptCount >= 3) {
@@ -657,11 +846,19 @@
 
   function triggerShake(element) {
     element.classList.remove('screen-shake');
-    void element.offsetWidth; // Trigger reflow
+    void element.offsetWidth;
     element.classList.add('screen-shake');
   }
 
   function resetPasswordStep() {
+    // Stop video
+    const videoElem = document.getElementById('v-aib1');
+    if (videoElem) {
+      videoElem.pause();
+    }
+    // Lanjutkan musik background
+    resumeMusicAfterVideo();
+
     document.getElementById('attempt1-res').style.display = 'none';
     document.getElementById('attempt2-res').style.display = 'none';
     document.getElementById('attempt-default').style.display = 'block';
@@ -670,31 +867,31 @@
 
   /* STEP 2 LOGIC */
   function teaserYes() {
-    document.getElementById('teaser-text').innerHTML = "Hehe, gitu dong seng 😌<br>Aku tau kamu pasti penasaran.<br>Tapiii... hadiahnya belum boleh dikasih sekarang.<br>Kamu harus lakuin satu hal dulu 😈<br>Siap, sayang?";
+    document.getElementById('teaser-text').innerHTML = "Hehe, gitu dong seng 😌 Aku tau kamu pasti penasaran. Tapiii... hadiahnya belum boleh dikasih sekarang. Kamu harus lakuin satu hal dulu 😈 Siap, sayang?";
     document.getElementById('teaser-choice-1').style.display = 'none';
     document.getElementById('teaser-final').style.display = 'block';
   }
 
   function teaserNo() {
-    document.getElementById('teaser-text').innerHTML = "HAH?!<br>Gak mau?? 😭<br>Serius, seng? Aku udah susah payah siapin ini buat kamu loh...<br>Yakin gak mau?";
+    document.getElementById('teaser-text').innerHTML = "HAH?! Gak mau?? 😭 Serius, seng? Aku udah susah payah siapin ini buat kamu loh... Yakin gak mau?";
     document.getElementById('teaser-choice-1').style.display = 'none';
     document.getElementById('teaser-choice-no').style.display = 'block';
   }
 
   function teaserEhhMau() {
-    document.getElementById('teaser-text').innerHTML = "NAHHH GITU DONG 😭<br>Dari tadi sok jual mahal sih, seng.<br>Sini, kita lanjut...";
+    document.getElementById('teaser-text').innerHTML = "NAHHH GITU DONG 😭 Dari tadi sok jual mahal sih, seng. Sini, kita lanjut...";
     document.getElementById('teaser-choice-no').style.display = 'none';
     document.getElementById('teaser-final').style.display = 'block';
   }
 
   function teaserYakinNo() {
-    document.getElementById('teaser-text').innerHTML = "OHHH... KITU NYA, KIKI? 😔<br>Nyaudah atuh... kalau emang gak mau,<br>aku simpen lagi hadiahnya.<br><br>Dadah, beb.";
+    document.getElementById('teaser-text').innerHTML = "OHHH... KITU NYA, KIKI? 😔 Nyaudah atuh... kalau emang gak mau, aku simpen lagi hadiahnya. Dadah, beb.";
     document.getElementById('teaser-choice-no').style.display = 'none';
     document.getElementById('teaser-walkaway').style.display = 'block';
   }
 
   function teaserWait() {
-    document.getElementById('teaser-text').innerHTML = "...<br>WAIT.<br><br>Kamu beneran gak mau?! 😭<br><br>NAHHH GITU DONG 😭<br>Dari tadi sok jual mahal sih, seng.<br>Sini, aku kasih kesempatan terakhir deh.<br>Sekarang mau lihat hadiahnya gak, sayang?";
+    document.getElementById('teaser-text').innerHTML = "... WAIT. Kamu beneran gak mau?! 😭 NAHHH GITU DONG 😭 Dari tadi sok jual mahal sih, seng. Sini, aku kasih kesempatan terakhir deh. Sekarang mau lihat hadiahnya gak, sayang?";
     document.getElementById('teaser-walkaway').style.display = 'none';
     document.getElementById('teaser-mau-banget').style.display = 'block';
   }
