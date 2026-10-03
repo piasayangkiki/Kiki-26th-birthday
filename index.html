@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Mini Game for Kiki 🥳</title>
-  <!-- Google Fonts: Kombinasi Font Variatif & Estetik -->
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Fredoka:wght@400;600;700&family=Gaegu:wght@400;700&family=Pacifico&family=Playfair+Display:ital,wght@0,600;1,400&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Pilihan Font Bersih & Estetik Mirip Gambar -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,500;0,700;1,500&family=Sniglet:wght@800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   
   <style>
@@ -13,14 +13,13 @@
       --primary: #ff758c;
       --primary-hover: #ff4b6e;
       --card-bg: rgba(255, 255, 255, 0.96);
-      --text-main: #333333;
+      --text-main: #2c2c2c;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Fredoka', 'Quicksand', sans-serif;
     }
 
     body {
@@ -35,6 +34,7 @@
       padding: 15px;
       overflow-x: hidden;
       position: relative;
+      font-family: 'Nunito', sans-serif;
     }
 
     @keyframes gradientBG {
@@ -97,7 +97,7 @@
       background: var(--card-bg);
       backdrop-filter: blur(12px);
       border-radius: 28px;
-      padding: 28px 18px;
+      padding: 26px 20px;
       box-shadow: 0 20px 40px rgba(255, 117, 140, 0.35), 0 0 0 8px rgba(255, 255, 255, 0.6);
       position: relative;
       text-align: center;
@@ -136,12 +136,11 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Animated Corner Stickers */
     .gif-sticker-topleft {
       position: absolute;
       top: -10px;
       left: -10px;
-      width: 50px;
+      font-size: 1.6rem;
       z-index: 20;
       pointer-events: none;
       animation: floatSticker 3s infinite ease-in-out alternate;
@@ -151,7 +150,7 @@
       position: absolute;
       top: -10px;
       right: -10px;
-      width: 50px;
+      font-size: 1.6rem;
       z-index: 20;
       pointer-events: none;
       animation: floatSticker 2.5s infinite ease-in-out alternate-reverse;
@@ -162,13 +161,14 @@
       100% { transform: translateY(-8px) rotate(5deg); }
     }
 
-    /* Moving / Floating Titles */
+    /* FONT JUDUL : CUTE & TEGAS (Mirip Chicken Pie/JandaManatee) */
     h2 {
+      font-family: 'Sniglet', 'Fredoka', cursive;
       color: #ff2a6d;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      text-shadow: 2px 2px 0px #fff;
+      font-size: 1.55rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      text-shadow: 1px 1px 0px #fff;
       animation: titleBounce 2.5s infinite ease-in-out alternate;
       display: inline-block;
       word-wrap: break-word;
@@ -181,58 +181,45 @@
       100% { transform: translateY(2px) scale(0.98); }
     }
 
-    /* PERBAIKAN UTAMA TEKS: WORD WRAP & WHITE SPACE */
+    /* FONT TEKS UCAPAN : RINGKAS, RAPI, TIDAK MENUHIN SPACE (Mirip Futura/Crimson) */
     p {
-      color: #4a4a4a;
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      font-weight: 500;
-      min-height: 48px;
+      font-family: 'Nunito', sans-serif;
+      color: #383838;
+      font-size: 0.96rem;
+      line-height: 1.55;
+      font-weight: 600;
+      margin-bottom: 18px;
       word-wrap: break-word;
       overflow-wrap: break-word;
-      white-space: pre-wrap; /* Mencegah teks bablas ke samping & menjaga spasi */
+      white-space: pre-wrap;
       text-align: center;
       max-width: 100%;
     }
-
-    /* VARIASI FONT TIAP SLIDE */
-    .font-handwriting h2 { font-family: 'Gaegu', cursive; font-size: 1.9rem; }
-    .font-handwriting p { font-family: 'Gaegu', cursive; font-size: 1.3rem; font-weight: 700; color: #2d2d2d; line-height: 1.4; }
-
-    .font-serif h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 0.5px; }
-    .font-serif p { font-family: 'Playfair Display', serif; font-size: 1.05rem; line-height: 1.7; font-style: italic; }
-
-    .font-soft h2 { font-family: 'Comfortaa', cursive; font-size: 1.4rem; font-weight: 700; }
-    .font-soft p { font-family: 'Quicksand', sans-serif; font-size: 1rem; font-weight: 700; }
-
-    .font-ending h2 { font-family: 'Pacifico', cursive; font-size: 1.45rem; color: #ff2a6d; }
-    .font-ending p { font-family: 'Gaegu', cursive; font-size: 1.3rem; font-weight: 700; }
 
     /* FRAME FOTO GANTENG BLING-BLING */
     .handsome-frame-container {
       position: relative;
       display: inline-block;
-      margin: 15px auto 20px auto;
-      padding: 10px;
+      margin: 10px auto 16px auto;
+      padding: 8px;
       background: linear-gradient(135deg, #ffffff, #fff0f3, #ffe3e8);
-      border-radius: 20px;
-      box-shadow: 0 12px 28px rgba(255, 117, 140, 0.4), 0 0 20px rgba(255, 182, 193, 0.8);
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4), 0 0 18px rgba(255, 182, 193, 0.8);
       border: 3px solid #ff758c;
       animation: frameFloatBling 3.5s infinite ease-in-out alternate;
       max-width: 100%;
     }
 
     @keyframes frameFloatBling {
-      0% { transform: translateY(0) rotate(-2deg); box-shadow: 0 12px 28px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
-      50% { transform: translateY(-8px) rotate(2deg); box-shadow: 0 18px 35px rgba(255, 117, 140, 0.6), 0 0 30px #ffafbd; }
-      100% { transform: translateY(3px) rotate(-1deg); box-shadow: 0 12px 28px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
+      0% { transform: translateY(0) rotate(-2deg); box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
+      50% { transform: translateY(-6px) rotate(2deg); box-shadow: 0 14px 30px rgba(255, 117, 140, 0.6), 0 0 25px #ffafbd; }
+      100% { transform: translateY(2px) rotate(-1deg); box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4), 0 0 15px #ff758c; }
     }
 
     .handsome-photo {
       width: 100%;
-      max-width: 240px;
-      height: 230px;
+      max-width: 220px;
+      height: 210px;
       object-fit: cover;
       border-radius: 12px;
       display: block;
@@ -240,15 +227,15 @@
 
     .sparkle-badge {
       position: absolute;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       pointer-events: none;
       animation: sparkleGlow 1.5s infinite alternate;
     }
 
-    .sparkle-1 { top: -10px; left: -10px; animation-delay: 0s; }
-    .sparkle-2 { top: -10px; right: -10px; animation-delay: 0.5s; }
-    .sparkle-3 { bottom: 20px; left: -8px; animation-delay: 1s; }
-    .sparkle-4 { bottom: 20px; right: -8px; animation-delay: 0.3s; }
+    .sparkle-1 { top: -8px; left: -8px; animation-delay: 0s; }
+    .sparkle-2 { top: -8px; right: -8px; animation-delay: 0.5s; }
+    .sparkle-3 { bottom: 18px; left: -6px; animation-delay: 1s; }
+    .sparkle-4 { bottom: 18px; right: -6px; animation-delay: 0.3s; }
 
     @keyframes sparkleGlow {
       0% { transform: scale(0.8) rotate(0deg); filter: drop-shadow(0 0 2px gold); }
@@ -256,34 +243,34 @@
     }
 
     .handsome-caption {
-      margin-top: 8px;
-      font-family: 'Gaegu', cursive;
-      font-size: 1.2rem;
+      margin-top: 6px;
+      font-family: 'Sniglet', cursive;
+      font-size: 1.15rem;
       font-weight: bold;
       color: #ff2a6d;
-      letter-spacing: 0.5px;
     }
 
     .btn {
+      font-family: 'Sniglet', 'Fredoka', cursive;
       background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
       color: white;
       border: none;
-      padding: 14px 20px;
-      border-radius: 18px;
+      padding: 13px 20px;
+      border-radius: 16px;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.05rem;
       cursor: pointer;
       width: 100%;
-      margin-top: 10px;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 8px 18px rgba(255, 117, 140, 0.4);
+      margin-top: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 16px rgba(255, 117, 140, 0.4);
       letter-spacing: 0.5px;
       animation: btnPulse 2s infinite ease-in-out alternate;
     }
 
     @keyframes btnPulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.02); box-shadow: 0 10px 22px rgba(255, 117, 140, 0.6); }
+      100% { transform: scale(1.02); box-shadow: 0 8px 20px rgba(255, 117, 140, 0.6); }
     }
 
     .btn:active {
@@ -298,10 +285,10 @@
 
     input[type="password"] {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       border: 3px solid #ffccd5;
       border-radius: 16px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       text-align: center;
       font-size: 1.2rem;
       letter-spacing: 3px;
@@ -309,20 +296,14 @@
       background: #fff;
       color: #ff2a6d;
       font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    input[type="password"]:focus {
-      border-color: #ff758c;
-      box-shadow: 0 0 12px rgba(255, 117, 140, 0.4);
     }
 
     .polaroid-frame {
       background: white;
-      padding: 10px 10px 24px 10px;
+      padding: 10px 10px 22px 10px;
       border-radius: 14px;
-      box-shadow: 0 16px 30px rgba(0,0,0,0.3);
-      margin: 15px 0;
+      box-shadow: 0 14px 25px rgba(0,0,0,0.25);
+      margin: 12px 0;
     }
 
     .jumpscare-anim {
@@ -353,7 +334,7 @@
 
     .aib-photo, .aib-video {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
       border-radius: 8px;
     }
@@ -376,41 +357,41 @@
     .grid-boxes {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin: 18px 0;
+      gap: 12px;
+      margin: 15px 0;
     }
 
     .gift-box-btn {
       background: #fff;
       border: 3px dashed #ff758c;
-      padding: 20px 10px;
-      border-radius: 20px;
-      font-size: 2.2rem;
+      padding: 18px 10px;
+      border-radius: 18px;
+      font-size: 2rem;
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 6px 15px rgba(255, 117, 140, 0.15);
+      box-shadow: 0 5px 12px rgba(255, 117, 140, 0.15);
       animation: boxBounce 2s infinite ease-in-out alternate;
     }
 
     @keyframes boxBounce {
       0% { transform: translateY(0); }
-      100% { transform: translateY(-8px); }
+      100% { transform: translateY(-6px); }
     }
 
     .heart-arena {
       width: 100%;
-      height: 200px;
+      height: 190px;
       background: radial-gradient(circle, #fff0f3 0%, #ffe3e8 100%);
-      border-radius: 20px;
+      border-radius: 18px;
       position: relative;
       overflow: hidden;
-      margin: 15px 0;
+      margin: 12px 0;
       border: 3px dashed #ff758c;
     }
 
     .floating-heart {
       position: absolute;
-      font-size: 2.6rem;
+      font-size: 2.5rem;
       cursor: pointer;
       user-select: none;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
@@ -419,12 +400,12 @@
 
     @keyframes heartPulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.25); }
+      100% { transform: scale(1.2); }
     }
 
     .cake-container {
-      font-size: 4rem;
-      margin: 15px 0;
+      font-size: 3.8rem;
+      margin: 12px 0;
       cursor: pointer;
       user-select: none;
       display: inline-block;
@@ -433,21 +414,21 @@
     .flame {
       display: inline-block;
       animation: flicker 0.2s infinite alternate;
-      filter: drop-shadow(0 0 12px orange);
+      filter: drop-shadow(0 0 10px orange);
     }
 
     @keyframes flicker {
       0% { transform: scale(1) rotate(-4deg); }
-      100% { transform: scale(1.35) rotate(4deg); }
+      100% { transform: scale(1.3) rotate(4deg); }
     }
 
     .progress-bar-bg {
       width: 100%;
       background: #ffe3e8;
-      height: 20px;
+      height: 18px;
       border-radius: 10px;
       overflow: hidden;
-      margin: 15px 0;
+      margin: 12px 0;
       border: 2px solid #ff758c;
     }
 
@@ -465,7 +446,7 @@
 
     @keyframes bounceAnim {
       0% { transform: translateY(0); }
-      100% { transform: translateY(-12px); }
+      100% { transform: translateY(-10px); }
     }
   </style>
 </head>
@@ -487,7 +468,6 @@
 
 <div class="container" id="mainContainer">
 
-  <!-- Corner Stickers (Updated Active URLs) -->
   <div class="gif-sticker-topleft">🎀</div>
   <div class="gif-sticker-topright">✨</div>
 
@@ -501,9 +481,9 @@
       <button class="btn" onclick="checkPassword()">MASUK 🗝</button>
     </div>
 
-    <!-- Attempt 1 Result (VIDEO AIB WITH AUDIO) -->
+    <!-- Attempt 1 Result -->
     <div id="attempt1-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.1rem;">SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
+      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAHH SAYANG 😭</b>\n\nMasa password aja gak bisa WKWKWK</p>
       <div class="polaroid-frame jumpscare-anim">
         <video id="v-aib1" class="aib-video" playsinline loop>
           <source src="aib1.mp4" type="video/mp4">
@@ -512,9 +492,9 @@
       <button class="btn" onclick="resetPasswordStep()">COBA LAGI 🔄</button>
     </div>
 
-    <!-- Attempt 2 Result (FOTO AIB 2) -->
+    <!-- Attempt 2 Result -->
     <div id="attempt2-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.1rem;">SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
+      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAH LAGI SENG 😭</b>\n\nCoba inget-inget lagi, masa gitu aja lupa.</p>
       <div class="polaroid-frame jumpscare-anim">
         <img src="aib2.jpg" alt="Foto Aib 2" class="aib-photo">
       </div>
@@ -523,7 +503,7 @@
 
     <!-- Attempt 3 Result -->
     <div id="attempt3-res" style="display:none;">
-      <p><b>YEEEAY, BENER SAYANG! 🔓</b><br>Akhirnya ketemu juga passwordnya, seng 😭</p>
+      <p><b>YEEEAY, BENER SAYANG! 🔓</b>\n\nAkhirnya ketemu juga passwordnya, seng 😭</p>
       <button class="btn" onclick="triggerConfetti(); goToStep('step2');">MASUK 🎁</button>
     </div>
   </div>
@@ -544,7 +524,7 @@
     </div>
 
     <div id="teaser-walkaway" style="display:none;">
-      <div class="bounce" style="font-size:3.5rem; margin:15px 0;">🚶‍♂️🎁</div>
+      <div class="bounce" style="font-size:3rem; margin:10px 0;">🚶‍♂️🎁</div>
       <button class="btn" onclick="teaserWait()">WAITTT SAYANG 😭</button>
     </div>
 
@@ -560,7 +540,7 @@
   <!-- EXTRA GAME 1: LOVE CATCH -->
   <div id="game-catch" class="step">
     <h2>💖 MISSION 1: TANGKAP HATI!</h2>
-    <p>Eits, sebelum milih kotak, kumpulin dulu 5 Love yang kabur ini, seng! 😭 Sisa target: <b id="heart-count" style="color:#ff2a6d; font-size:1.3rem;">5</b></p>
+    <p>Eits, sebelum milih kotak, kumpulin dulu 5 Love yang kabur ini, seng! 😭 Sisa target: <b id="heart-count" style="color:#ff2a6d; font-size:1.2rem;">5</b></p>
     <div class="heart-arena" id="heart-arena">
       <div class="floating-heart" id="target-heart" onclick="catchHeart()">💖</div>
     </div>
@@ -595,7 +575,7 @@
   <!-- STEP 3: FOUR GIFT BOXES -->
   <div id="step3" class="step">
     <h2>🎁 OKEEE KIKIII, SEKARANG PILIH SATU!</h2>
-    <p id="box-instruction">Ada 4 kotak di depan kamu. Katanya sih salah satunya ada sesuatu spesial buat kamu 😌 Jangan asal pilih yaa, sayang. Feeling kamu lagi bagus gak nih? 😭</p>
+    <p id="box-instruction">Ada 4 kotak di depan kamu. Katanya sih salah satunya ada sesuatu spesial buat kamu 😌 Jangan asal pilih yaa, sayang.</p>
 
     <div id="boxes-grid" class="grid-boxes">
       <button class="gift-box-btn" onclick="pickBox(1)">🎁 1</button>
@@ -611,39 +591,38 @@
     </div>
   </div>
 
-  <!-- CARD 1 & 2: HANDWRITING AESTHETIC FONT -->
-  <div id="card1" class="step font-handwriting">
+  <!-- CARD SLIDESHOW (UCAPAN DENGAN FONT CLEAN & TIDAK MENUHIN SPACE) -->
+  <div id="card1" class="step">
     <h2>HAPPY 26TH BIRTHDAY, KIKIII!! 🥳❤️</h2>
     <p id="type-card1"></p>
     <button class="btn" onclick="goToStep('card2')">LANJUT ➡️</button>
   </div>
 
-  <div id="card2" class="step font-handwriting">
+  <div id="card2" class="step">
     <h2>OKAY, SEKARANG SERIUS DIKIT</h2>
     <p id="type-card2"></p>
     <button class="btn" onclick="goToStep('card3')">LANJUT ➡️</button>
   </div>
 
-  <!-- CARD 3 & 4: CLASSIC ROMANTIC SERIF FONT -->
-  <div id="card3" class="step font-serif">
+  <div id="card3" class="step">
+    <h2>FOR YOU, SAYANG... ❤️</h2>
     <p id="type-card3"></p>
     <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
   </div>
 
-  <div id="card4" class="step font-serif">
+  <div id="card4" class="step">
     <h2>DI UMUR 26 INI...</h2>
     <p id="type-card4"></p>
     <button class="btn" onclick="goToStep('card5')">LANJUT ➡️</button>
   </div>
 
-  <!-- CARD 5 & 6: SOFT MODERN AESTHETIC FONT -->
-  <div id="card5" class="step font-soft">
+  <div id="card5" class="step">
     <h2>NAH, TAPI INI PENTING 😭</h2>
     <p id="type-card5"></p>
-    <button class="btn" onclick="goToStep('card6')">LANJUT ➡️️</button>
+    <button class="btn" onclick="goToStep('card6')">LANJUT ➡️</button>
   </div>
 
-  <div id="card6" class="step font-soft">
+  <div id="card6" class="step">
     <h2>POKOKNYA...</h2>
     <p id="type-card6"></p>
 
@@ -661,43 +640,43 @@
   </div>
 
   <!-- STEP 5: LAST TEASE -->
-  <div id="step5" class="step font-soft">
+  <div id="step5" class="step">
     <h2>EH BEB 👀</h2>
     <p id="type-step5">Jangan seneng dulu 😭 Game-nya belom selesai WKWKWK Masa kamu kira hadiah ulang tahun cuma tulisan doang?</p>
     <button class="btn" onclick="goToStep('step6'); startDelivery();">APAAN LAGI SIH 😭</button>
   </div>
 
   <!-- STEP 6: FINAL GIFT REVEAL -->
-  <div id="step6" class="step font-soft">
+  <div id="step6" class="step">
     <h2>📦 YOUR GIFT IS ON THE WAY</h2>
     <p>Jadi sekarang tugas kamu cuma satu, seng 😭\n\n<b>TUNGGU DI RUMAH YAAA</b></p>
 
-    <div style="text-align: left; font-size: 0.9rem; margin: 15px 0; background:rgba(255,255,255,0.85); padding:12px 15px; border-radius:12px; border:2px solid #ffccd5;">
+    <div style="text-align: left; font-size: 0.85rem; margin: 12px 0; background:rgba(255,255,255,0.85); padding:10px 14px; border-radius:12px; border:2px solid #ffccd5; line-height:1.5;">
       ✓ Hadiah disiapkan<br>
       ✓ Hadiah dikirim<br>
       ✓ Dibawa mamang kurir<br>
       <b>→ Kiki dimohon menunggu di rumah</b>
     </div>
 
-    <div style="font-size:3.2rem;" id="motor-anim" class="bounce">🏍💨</div>
+    <div style="font-size:2.8rem;" id="motor-anim" class="bounce">🏍💨</div>
 
     <div class="progress-bar-bg">
       <div id="progress-fill" class="progress-bar-fill"></div>
     </div>
-    <p id="progress-text" style="font-weight:bold; color:#ff2a6d;">0%</p>
+    <p id="progress-text" style="font-weight:bold; color:#ff2a6d; font-size:0.9rem;">0%</p>
 
-    <div id="delivery-done" style="display:none; margin-top:15px;">
-      <p style="color:#ff2a6d; font-weight:bold; font-size:1rem;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
-      <p style="font-size:0.9rem; margin-top:5px;">Jangan tidur.<br>Jangan pergi.<br>Jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
+    <div id="delivery-done" style="display:none; margin-top:12px;">
+      <p style="color:#ff2a6d; font-weight:bold; font-size:0.95rem;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
+      <p style="font-size:0.85rem; margin-top:4px;">Jangan tidur. Jangan pergi.<br>Jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
       <button class="btn" onclick="triggerConfetti(); goToStep('ending');">UDAH, AKU TUNGGU ❤️</button>
     </div>
   </div>
 
-  <!-- ENDING: SWEET ROMANTIC FONT -->
-  <div id="ending" class="step font-ending">
-    <h2>SELAMAT MENUNGGU HADIAHNYA, KIKIII 🥳</h2>
+  <!-- ENDING -->
+  <div id="ending" class="step">
+    <h2>HAPPY BIRTHDAY, KIKIII 🥳</h2>
     <p id="type-ending"></p>
-    <div style="font-size:2.8rem; margin-top:15px;" class="bounce">🎉🥳🎈✨❤️</div>
+    <div style="font-size:2.5rem; margin-top:10px;" class="bounce">🎉🥳🎈✨❤️</div>
   </div>
 
 </div>
@@ -725,7 +704,7 @@
   const particleSymbols = ['💖', '✨', '🌸', '⭐', '💕', '🎈', '🎀'];
   const particleContainer = document.getElementById('particle-container');
 
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < 20; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
     p.innerText = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
@@ -790,7 +769,7 @@
     flash.classList.add('flash-active');
   }
 
-  /* TYPEWRITER DENGAN FORMAT SPASI DAN ENTER RAPI */
+  /* TYPEWRITER KETIK DENGAN BACA SPASI KETIK SEMPURNA */
   function typeWriter(elementId, text, speed = 25) {
     const elem = document.getElementById(elementId);
     if (!elem) return;
@@ -798,7 +777,6 @@
     let i = 0;
     if (typingTimeout) clearTimeout(typingTimeout);
 
-    // Ubah \n menjadi <br> agar turun baris dengan sempurna
     const formattedText = text.replace(/\n/g, '<br>');
 
     function type() {
@@ -823,13 +801,12 @@
 
     if (stepId === 'game-catch') moveHeart();
     
-    // Trigger typewriter for cards
     if (cardTexts[stepId]) {
       typeWriter('type-' + stepId, cardTexts[stepId]);
     }
   }
 
-  /* STEP 1 LOGIC WITH VIDEO AUDIO CONTROL */
+  /* STEP 1 LOGIC */
   function checkPassword() {
     startMusic();
     const val = document.getElementById('passInput').value.trim();
@@ -913,8 +890,8 @@
   function moveHeart() {
     const arena = document.getElementById('heart-arena');
     const heart = document.getElementById('target-heart');
-    const maxX = arena.clientWidth - 65;
-    const maxY = arena.clientHeight - 65;
+    const maxX = arena.clientWidth - 60;
+    const maxY = arena.clientHeight - 60;
     
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
@@ -969,7 +946,7 @@
     document.getElementById('box-result').style.display = 'block';
 
     if (boxNum === correctBox) {
-      document.getElementById('box-result-text').innerHTML = "<b style='color:#ff2a6d; font-size:1.15rem;'>YOU GOT IT, SAYANGGG! 😭❤️</b><br><br>Akhirnyaaa.<br>Aku kira kamu bakal sampai besok WKWKWK.";
+      document.getElementById('box-result-text').innerHTML = "<b style='color:#ff2a6d; font-size:1.1rem;'>YOU GOT IT, SAYANGGG! 😭❤️</b><br><br>Akhirnyaaa.<br>Aku kira kamu bakal sampai besok WKWKWK.";
       document.getElementById('box-retry-btn').style.display = 'none';
       document.getElementById('box-win-btn').style.display = 'block';
     } else {
