@@ -3,39 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Special Birthday Invitation for Kiki 🥳💌</title>
-  <!-- Google Fonts: Pilihan Font Bersih & Estetik -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,600;0,800;1,600&family=Playfair+Display:ital,wght@0,600;1,600&family=Sniglet:wght@800&display=swap" rel="stylesheet">
+  <title>Kiki's 26th Birthday Journey 🌸✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Kosugi+Maru&family=Nunito:ital,wght@0,600;0,800;1,700&family=Sniglet:wght@800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   
   <style>
     :root {
-      --primary: #ff758c;
-      --primary-hover: #ff4b6e;
-      --envelope-bg: #fff0f3;
+      --sakura-pink: #FF5C8D;
+      --kyoto-red: #C00032;
+      --creamy-vanilla: #FFF5EA;
       --card-bg: rgba(255, 255, 255, 0.96);
       --text-main: #2c2c2c;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: linear-gradient(-45deg, #ffdde1, #ee9ca7, #ffc3a0, #ffafbd);
+      background: linear-gradient(-45deg, #FFEAEA, #FFD1DC, #FFF5EA, #FFCCD5);
       background-size: 400% 400%;
-      animation: gradientBG 10s ease infinite;
+      animation: gradientBG 12s ease infinite;
       color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 15px;
-      overflow-x: hidden;
-      position: relative;
-      font-family: 'Nunito', sans-serif;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; padding: 15px; overflow-x: hidden;
+      position: relative; font-family: 'Nunito', sans-serif;
     }
 
     @keyframes gradientBG {
@@ -44,201 +34,128 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Floating Particles BG */
-    .bg-particles {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
+    /* Falling Sakura Petals */
+    .sakura-container {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+    .petal {
+      position: absolute; background: #FFB7C5;
+      border-radius: 15px 0 15px 0; opacity: 0.8;
+      animation: fall 8s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
     }
 
-    .particle {
-      position: absolute; font-size: 1.4rem;
-      animation: floatUp 7s linear infinite; opacity: 0.6;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.8; }
-      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-    }
-
-    /* Flash Overlay for Jumpscare */
     .flash-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(255, 0, 76, 0.35); z-index: 99;
-      pointer-events: none; opacity: 0; transition: opacity 0.1s ease-in-out;
+      background: rgba(192, 0, 50, 0.35); z-index: 99; pointer-events: none;
+      opacity: 0; transition: opacity 0.1s ease-in-out;
     }
-
     .flash-active { animation: flashAnim 0.4s ease-out; }
     @keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
 
-    /* Music Player Button */
     .music-btn {
       position: fixed; top: 15px; right: 15px;
-      background: white; border: 3px solid #ff758c; border-radius: 50%;
-      width: 48px; height: 48px; font-size: 1.4rem;
+      background: #FFF; border: 3px solid var(--sakura-pink);
+      border-radius: 50%; width: 48px; height: 48px; font-size: 1.4rem;
       display: flex; justify-content: center; align-items: center;
-      cursor: pointer; z-index: 100;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      cursor: pointer; z-index: 100; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
       animation: rotateMusic 4s linear infinite;
     }
-
     .music-btn.paused { animation-play-state: paused; opacity: 0.7; }
     @keyframes rotateMusic { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* Main Container Card Scrapbook */
     .container {
       width: 100%; max-width: 390px;
       background: var(--card-bg); backdrop-filter: blur(12px);
-      border-radius: 28px; padding: 26px 20px;
-      box-shadow: 0 20px 40px rgba(255, 117, 140, 0.35), 0 0 0 8px rgba(255, 255, 255, 0.6);
+      border-radius: 28px; padding: 24px 18px;
+      box-shadow: 0 20px 40px rgba(255, 92, 141, 0.3), 0 0 0 8px rgba(255, 255, 255, 0.7);
       position: relative; z-index: 10; overflow: hidden;
-      perspective: 1000px; transition: all 0.5s ease;
-    }
-
-    /* ==========================================
-       ANIMASI AMPLOP SURAT UNTUK STEP 1
-       ========================================== */
-    .envelope-wrapper {
-      position: relative; width: 100%; height: 260px;
-      background: #f7aef8; border-radius: 18px;
-      margin: 15px 0 20px 0; cursor: pointer;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-      display: flex; justify-content: center; align-items: center;
-      overflow: hidden; border: 3px solid #ff758c;
-    }
-
-    .envelope-flap {
-      position: absolute; top: 0; left: 0; width: 100%; height: 0;
-      border-left: 180px solid transparent; border-right: 180px solid transparent;
-      border-top: 130px solid #ff85a1; transform-origin: top;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); z-index: 4;
-    }
-
-    .envelope-pocket {
-      position: absolute; bottom: 0; left: 0; width: 100%; height: 160px;
-      background: #f72585; opacity: 0.25; z-index: 3;
-      clip-path: polygon(0% 100%, 0% 0%, 50% 50%, 100% 0%, 100% 100%);
-    }
-
-    .wax-seal {
-      position: absolute; z-index: 5;
-      width: 65px; height: 65px; background: radial-gradient(circle, #ff0054, #9e0031);
-      border-radius: 50%; display: flex; justify-content: center; align-items: center;
-      font-size: 1.8rem; box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-      border: 2px dashed #ffccd5; animation: sealPulse 1.8s infinite alternate;
-    }
-
-    @keyframes sealPulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); box-shadow: 0 8px 18px rgba(255, 0, 84, 0.6); }
-    }
-
-    .letter-paper {
-      position: absolute; bottom: 10px; width: 88%; height: 220px;
-      background: #ffffff; border-radius: 12px; padding: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 2;
-      transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 2px dashed #ffccd5; display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-    }
-
-    /* Animasi Amplop Kebuka */
-    .envelope-wrapper.open .envelope-flap {
-      transform: rotateX(180deg); z-index: 1;
-    }
-    .envelope-wrapper.open .wax-seal {
-      display: none;
-    }
-    .envelope-wrapper.open .letter-paper {
-      transform: translateY(-25px) scale(1.02); z-index: 5;
-    }
-
-    /* ==========================================
-       TATA LETAK DINAMIS & VARIATIF
-       ========================================== */
-    .text-left-align { text-align: left !important; }
-    .text-center-align { text-align: center !important; }
-
-    .stamp-badge {
-      position: absolute; top: 12px; right: 12px;
-      background: #fff0f3; border: 2px dashed #ff758c; padding: 4px 8px;
-      border-radius: 6px; font-size: 0.75rem; font-weight: bold; color: #ff2a6d;
-      transform: rotate(6deg);
     }
 
     h2 {
-      font-family: 'Sniglet', 'Fredoka', cursive;
-      color: #ff2a6d; font-size: 1.5rem; letter-spacing: 0.5px;
+      font-family: 'Kosugi Maru', 'Sniglet', cursive;
+      color: var(--kyoto-red); font-size: 1.55rem;
       margin-bottom: 12px; text-shadow: 1px 1px 0px #fff;
-      display: inline-block; word-wrap: break-word; max-width: 100%;
     }
-
     p {
       font-family: 'Nunito', sans-serif; color: #383838;
-      font-size: 0.95rem; line-height: 1.6; font-weight: 600;
-      margin-bottom: 16px; word-wrap: break-word; overflow-wrap: break-word;
-      max-width: 100%;
-    }
-
-    /* FRAME FOTO GANTENG BLING-BLING DINAMIS */
-    .handsome-frame-container {
-      position: relative; display: inline-block;
-      margin: 12px auto; padding: 8px;
-      background: linear-gradient(135deg, #ffffff, #fff0f3, #ffe3e8);
-      border-radius: 18px; box-shadow: 0 10px 24px rgba(255, 117, 140, 0.4);
-      border: 3px solid #ff758c; transform: rotate(-3deg);
-      animation: frameFloatBling 3.5s infinite ease-in-out alternate;
-    }
-
-    @keyframes frameFloatBling {
-      0% { transform: translateY(0) rotate(-3deg); }
-      50% { transform: translateY(-6px) rotate(2deg); }
-      100% { transform: translateY(2px) rotate(-1deg); }
-    }
-
-    .handsome-photo {
-      width: 100%; max-width: 210px; height: 200px;
-      object-fit: cover; border-radius: 12px; display: block;
-    }
-
-    .sparkle-badge {
-      position: absolute; font-size: 1.5rem; pointer-events: none;
-      animation: sparkleGlow 1.5s infinite alternate;
-    }
-    .sparkle-1 { top: -8px; left: -8px; }
-    .sparkle-2 { top: -8px; right: -8px; }
-
-    @keyframes sparkleGlow {
-      0% { transform: scale(0.8); } 100% { transform: scale(1.3); }
-    }
-
-    .handsome-caption {
-      margin-top: 6px; font-family: 'Sniglet', cursive;
-      font-size: 1.1rem; font-weight: bold; color: #ff2a6d; text-align: center;
+      font-size: 0.98rem; line-height: 1.6; font-weight: 700;
+      margin-bottom: 16px; word-wrap: break-word;
     }
 
     .btn {
-      font-family: 'Sniglet', 'Fredoka', cursive;
-      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-      color: white; border: none; padding: 12px 20px;
-      border-radius: 16px; font-weight: 700; font-size: 1rem;
+      font-family: 'Kosugi Maru', 'Sniglet', cursive;
+      background: linear-gradient(135deg, var(--sakura-pink) 0%, #FF85A1 100%);
+      color: white; border: none; padding: 13px 20px;
+      border-radius: 16px; font-weight: 700; font-size: 1.05rem;
       cursor: pointer; width: 100%; margin-top: 8px;
-      transition: all 0.2s ease; box-shadow: 0 6px 16px rgba(255, 117, 140, 0.4);
+      transition: all 0.2s ease; box-shadow: 0 6px 16px rgba(255, 92, 141, 0.4);
+    }
+    .btn:active { transform: scale(0.95); }
+    .btn-secondary { background: linear-gradient(135deg, #a8a8a8 0%, #c4c4c4 100%); box-shadow: none; }
+
+    /* STAGE 1: JAPANESE TREE OPENING */
+    .opening-stage {
+      background: #FFFFFF; border-radius: 20px; padding: 30px 15px;
+      text-align: center; position: relative; border: 3px solid #FFE0E6;
+    }
+    .tree-silhouette { font-size: 4.5rem; margin-bottom: 20px; }
+    .growing-klik-btn {
+      width: 75px; height: 75px; background: var(--sakura-pink);
+      color: white; border-radius: 50%; display: flex;
+      justify-content: center; align-items: center; margin: 20px auto 0 auto;
+      font-family: 'Sniglet', cursive; font-weight: bold; font-size: 1.2rem;
+      cursor: pointer; box-shadow: 0 0 20px rgba(255, 92, 141, 0.6);
+      animation: growPulse 2s infinite ease-in-out alternate;
+    }
+    @keyframes growPulse {
+      0% { transform: scale(0.85); box-shadow: 0 0 10px rgba(255, 92, 141, 0.4); }
+      100% { transform: scale(1.15); box-shadow: 0 0 30px rgba(255, 92, 141, 0.9); }
     }
 
-    .btn:active { transform: scale(0.95); }
+    /* STAGE 2: JAPANESE SCROLL */
+    .scroll-box {
+      background: var(--creamy-vanilla); border: 3px solid var(--kyoto-red);
+      border-radius: 18px; padding: 20px 15px; margin: 15px 0; text-align: center;
+      box-shadow: inset 0 0 15px rgba(192, 0, 50, 0.1);
+    }
+    .hanko-stamps { display: flex; gap: 12px; margin-top: 15px; }
+    .stamp-btn {
+      flex: 1; padding: 12px; border-radius: 14px; border: 3px dashed var(--kyoto-red);
+      background: #FFF; color: var(--kyoto-red); font-family: 'Kosugi Maru', cursive;
+      font-weight: bold; font-size: 1.1rem; cursor: pointer;
+    }
 
-    .btn-secondary {
-      background: linear-gradient(135deg, #a8a8a8 0%, #c4c4c4 100%);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    /* MATCHA ANIMATION STYLES */
+    .matcha-card {
+      background: #E8F5E9; border: 3px solid #66BB6A;
+      border-radius: 20px; padding: 18px; text-align: center; margin: 12px 0;
+    }
+    .matcha-anim-box { font-size: 3.5rem; margin: 10px 0; animation: pourMilk 2s infinite alternate; }
+    @keyframes pourMilk { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
+
+    /* ORIGAMI ENVELOPE STYLES */
+    .origami-box {
+      background: #FFE3E8; border: 3px dashed var(--sakura-pink);
+      border-radius: 20px; padding: 20px; text-align: center; margin: 12px 0;
+    }
+    .hanko-seal {
+      width: 65px; height: 65px; background: var(--kyoto-red);
+      color: #FFF; border-radius: 50%; margin: 10px auto; display: flex;
+      justify-content: center; align-items: center; font-size: 1.8rem;
+      cursor: pointer; border: 2px dashed #FFF; box-shadow: 0 6px 14px rgba(192, 0, 50, 0.4);
     }
 
     input[type="password"] {
-      width: 100%; padding: 12px; border: 3px solid #ffccd5;
+      width: 100%; padding: 12px; border: 3px solid #FFCCD5;
       border-radius: 16px; margin-bottom: 12px; text-align: center;
       font-size: 1.1rem; letter-spacing: 3px; outline: none; background: #fff;
-      color: #ff2a6d; font-weight: bold;
+      color: var(--kyoto-red); font-weight: bold;
     }
 
     .polaroid-frame {
@@ -246,58 +163,49 @@
       border-radius: 14px; box-shadow: 0 14px 25px rgba(0,0,0,0.25);
       margin: 12px 0; transform: rotate(2deg);
     }
+    .jumpscare-anim { animation: jumpscare 0.5s ease forwards; }
+    @keyframes jumpscare { 0% { transform: scale(0.2); } 100% { transform: scale(1); } }
+    .screen-shake { animation: shake 0.5s ease; }
+    @keyframes shake { 10%, 90% { transform: translate3d(-3px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
 
-    .jumpscare-anim {
-      animation: jumpscareExtreme 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6) forwards;
-    }
+    .aib-photo, .aib-video { width: 100%; height: 190px; object-fit: cover; border-radius: 8px; }
 
-    @keyframes jumpscareExtreme {
-      0% { transform: scale(0.1) rotate(-35deg); opacity: 0; }
-      100% { transform: scale(1) rotate(2deg); opacity: 1; }
+    /* MINI GAMES */
+    .game-arena {
+      width: 100%; height: 180px; background: #FFF0F3;
+      border-radius: 18px; position: relative; overflow: hidden; margin: 12px 0;
+      border: 3px dashed var(--sakura-pink); display: flex; justify-content: center; align-items: center;
     }
-
-    .screen-shake { animation: containerShake 0.5s ease; }
-    @keyframes containerShake {
-      10%, 90% { transform: translate3d(-3px, 0, 0); }
-      30%, 70% { transform: translate3d(-6px, 0, 0); }
-      40%, 60% { transform: translate3d(6px, 0, 0); }
-    }
-
-    .aib-photo, .aib-video {
-      width: 100%; height: 190px; object-fit: cover; border-radius: 8px;
-    }
-
-    .step { display: none; }
-    .step.active {
-      display: block; animation: slideInUp 0.6s ease forwards;
-    }
-
-    @keyframes slideInUp {
-      0% { opacity: 0; transform: translateY(30px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
+    .balloon-box { display: flex; justify-content: space-around; width: 100%; }
+    .balloon { font-size: 2.8rem; cursor: pointer; animation: floatB 2s infinite alternate; }
+    @keyframes floatB { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
+    .floating-sakura { position: absolute; font-size: 2.5rem; cursor: pointer; }
 
     .grid-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
     .gift-box-btn {
-      background: #fff; border: 3px dashed #ff758c; padding: 18px 10px;
+      background: #fff; border: 3px dashed var(--sakura-pink); padding: 18px 10px;
       border-radius: 18px; font-size: 2rem; cursor: pointer;
-      box-shadow: 0 5px 12px rgba(255, 117, 140, 0.15);
     }
 
-    .heart-arena {
-      width: 100%; height: 180px; background: radial-gradient(circle, #fff0f3 0%, #ffe3e8 100%);
-      border-radius: 18px; position: relative; overflow: hidden; margin: 12px 0; border: 3px dashed #ff758c;
-    }
-    .floating-heart { position: absolute; font-size: 2.5rem; cursor: pointer; }
+    /* CARD VARIATIONS */
+    .card-style-1 { background: #FFF; border-left: 6px solid var(--sakura-pink); padding: 15px; border-radius: 12px; }
+    .card-style-2 { background: var(--creamy-vanilla); border: 2px dashed var(--kyoto-red); padding: 15px; border-radius: 12px; }
+    .card-style-3 { background: #FFF0F3; border-radius: 16px; padding: 15px; transform: rotate(-1.5deg); }
 
-    .cake-container { font-size: 3.8rem; margin: 12px 0; cursor: pointer; display: inline-block; }
-    .flame { display: inline-block; animation: flicker 0.2s infinite alternate; filter: drop-shadow(0 0 10px orange); }
-    @keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.3); } }
-
-    .progress-bar-bg {
-      width: 100%; background: #ffe3e8; height: 18px; border-radius: 10px; overflow: hidden; margin: 12px 0; border: 2px solid #ff758c;
+    /* HANDSOME PHOTO FRAME */
+    .handsome-frame-container {
+      position: relative; display: inline-block; margin: 12px auto; padding: 8px;
+      background: #FFF; border-radius: 18px; box-shadow: 0 10px 24px rgba(255, 92, 141, 0.4);
+      border: 3px solid var(--sakura-pink); transform: rotate(-2deg);
     }
-    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff758c, #ff7eb3); transition: width 0.1s linear; }
+    .handsome-photo { width: 100%; max-width: 210px; height: 200px; object-fit: cover; border-radius: 12px; display: block; }
+
+    .progress-bar-bg { width: 100%; background: #FFE3E8; height: 18px; border-radius: 10px; overflow: hidden; margin: 12px 0; border: 2px solid var(--sakura-pink); }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--sakura-pink), #FF85A1); transition: width 0.1s linear; }
+
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
 
     .bounce { animation: bounceAnim 0.8s infinite alternate ease-in-out; }
     @keyframes bounceAnim { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
@@ -305,149 +213,143 @@
 </head>
 <body>
 
-  <!-- Red Flash Effect Overlay -->
   <div class="flash-overlay" id="flashOverlay"></div>
+  <div class="sakura-container" id="sakuraContainer"></div>
 
-  <!-- Floating Particles Background -->
-  <div class="bg-particles" id="particle-container"></div>
-
-  <!-- Music Toggle Button -->
   <button class="music-btn paused" id="musicToggleBtn" onclick="toggleMusic()">🎵</button>
-
-  <!-- Audio Element -->
-  <audio id="bgMusic" loop>
-    <source src="lagu.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="bgMusic" loop><source src="lagu.mp3" type="audio/mpeg"></audio>
 
 <div class="container" id="mainContainer">
 
-  <!-- STEP 1: INTERACTIVE ENVELOPE (UNDANGAN AMPLOP SURAT) -->
-  <div id="step1" class="step active text-center-align">
-    <div class="stamp-badge">SPECIAL INVITATION 💌</div>
-    <h2>SPECIAL LETTER FOR KIKI ✉️</h2>
-    <p style="font-size:0.88rem; color:#777;">Ketuk segel hati di tengah amplop buat buka suratnya ya, seng!</p>
+  <!-- STAGE 1: JAPANESE OPENING -->
+  <div id="step1" class="step active">
+    <div class="opening-stage">
+      <div class="tree-silhouette">🌸🌸🌸<br>🌳</div>
+      <p style="font-size:0.9rem; color:#777;">Musim semi telah tiba di tempat Kiki...</p>
+      <div class="growing-klik-btn" onclick="goToStep('step2')">KLIK</div>
+    </div>
+  </div>
 
-    <!-- AMPLOP INTERAKTIF -->
-    <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
-      <div class="envelope-flap"></div>
-      <div class="wax-seal">💌</div>
-      <div class="envelope-pocket"></div>
-      
-      <!-- SURAT DI DALAM AMPLOP -->
-      <div class="letter-paper" id="letterPaper">
-        <p style="font-size:0.85rem; margin-bottom:8px; font-weight:bold; color:#ff2a6d;">PASSWORD CONFIRMATION 🔐</p>
-        
-        <div id="attempt-default" style="width:100%;">
-          <input type="password" id="passInput" placeholder="ENTER PASSWORD" onclick="event.stopPropagation()">
-          <button class="btn" onclick="event.stopPropagation(); checkPassword();">BUKA SEKARANG 🗝</button>
-        </div>
+  <!-- STAGE 2: JAPANESE SCROLL INVITATION -->
+  <div id="step2" class="step">
+    <h2>HAPPY BIRTHDAY KIKIII 🌸</h2>
+    <div class="scroll-box">
+      <p id="type-scroll" style="font-size:1.1rem; font-weight:bold; color:var(--kyoto-red); margin-bottom:10px;"></p>
+      <div class="hanko-stamps">
+        <button class="stamp-btn" onclick="goToStep('step3-matcha1')">YES ❤️</button>
+        <button class="stamp-btn" style="opacity:0.7;" onclick="scrollNo()">NO 😜</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 3A: MATCHA JOKES 1 -->
+  <div id="step3-matcha1" class="step">
+    <h2>KUIS MATCHA 1 🍵</h2>
+    <div class="matcha-card">
+      <p style="color:#2E7D32; font-weight:bold;">Kenapa air mata itu warnanya bening?</p>
+      <div class="matcha-anim-box">🍵🥛</div>
+      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns1()">LIHAT JAWABAN ➡️</button>
+      <div id="ans1" style="display:none; margin-top:12px;">
+        <p style="color:#1B5E20; font-weight:bold;">Karna kalo warna hijau ya air matcha WKWKWK 😭</p>
+        <button class="btn" style="background:#2E7D32;" onclick="goToStep('step3-matcha2')">LANJUT KUIS 2 ➡️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 3B: MATCHA JOKES 2 -->
+  <div id="step3-matcha2" class="step">
+    <h2>KUIS MATCHA 2 🍵</h2>
+    <div class="matcha-card">
+      <p style="color:#2E7D32; font-weight:bold;">Kenapa kalo ngaduk matcha harus pake kayu?</p>
+      <div class="matcha-anim-box">🍵⛏️</div>
+      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns2()">LIHAT JAWABAN ➡️️</button>
+      <div id="ans2" style="display:none; margin-top:12px;">
+        <p style="color:#1B5E20; font-weight:bold;">Karena kalo pake pacul jadinya matchul 😭⛏️</p>
+        <button class="btn" style="background:#2E7D32;" onclick="goToStep('step4-password')">MASUK KE GERBANG SECRET 🗝️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 4: ORIGAMI ENVELOPE PASSWORD -->
+  <div id="step4-password" class="step text-center">
+    <h2>GERBANG SECRET 🔐</h2>
+    <div class="origami-box">
+      <p style="font-size:0.88rem; color:#777;">Ketuk segel Hanko merah buat masukin password ya seng!</p>
+      <div id="seal-trigger" class="hanko-seal" onclick="revealPass()">💌</div>
+
+      <div id="pass-field" style="display:none; margin-top:10px;">
+        <input type="password" id="passInput" placeholder="ENTER PASSWORD">
+        <button class="btn" onclick="checkPassword()">BUKA SURAT 🗝</button>
       </div>
     </div>
 
-    <!-- Attempt 1 Result (VIDEO AIB) -->
     <div id="attempt1-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
+      <p><b style="color:var(--kyoto-red);">SALAHH SAYANG 😭</b><br>Masa password aja gak bisa WKWKWK</p>
       <div class="polaroid-frame jumpscare-anim">
-        <video id="v-aib1" class="aib-video" playsinline loop>
-          <source src="aib1.mp4" type="video/mp4">
-        </video>
+        <video id="v-aib1" class="aib-video" playsinline loop><source src="aib1.mp4" type="video/mp4"></video>
       </div>
       <button class="btn" onclick="resetPasswordStep()">COBA LAGI 🔄</button>
     </div>
 
-    <!-- Attempt 2 Result (FOTO AIB) -->
     <div id="attempt2-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
+      <p><b style="color:var(--kyoto-red);">SALAH LAGI SENG 😭</b><br>Coba inget-inget lagi masa gitu aja lupa.</p>
       <div class="polaroid-frame jumpscare-anim">
         <img src="aib2.jpg" alt="Foto Aib 2" class="aib-photo">
       </div>
       <button class="btn" onclick="resetPasswordStep()">COBA LAGI 🔄</button>
     </div>
 
-    <!-- Attempt 3 Result -->
     <div id="attempt3-res" style="display:none;">
-      <p><b>YEEEAY, BENER SAYANG! 🔓</b><br>Akhirnya ketemu juga passwordnya, seng 😭</p>
-      <button class="btn" onclick="triggerConfetti(); goToStep('step2');">MASUK KE INVITATION 🎁</button>
+      <p><b>YEEEAY BENER SAYANG! 🔓</b><br>Akhirnya ketemu juga passwordnya seng 😭</p>
+      <button class="btn" onclick="triggerConfetti(); goToStep('game-sakura');">MASUK MINI GAMES 🎁</button>
     </div>
   </div>
 
-  <!-- STEP 2: GIFT TEASER (TATA LETAK KIRI - VARIATIF) -->
-  <div id="step2" class="step text-left-align">
-    <div class="stamp-badge">TEASER 🎁</div>
-    <h2>ARE YOU READY, BEB? 👀</h2>
-    <p id="teaser-text">Aku sebenernya punya sesuatu yang spesial banget buat kamu. Mau lihat gak, seng?</p>
-
-    <div id="teaser-choice-1">
-      <button class="btn" onclick="teaserYes()">MAU LAH SAYANG ❤️</button>
-      <button class="btn btn-secondary" onclick="teaserNo()">GAK MAU AH 😜</button>
+  <!-- GAME 1: PETIK SAKURA -->
+  <div id="game-sakura" class="step text-center">
+    <h2>MISI 1: PETIK SAKURA 🌸</h2>
+    <p>Tangkap 5 kelopak sakura melayang! Sisa: <b id="sakura-count" style="color:var(--sakura-pink);">5</b></p>
+    <div class="game-arena" id="sakura-arena">
+      <div class="floating-sakura" id="target-sakura" onclick="catchSakura()">🌸</div>
     </div>
-
-    <div id="teaser-choice-no" style="display:none;">
-      <button class="btn btn-secondary" onclick="teaserYakinNo()">YAKIN, GAK MAU</button>
-      <button class="btn" onclick="teaserEhhMau()">EHH MAU DING 😭</button>
-    </div>
-
-    <div id="teaser-walkaway" style="display:none; text-align:center;">
-      <div class="bounce" style="font-size:3rem; margin:10px 0;">🚶‍♂️🎁</div>
-      <button class="btn" onclick="teaserWait()">WAITTT SAYANG 😭</button>
-    </div>
-
-    <div id="teaser-final" style="display:none;">
-      <button class="btn" onclick="goToStep('game-catch')">SIAP BEB 🚀</button>
-    </div>
-
-    <div id="teaser-mau-banget" style="display:none;">
-      <button class="btn" onclick="goToStep('game-catch')">MAU BANGET BEB ❤️</button>
-    </div>
+    <button class="btn" id="sakura-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-balloon');">MISI 1 CLEARED! LANJUT ➡️️</button>
   </div>
 
-  <!-- EXTRA GAME 1: LOVE CATCH -->
-  <div id="game-catch" class="step text-center-align">
-    <h2>💖 MISSION 1: TANGKAP HATI!</h2>
-    <p>Sebelum milih hadiah, kumpulin dulu 5 Love yang kabur ini, seng! 😭 Sisa: <b id="heart-count" style="color:#ff2a6d;">5</b></p>
-    <div class="heart-arena" id="heart-arena">
-      <div class="floating-heart" id="target-heart" onclick="catchHeart()">💖</div>
+  <!-- GAME 2: BALON SAKURA -->
+  <div id="game-balloon" class="step text-center">
+    <h2>MISI 2: PECAHKAN BALON 🎈</h2>
+    <p>Ketuk 3 balon ulang tahun di bawah! Sisa: <b id="balloon-count" style="color:var(--sakura-pink);">3</b></p>
+    <div class="game-arena">
+      <div class="balloon-box">
+        <div class="balloon" id="b1" onclick="popB('b1')">🎈</div>
+        <div class="balloon" id="b2" onclick="popB('b2')">🎈</div>
+        <div class="balloon" id="b3" onclick="popB('b3')">🎈</div>
+      </div>
     </div>
-    <button class="btn" id="catch-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-cake');">MISSION CLEARED! LANJUT ➡️</button>
+    <button class="btn" id="balloon-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-cake');">MISI 2 CLEARED! LANJUT ➡️</button>
   </div>
 
-  <!-- EXTRA GAME 2: BLOW CANDLE -->
-  <div id="game-cake" class="step text-center-align">
-    <h2>🎂 MISSION 2: TIUP LILINNYA!</h2>
-    <p id="cake-text">Ketuk kue di bawah 5 kali cepat buat tiup lilinnya dan buat permohonan! 🥳</p>
-    <div class="cake-container" onclick="blowCandle()">
-      <span id="flame-icon" class="flame">🔥</span><br>🎂
+  <!-- GAME 3: TIUP LILIN MATCHA -->
+  <div id="game-cake" class="step text-center">
+    <h2>MISI 3: TIUP LILIN MATCHA 🎂</h2>
+    <p id="cake-text">Ketuk kue di bawah 5 kali cepat buat tiup apinya! 🥳</p>
+    <div style="font-size:3.8rem; cursor:pointer;" onclick="blowCandle()">
+      <span id="flame-icon" style="display:inline-block; animation:flicker 0.2s infinite alternate;">🔥</span><br>🎂
     </div>
-    <p id="blow-status" style="font-weight:bold; color:#ff2a6d;">Ketukan: <span id="tap-count">0</span>/5</p>
-    <button class="btn" id="cake-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-quiz');">MAKE A WISH DONE! LANJUT ➡️</button>
+    <p id="blow-status" style="font-weight:bold; color:var(--kyoto-red);">Ketukan: <span id="tap-count">0</span>/5</p>
+    <button class="btn" id="cake-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-box');">MAKE A WISH DONE! LANJUT ➡️</button>
   </div>
 
-  <!-- EXTRA GAME 3: LOVE QUIZ -->
-  <div id="game-quiz" class="step text-left-align">
-    <h2>❓ MISSION 3: KUIS ASMARA</h2>
-    <p id="quiz-question">Siapa yang paling kangenan di antara kita berdua? 😭</p>
-    <div id="quiz-options">
-      <button class="btn" onclick="answerQuiz(true)">Aku (Kiki) lah pastinya 😌</button>
-      <button class="btn btn-secondary" style="margin-top:8px;" onclick="answerQuiz(false)">Gak tau, lupa 🤪</button>
-    </div>
-    <div id="quiz-result" style="display:none;" class="text-center-align">
-      <p id="quiz-msg"></p>
-      <button class="btn" id="quiz-next-btn" onclick="triggerConfetti(); goToStep('step3');">MASUK KE KOTAK HADIAH 🎁</button>
-    </div>
-  </div>
-
-  <!-- STEP 3: FOUR GIFT BOXES -->
-  <div id="step3" class="step text-center-align">
-    <h2>🎁 PILIH SATU KOTAK, KIKI!</h2>
-    <p id="box-instruction">Ada 4 kotak misteri. Salah satunya punya pesan rahasia buat kamu 😌</p>
-
+  <!-- GAME 4: OMIKUJI BOX -->
+  <div id="game-box" class="step text-center">
+    <h2>MISI 4: PILIH OMIKUJI ⛩️</h2>
+    <p>Pilih 1 kotak keberuntungan yang ada pesan rahasianya seng!</p>
     <div id="boxes-grid" class="grid-boxes">
       <button class="gift-box-btn" onclick="pickBox(1)">🎁 1</button>
       <button class="gift-box-btn" onclick="pickBox(2)">🎁 2</button>
       <button class="gift-box-btn" onclick="pickBox(3)">🎁 3</button>
       <button class="gift-box-btn" onclick="pickBox(4)">🎁 4</button>
     </div>
-
     <div id="box-result" style="display:none;">
       <p id="box-result-text"></p>
       <button class="btn" id="box-retry-btn" onclick="resetBoxes()">PILIH LAGI 🔄</button>
@@ -455,89 +357,70 @@
     </div>
   </div>
 
-  <!-- CARD SLIDESHOW (TATA LETAK VARIASI & RAPI) -->
-  <div id="card1" class="step text-center-align">
-    <h2>HAPPY 26TH BIRTHDAY, KIKIII!! 🥳❤️</h2>
-    <p id="type-card1"></p>
+  <!-- SLIDE UCAPAN 1 -->
+  <div id="card1" class="step">
+    <h2>HAPPY 26TH BIRTHDAY KIKIII 🥳❤️</h2>
+    <div class="card-style-1">
+      <p id="type-card1"></p>
+    </div>
     <button class="btn" onclick="goToStep('card2')">LANJUT ➡️</button>
   </div>
 
-  <div id="card2" class="step text-left-align">
-    <h2>OKAY, SEKARANG SERIUS DIKIT 💭</h2>
-    <p id="type-card2"></p>
+  <!-- SLIDE UCAPAN 2 -->
+  <div id="card2" class="step">
+    <h2>MAKASIII SAYANGGG 💭</h2>
+    <div class="card-style-2">
+      <p id="type-card2"></p>
+    </div>
     <button class="btn" onclick="goToStep('card3')">LANJUT ➡️</button>
   </div>
 
-  <div id="card3" class="step text-left-align">
-    <h2>FOR YOU, SAYANG... ❤️</h2>
-    <p id="type-card3"></p>
+  <!-- SLIDE UCAPAN 3 -->
+  <div id="card3" class="step">
+    <h2>I LOVE YOU SOOO MUCHHH ❤️</h2>
+    <div class="card-style-3">
+      <p id="type-card3"></p>
+    </div>
     <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
   </div>
 
-  <div id="card4" class="step text-center-align">
-    <h2>DI UMUR 26 INI... ✨</h2>
+  <!-- SLIDE UCAPAN 4 & FOTO GANTENG -->
+  <div id="card4" class="step text-center">
+    <h2>THE BIRTHDAY BOY ✨❤️</h2>
     <p id="type-card4"></p>
-    <button class="btn" onclick="goToStep('card5')">LANJUT ➡️</button>
-  </div>
-
-  <div id="card5" class="step text-left-align">
-    <h2>NAH, TAPI INI PENTING 😭</h2>
-    <p id="type-card5"></p>
-    <button class="btn" onclick="goToStep('card6')">LANJUT ➡️</button>
-  </div>
-
-  <div id="card6" class="step text-center-align">
-    <h2>POKOKNYA... ❤️</h2>
-    <p id="type-card6"></p>
-
-    <!-- FOTO GANTENG KIKI FRAME BLING-BLING -->
     <div class="handsome-frame-container">
-      <span class="sparkle-badge sparkle-1">✨</span>
-      <span class="sparkle-badge sparkle-2">💖</span>
       <img src="ganteng.png" alt="Foto Ganteng Kiki" class="handsome-photo" onerror="this.src='ganteng.jpg'">
-      <div class="handsome-caption">The Birthday Boy ✨❤️</div>
+      <div style="font-weight:bold; color:var(--kyoto-red); margin-top:6px;">Kiki Ahmad Dasuki ✨</div>
     </div>
-
-    <button class="btn" onclick="triggerConfetti(); goToStep('step5');">LANJUT ➡️</button>
+    <button class="btn" onclick="triggerConfetti(); goToStep('step-delivery'); startDelivery();">LANJUT KE HADIAH ➡️</button>
   </div>
 
-  <!-- STEP 5: LAST TEASE -->
-  <div id="step5" class="step text-center-align">
-    <h2>EH BEB 👀</h2>
-    <p id="type-step5">Jangan seneng dulu 😭 Game-nya belom selesai WKWKWK Masa kamu kira hadiah ulang tahun cuma tulisan doang?</p>
-    <button class="btn" onclick="goToStep('step6'); startDelivery();">APAAN LAGI SIH 😭</button>
-  </div>
-
-  <!-- STEP 6: FINAL GIFT REVEAL -->
-  <div id="step6" class="step text-left-align">
-    <div class="stamp-badge">EXPRESS DELIVERY 📦</div>
+  <!-- DELIVERY SIMULATION -->
+  <div id="step-delivery" class="step text-left">
     <h2>YOUR GIFT IS ON THE WAY 🏍️</h2>
-    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b style="font-size:1.05rem; color:#ff2a6d;">TUNGGU DI RUMAH YAAA</b></p>
+    <p>Jadi sekarang tugas kamu cuma satu seng<br><br><b style="color:var(--kyoto-red);">TUNGGU DI RUMAH YAAA</b></p>
 
-    <div style="font-size:0.85rem; margin: 12px 0; background:rgba(255,255,255,0.85); padding:10px 14px; border-radius:12px; border:2px solid #ffccd5; line-height:1.5;">
+    <div style="font-size:0.85rem; margin:12px 0; background:#FFF; padding:10px; border-radius:12px; border:2px solid #FFCCD5;">
       ✓ Hadiah disiapkan<br>
       ✓ Hadiah dikirim<br>
       ✓ Dibawa mamang kurir<br>
       <b>→ Kiki dimohon menunggu di rumah</b>
     </div>
 
-    <div style="font-size:2.8rem; text-align:center;" id="motor-anim" class="bounce">🏍💨</div>
+    <div style="font-size:2.8rem; text-align:center;" class="bounce">🏍💨</div>
+    <div class="progress-bar-bg"><div id="progress-fill" class="progress-bar-fill"></div></div>
+    <p id="progress-text" style="font-weight:bold; color:var(--kyoto-red); text-align:center;">0%</p>
 
-    <div class="progress-bar-bg">
-      <div id="progress-fill" class="progress-bar-fill"></div>
-    </div>
-    <p id="progress-text" style="font-weight:bold; color:#ff2a6d; font-size:0.9rem; text-align:center;">0%</p>
-
-    <div id="delivery-done" style="display:none; margin-top:12px;" class="text-center-align">
-      <p style="color:#ff2a6d; font-weight:bold; font-size:0.95rem;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
-      <p style="font-size:0.85rem; margin-top:4px;">Jangan tidur. Jangan pergi.<br>Jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
-      <button class="btn" onclick="triggerConfetti(); goToStep('ending');">UDAH, AKU TUNGGU ❤️</button>
+    <div id="delivery-done" style="display:none; text-align:center;">
+      <p style="color:var(--kyoto-red); font-weight:bold;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
+      <p style="font-size:0.85rem;">Jangan tidur jangan pergi jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
+      <button class="btn" onclick="triggerConfetti(); goToStep('ending');">UDAH AKU TUNGGU ❤️</button>
     </div>
   </div>
 
   <!-- ENDING -->
-  <div id="ending" class="step text-center-align">
-    <h2>HAPPY BIRTHDAY, KIKIII 🥳</h2>
+  <div id="ending" class="step text-center">
+    <h2>HAPPY BIRTHDAY ONCE AGAIN KIKIII 🥳</h2>
     <p id="type-ending"></p>
     <div style="font-size:2.5rem; margin-top:10px;" class="bounce">🎉🥳🎈✨❤️</div>
   </div>
@@ -547,103 +430,65 @@
 <script>
   let attemptCount = 0;
   let correctBox = Math.floor(Math.random() * 4) + 1;
-  let heartsLeft = 5;
+  let sakuraLeft = 5;
+  let balloonsLeft = 3;
   let candleTaps = 0;
   let isMusicPlaying = false;
   let typingTimeout = null;
 
-  // Card Text Messages for Typewriter Effect
+  // GAYA PENULISAN KHAS KAMU (TANPA KOMA KAKU, TANPA TITIK-TITIK, HURUF DIPANJANGKAN)
   const cardTexts = {
-    'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭<br><br>Gimana rasanya makin tua, seng? WKWKWK<br><br>Tenang, aku masih mau kok nemenin kamu walaupun udah 26 😌',
-    'card2': 'Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini.<br><br>Makasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng.<br><br>Bahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
-    'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.<br><br>I really love having you in my life. Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.',
-    'card4': 'Aku cuma pengen kamu selalu sehat dan bahagia. Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai.<br><br>I hope this year brings you lots of good things, sayang ❤️',
-    'card5': 'Jangan lupa buat jaga diri juga yaa seng. Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭<br><br>Aku kan masih mau punya Kiki yang sehat buat aku gangguin.',
-    'card6': 'Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum. Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.<br><br>I LOVE YOU SOOO MUCH, KIKI ❤️',
-    'ending': 'Semoga kamu suka yaa, sayang. Dari semua yang aku kasih hari ini, semoga yang paling kamu inget tetep aku 😌<br><br>HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️<br>I LOVE YOU SOOO MUCH, KIKI ❤️<br>TAYANGNYA AKUU ❤️'
+    'step2': 'UDAH SIAP BELUMMM SENG 😭',
+    'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaaa 😭\n\nGimana rasanya makin tua seng WKWKWK\n\nTenang aku masih mau kok nemenin kamu walaupun udah 26 😌',
+    'card2': 'Makasiii yaa sayang udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini\n\nMakasiii buat semua hal kecil yang kamu lakuin buat waktu yang kamu kasih dan buat semua cerita yang kita bagi bareng\n\nBahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
+    'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas tapi aku sayang banget sama kamu beb\n\nI really love having you in my life aku seneng bisa kenal kamu bisa deket sama kamu dan bisa ngelewatin banyak hal bareng kamu❤️',
+    'card4': 'Aku cuma pengen kamu selalu sehat dan bahagia semoga rezekinya makin lancar semua urusannya dimudahin dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai\n\nI hope this year brings you lots of good things sayanggg ❤️',
+    'ending': 'Semoga kamu suka yaa sayang dari semua yang aku kasih hari ini semoga yang paling kamu inget tetep aku 😌\n\nHAPPY BIRTHDAY SEKALI LAGI KIKIII ❤️\nI LOVE YOU SOOO MUCH KIKI ❤️\nTAYANGNYA AKUU ❤️'
   };
 
-  // Background Animated Particles Generator
-  const particleSymbols = ['💖', '✨', '🌸', '⭐', '💕', '🎈', '🎀'];
-  const particleContainer = document.getElementById('particle-container');
-
-  for (let i = 0; i < 20; i++) {
+  // Falling Sakura Generator
+  const sc = document.getElementById('sakuraContainer');
+  for (let i = 0; i < 22; i++) {
     const p = document.createElement('div');
-    p.className = 'particle';
-    p.innerText = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
+    p.className = 'petal';
+    p.style.width = (Math.random() * 12 + 8) + 'px';
+    p.style.height = (Math.random() * 12 + 8) + 'px';
     p.style.left = Math.random() * 100 + 'vw';
     p.style.animationDuration = (Math.random() * 4 + 5) + 's';
     p.style.animationDelay = (Math.random() * 5) + 's';
-    particleContainer.appendChild(p);
+    sc.appendChild(p);
   }
 
-  /* Envelope Controller */
-  function openEnvelope() {
-    startMusic();
-    const wrapper = document.getElementById('envelopeWrapper');
-    wrapper.classList.add('open');
-  }
-
-  /* Music Controller */
   function startMusic() {
     const audio = document.getElementById('bgMusic');
     const btn = document.getElementById('musicToggleBtn');
-    audio.play().then(() => {
-      isMusicPlaying = true;
-      btn.classList.remove('paused');
-    }).catch(e => console.log("Audio waiting for user click"));
+    audio.play().then(() => { isMusicPlaying = true; btn.classList.remove('paused'); }).catch(e => {});
   }
-
-  function pauseMusicForVideo() {
-    const audio = document.getElementById('bgMusic');
-    if (isMusicPlaying) { audio.pause(); }
-  }
-
-  function resumeMusicAfterVideo() {
-    const audio = document.getElementById('bgMusic');
-    if (isMusicPlaying) { audio.play(); }
-  }
-
+  function pauseMusicForVideo() { const audio = document.getElementById('bgMusic'); if (isMusicPlaying) audio.pause(); }
+  function resumeMusicAfterVideo() { const audio = document.getElementById('bgMusic'); if (isMusicPlaying) audio.play(); }
   function toggleMusic() {
     const audio = document.getElementById('bgMusic');
     const btn = document.getElementById('musicToggleBtn');
-    if (isMusicPlaying) {
-      audio.pause(); btn.classList.add('paused'); isMusicPlaying = false;
-    } else {
-      audio.play(); btn.classList.remove('paused'); isMusicPlaying = true;
-    }
+    if (isMusicPlaying) { audio.pause(); btn.classList.add('paused'); isMusicPlaying = false; }
+    else { audio.play(); btn.classList.remove('paused'); isMusicPlaying = true; }
   }
 
-  function triggerConfetti() {
-    if (typeof confetti === 'function') {
-      confetti({ particleCount: 110, spread: 85, origin: { y: 0.6 } });
-    }
-  }
-
+  function triggerConfetti() { if (typeof confetti === 'function') confetti({ particleCount: 110, spread: 85, origin: { y: 0.6 } }); }
   function triggerJumpscareFlash() {
     const flash = document.getElementById('flashOverlay');
-    flash.classList.remove('flash-active');
-    void flash.offsetWidth;
-    flash.classList.add('flash-active');
+    flash.classList.remove('flash-active'); void flash.offsetWidth; flash.classList.add('flash-active');
   }
 
-  /* TYPEWRITER FUNCTION */
   function typeWriter(elementId, text, speed = 25) {
     const elem = document.getElementById(elementId);
     if (!elem) return;
-    elem.innerHTML = '';
-    let i = 0;
+    elem.innerHTML = ''; let i = 0;
     if (typingTimeout) clearTimeout(typingTimeout);
-
+    const formatted = text.replace(/\n/g, '<br>');
     function type() {
-      if (i < text.length) {
-        if (text.substr(i, 4) === '<br>') {
-          elem.innerHTML += '<br>';
-          i += 4;
-        } else {
-          elem.innerHTML += text.charAt(i);
-          i++;
-        }
+      if (i < formatted.length) {
+        if (formatted.substr(i, 4) === '<br>') { elem.innerHTML += '<br>'; i += 4; }
+        else { elem.innerHTML += formatted.charAt(i); i++; }
         typingTimeout = setTimeout(type, speed);
       }
     }
@@ -652,162 +497,90 @@
 
   function goToStep(stepId) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    const targetStep = document.getElementById(stepId);
-    targetStep.classList.add('active');
-
-    if (stepId === 'game-catch') moveHeart();
-    
-    if (cardTexts[stepId]) {
-      typeWriter('type-' + stepId, cardTexts[stepId]);
-    }
+    document.getElementById(stepId).classList.add('active');
+    if (stepId === 'game-sakura') moveSakura();
+    if (cardTexts[stepId]) typeWriter('type-' + stepId, cardTexts[stepId]);
   }
 
-  /* STEP 1 LOGIC */
+  function scrollNo() { alert("Ehh kok klik NO sih seng 😭 Klik YES dong WKWKWK"); }
+  function showMatchaAns1() { document.getElementById('ans1').style.display = 'block'; }
+  function showMatchaAns2() { document.getElementById('ans2').style.display = 'block'; }
+
+  function revealPass() { startMusic(); document.getElementById('seal-trigger').style.display = 'none'; document.getElementById('pass-field').style.display = 'block'; }
+
   function checkPassword() {
     const val = document.getElementById('passInput').value.trim();
     attemptCount++;
-
     const container = document.getElementById('mainContainer');
-    document.getElementById('envelopeWrapper').style.display = 'none';
+    document.querySelector('.origami-box').style.display = 'none';
 
     if (val === '240901' || attemptCount === 1) {
-      triggerJumpscareFlash();
-      triggerShake(container);
-      pauseMusicForVideo();
-      const videoElem = document.getElementById('v-aib1');
+      triggerJumpscareFlash(); triggerShake(container); pauseMusicForVideo();
+      const v = document.getElementById('v-aib1');
       document.getElementById('attempt1-res').style.display = 'block';
-      if (videoElem) {
-        videoElem.currentTime = 0;
-        videoElem.play().catch(e => console.log(e));
-      }
+      if (v) { v.currentTime = 0; v.play().catch(e=>{}); }
     } else if (val === '221125' || attemptCount === 2) {
-      triggerJumpscareFlash();
-      triggerShake(container);
+      triggerJumpscareFlash(); triggerShake(container);
       document.getElementById('attempt2-res').style.display = 'block';
     } else if (val === '081000' || attemptCount >= 3) {
       document.getElementById('attempt3-res').style.display = 'block';
     }
   }
 
-  function triggerShake(element) {
-    element.classList.remove('screen-shake');
-    void element.offsetWidth;
-    element.classList.add('screen-shake');
-  }
-
+  function triggerShake(elem) { elem.classList.remove('screen-shake'); void elem.offsetWidth; elem.classList.add('screen-shake'); }
   function resetPasswordStep() {
-    const videoElem = document.getElementById('v-aib1');
-    if (videoElem) { videoElem.pause(); }
+    const v = document.getElementById('v-aib1'); if (v) v.pause();
     resumeMusicAfterVideo();
-
     document.getElementById('attempt1-res').style.display = 'none';
     document.getElementById('attempt2-res').style.display = 'none';
-    document.getElementById('envelopeWrapper').style.display = 'flex';
+    document.querySelector('.origami-box').style.display = 'block';
     document.getElementById('passInput').value = '';
   }
 
-  /* STEP 2 LOGIC */
-  function teaserYes() {
-    document.getElementById('teaser-text').innerHTML = "Hehe, gitu dong seng 😌 Aku tau kamu pasti penasaran. Tapiii... hadiahnya belum boleh dikasih sekarang. Kamu harus lakuin satu hal dulu 😈 Siap, sayang?";
-    document.getElementById('teaser-choice-1').style.display = 'none';
-    document.getElementById('teaser-final').style.display = 'block';
+  function moveSakura() {
+    const arena = document.getElementById('sakura-arena');
+    const target = document.getElementById('target-sakura');
+    const maxX = arena.clientWidth - 50; const maxY = arena.clientHeight - 50;
+    target.style.left = Math.max(10, Math.floor(Math.random() * maxX)) + 'px';
+    target.style.top = Math.max(10, Math.floor(Math.random() * maxY)) + 'px';
   }
 
-  function teaserNo() {
-    document.getElementById('teaser-text').innerHTML = "HAH?! Gak mau?? 😭 Serius, seng? Aku udah susah payah siapin ini buat kamu loh... Yakin gak mau?";
-    document.getElementById('teaser-choice-1').style.display = 'none';
-    document.getElementById('teaser-choice-no').style.display = 'block';
+  function catchSakura() {
+    sakuraLeft--; document.getElementById('sakura-count').innerText = sakuraLeft;
+    if (sakuraLeft > 0) moveSakura();
+    else { document.getElementById('target-sakura').style.display = 'none'; document.getElementById('sakura-next-btn').style.display = 'block'; }
   }
 
-  function teaserEhhMau() {
-    document.getElementById('teaser-text').innerHTML = "NAHHH GITU DONG 😭 Dari tadi sok jual mahal sih, seng. Sini, kita lanjut...";
-    document.getElementById('teaser-choice-no').style.display = 'none';
-    document.getElementById('teaser-final').style.display = 'block';
-  }
-
-  function teaserYakinNo() {
-    document.getElementById('teaser-text').innerHTML = "OHHH... KITU NYA, KIKI? 😔 Nyaudah atuh... kalau emang gak mau, aku simpen lagi hadiahnya. Dadah, beb.";
-    document.getElementById('teaser-choice-no').style.display = 'none';
-    document.getElementById('teaser-walkaway').style.display = 'block';
-  }
-
-  function teaserWait() {
-    document.getElementById('teaser-text').innerHTML = "... WAIT. Kamu beneran gak mau?! 😭 NAHHH GITU DONG 😭 Dari tadi sok jual mahal sih, seng. Sini, aku kasih kesempatan terakhir deh. Sekarang mau lihat hadiahnya gak, sayang?";
-    document.getElementById('teaser-walkaway').style.display = 'none';
-    document.getElementById('teaser-mau-banget').style.display = 'block';
-  }
-
-  /* EXTRA GAME 1: LOVE CATCH */
-  function moveHeart() {
-    const arena = document.getElementById('heart-arena');
-    const heart = document.getElementById('target-heart');
-    const maxX = arena.clientWidth - 60;
-    const maxY = arena.clientHeight - 60;
-    
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
-
-    heart.style.left = Math.max(10, randomX) + 'px';
-    heart.style.top = Math.max(10, randomY) + 'px';
-  }
-
-  function catchHeart() {
-    heartsLeft--;
-    document.getElementById('heart-count').innerText = heartsLeft;
-
-    if (heartsLeft > 0) {
-      moveHeart();
-    } else {
-      document.getElementById('target-heart').style.display = 'none';
-      document.getElementById('catch-next-btn').style.display = 'block';
+  function popB(id) {
+    const b = document.getElementById(id);
+    if (b && b.style.visibility !== 'hidden') {
+      b.style.visibility = 'hidden'; balloonsLeft--;
+      document.getElementById('balloon-count').innerText = balloonsLeft;
+      if (balloonsLeft <= 0) document.getElementById('balloon-next-btn').style.display = 'block';
     }
   }
 
-  /* EXTRA GAME 2: CANDLE BLOW */
   function blowCandle() {
     if (candleTaps < 5) {
-      candleTaps++;
-      document.getElementById('tap-count').innerText = candleTaps;
-
+      candleTaps++; document.getElementById('tap-count').innerText = candleTaps;
       if (candleTaps === 5) {
         document.getElementById('flame-icon').innerHTML = '💨';
-        document.getElementById('flame-icon').classList.remove('flame');
-        document.getElementById('cake-text').innerHTML = "<b style='color:#ff2a6d;'>YEEAY LILINNYA PADAM! 🥳✨</b><br>Semoga semua harapan Kiki tahun ini terkabul yaa, sayang ❤️";
+        document.getElementById('cake-text').innerHTML = "<b style='color:var(--kyoto-red);'>YEEAY LILINNYA PADAM 🥳✨</b><br>Semoga semua harapan Kiki tahun ini terkabul yaa sayang ❤️";
         document.getElementById('blow-status').style.display = 'none';
         document.getElementById('cake-next-btn').style.display = 'block';
       }
     }
   }
 
-  /* EXTRA GAME 3: LOVE QUIZ */
-  function answerQuiz(isCorrect) {
-    document.getElementById('quiz-options').style.display = 'none';
-    document.getElementById('quiz-result').style.display = 'block';
-
-    if (isCorrect) {
-      document.getElementById('quiz-msg').innerHTML = "<b style='color:#ff2a6d;'>BENER BANGETTT 😭❤️️</b><br>Pinter banget emang pacar aku satu ini WKWKWK.";
-    } else {
-      document.getElementById('quiz-msg').innerHTML = "<b style='color:#ff2a6d;'>EH SALAHHH 😭</b><br>Masa lupa sih WKWKWK. Tapi gapapa, yang penting kamu tetep tayangnya aku ❤️";
-    }
-  }
-
-  /* STEP 3 LOGIC */
   function pickBox(boxNum) {
     document.getElementById('boxes-grid').style.display = 'none';
     document.getElementById('box-result').style.display = 'block';
-
     if (boxNum === correctBox) {
-      document.getElementById('box-result-text').innerHTML = "<b style='color:#ff2a6d; font-size:1.1rem;'>YOU GOT IT, SAYANGGG! 😭❤️</b><br><br>Akhirnyaaa.<br>Aku kira kamu bakal sampai besok WKWKWK.";
+      document.getElementById('box-result-text').innerHTML = "<b style='color:var(--kyoto-red); font-size:1.1rem;'>YOU GOT IT SAYANGGG 😭❤️</b><br><br>Akhirnyaaa aku kira kamu bakal sampai besok WKWKWK";
       document.getElementById('box-retry-btn').style.display = 'none';
       document.getElementById('box-win-btn').style.display = 'block';
     } else {
-      const zonks = [
-        "HAHAHAHA 😭<br>Box ini isinya angin doang, beb.<br>Coba lagi!",
-        "ZONK SAYANG 😭<br>Kok feeling kamu hari ini begini banget sih.",
-        "MAAF KIKI 😭<br>Hadiahnya belum mau ketemu kamu."
-      ];
-      const randomZonk = zonks[Math.floor(Math.random() * zonks.length)];
-      document.getElementById('box-result-text').innerHTML = randomZonk;
+      document.getElementById('box-result-text').innerHTML = "ZONK SAYANG 😭<br>Coba pilih kotak yang lain WKWKWK";
       document.getElementById('box-retry-btn').style.display = 'block';
       document.getElementById('box-win-btn').style.display = 'none';
     }
@@ -819,21 +592,11 @@
     document.getElementById('boxes-grid').style.display = 'grid';
   }
 
-  /* STEP 6 LOGIC */
   function startDelivery() {
-    let progress = 0;
-    const fill = document.getElementById('progress-fill');
-    const text = document.getElementById('progress-text');
-
+    let progress = 0; const fill = document.getElementById('progress-fill'); const text = document.getElementById('progress-text');
     const interval = setInterval(() => {
-      progress += 5;
-      fill.style.width = progress + '%';
-      text.innerText = progress + '%';
-
-      if (progress >= 100) {
-        clearInterval(interval);
-        document.getElementById('delivery-done').style.display = 'block';
-      }
+      progress += 5; fill.style.width = progress + '%'; text.innerText = progress + '%';
+      if (progress >= 100) { clearInterval(interval); document.getElementById('delivery-done').style.display = 'block'; }
     }, 120);
   }
 </script>
