@@ -34,15 +34,19 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Falling Sakura Petals */
+    /* REAL SAKURA PETALS ANIMATION */
     .sakura-container {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 1;
+      pointer-events: none; z-index: 2;
     }
-    .petal {
-      position: absolute; background: #FFB7C5;
-      border-radius: 15px 0 15px 0; opacity: 0.8;
-      animation: fall 8s linear infinite;
+    .real-petal {
+      position: absolute;
+      width: 16px; height: 22px;
+      background: linear-gradient(135deg, #FFB7C5, #FF5C8D);
+      border-radius: 15px 0 15px 0;
+      opacity: 0.85;
+      box-shadow: 0 2px 5px rgba(255, 92, 141, 0.3);
+      animation: fall 7s linear infinite;
     }
     @keyframes fall {
       0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
@@ -97,28 +101,43 @@
       transition: all 0.2s ease; box-shadow: 0 6px 16px rgba(255, 92, 141, 0.4);
     }
     .btn:active { transform: scale(0.95); }
-    .btn-secondary { background: linear-gradient(135deg, #a8a8a8 0%, #c4c4c4 100%); box-shadow: none; }
 
-    /* STAGE 1: JAPANESE TREE OPENING */
-    .opening-stage {
-      background: #FFFFFF; border-radius: 20px; padding: 30px 15px;
-      text-align: center; position: relative; border: 3px solid #FFE0E6;
+    /* REAL SAKURA TREE OPENING STAGE */
+    .opening-stage-real {
+      background: #FFFFFF url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+      border-radius: 22px; padding: 40px 15px; text-align: center;
+      position: relative; border: 3px solid #FFE0E6; min-height: 380px;
+      display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+      box-shadow: inset 0 0 30px rgba(255,255,255,0.8);
     }
-    .tree-silhouette { font-size: 4.5rem; margin-bottom: 20px; }
-    .growing-klik-btn {
-      width: 75px; height: 75px; background: var(--sakura-pink);
-      color: white; border-radius: 50%; display: flex;
-      justify-content: center; align-items: center; margin: 20px auto 0 auto;
-      font-family: 'Sniglet', cursive; font-weight: bold; font-size: 1.2rem;
-      cursor: pointer; box-shadow: 0 0 20px rgba(255, 92, 141, 0.6);
-      animation: growPulse 2s infinite ease-in-out alternate;
-    }
-    @keyframes growPulse {
-      0% { transform: scale(0.85); box-shadow: 0 0 10px rgba(255, 92, 141, 0.4); }
-      100% { transform: scale(1.15); box-shadow: 0 0 30px rgba(255, 92, 141, 0.9); }
+    .tree-overlay-text {
+      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px);
+      padding: 10px 16px; border-radius: 14px; border: 2px solid var(--sakura-pink);
     }
 
-    /* STAGE 2: JAPANESE SCROLL */
+    /* GROWING PETAL BUTTON */
+    .petal-button-wrapper {
+      position: relative; width: 100px; height: 100px;
+      display: flex; justify-content: center; align-items: center; margin-bottom: 20px;
+    }
+    .growing-sakura-petal {
+      width: 75px; height: 95px;
+      background: linear-gradient(135deg, #FF5C8D, #FF85A1);
+      clip-path: polygon(50% 0%, 85% 25%, 100% 60%, 50% 100%, 0% 60%, 15% 25%);
+      box-shadow: 0 10px 25px rgba(255, 92, 141, 0.6);
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; animation: growPetal 2.5s infinite ease-in-out alternate;
+    }
+    @keyframes growPetal {
+      0% { transform: scale(0.8) rotate(-5deg); box-shadow: 0 5px 15px rgba(255, 92, 141, 0.4); }
+      100% { transform: scale(1.25) rotate(5deg); box-shadow: 0 15px 35px rgba(255, 92, 141, 0.8); }
+    }
+    .klik-text {
+      color: #FFF; font-family: 'Sniglet', cursive; font-weight: bold;
+      font-size: 1.3rem; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* SCROLL BOX */
     .scroll-box {
       background: var(--creamy-vanilla); border: 3px solid var(--kyoto-red);
       border-radius: 18px; padding: 20px 15px; margin: 15px 0; text-align: center;
@@ -131,15 +150,14 @@
       font-weight: bold; font-size: 1.1rem; cursor: pointer;
     }
 
-    /* MATCHA ANIMATION STYLES */
+    /* MATCHA STYLES */
     .matcha-card {
       background: #E8F5E9; border: 3px solid #66BB6A;
       border-radius: 20px; padding: 18px; text-align: center; margin: 12px 0;
     }
-    .matcha-anim-box { font-size: 3.5rem; margin: 10px 0; animation: pourMilk 2s infinite alternate; }
-    @keyframes pourMilk { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
+    .matcha-img { width: 100px; height: 100px; object-fit: contain; margin: 10px auto; display: block; }
 
-    /* ORIGAMI ENVELOPE STYLES */
+    /* ORIGAMI ENVELOPE */
     .origami-box {
       background: #FFE3E8; border: 3px dashed var(--sakura-pink);
       border-radius: 20px; padding: 20px; text-align: center; margin: 12px 0;
@@ -147,7 +165,7 @@
     .hanko-seal {
       width: 65px; height: 65px; background: var(--kyoto-red);
       color: #FFF; border-radius: 50%; margin: 10px auto; display: flex;
-      justify-content: center; align-items: center; font-size: 1.8rem;
+      justify-content: center; align-items: center; font-size: 1.2rem; font-weight: bold;
       cursor: pointer; border: 2px dashed #FFF; box-shadow: 0 6px 14px rgba(192, 0, 50, 0.4);
     }
 
@@ -170,29 +188,25 @@
 
     .aib-photo, .aib-video { width: 100%; height: 190px; object-fit: cover; border-radius: 8px; }
 
-    /* MINI GAMES */
+    /* MINI GAMES ARENA */
     .game-arena {
       width: 100%; height: 180px; background: #FFF0F3;
       border-radius: 18px; position: relative; overflow: hidden; margin: 12px 0;
       border: 3px dashed var(--sakura-pink); display: flex; justify-content: center; align-items: center;
     }
     .balloon-box { display: flex; justify-content: space-around; width: 100%; }
-    .balloon { font-size: 2.8rem; cursor: pointer; animation: floatB 2s infinite alternate; }
-    @keyframes floatB { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
-    .floating-sakura { position: absolute; font-size: 2.5rem; cursor: pointer; }
+    .game-item { width: 50px; height: 50px; cursor: pointer; }
 
     .grid-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
     .gift-box-btn {
       background: #fff; border: 3px dashed var(--sakura-pink); padding: 18px 10px;
-      border-radius: 18px; font-size: 2rem; cursor: pointer;
+      border-radius: 18px; font-size: 1.5rem; font-weight: bold; color: var(--sakura-pink); cursor: pointer;
     }
 
-    /* CARD VARIATIONS */
     .card-style-1 { background: #FFF; border-left: 6px solid var(--sakura-pink); padding: 15px; border-radius: 12px; }
     .card-style-2 { background: var(--creamy-vanilla); border: 2px dashed var(--kyoto-red); padding: 15px; border-radius: 12px; }
     .card-style-3 { background: #FFF0F3; border-radius: 16px; padding: 15px; transform: rotate(-1.5deg); }
 
-    /* HANDSOME PHOTO FRAME */
     .handsome-frame-container {
       position: relative; display: inline-block; margin: 12px auto; padding: 8px;
       background: #FFF; border-radius: 18px; box-shadow: 0 10px 24px rgba(255, 92, 141, 0.4);
@@ -221,18 +235,25 @@
 
 <div class="container" id="mainContainer">
 
-  <!-- STAGE 1: JAPANESE OPENING -->
+  <!-- STAGE 1: REAL JAPANESE TREE OPENING -->
   <div id="step1" class="step active">
-    <div class="opening-stage">
-      <div class="tree-silhouette">🌸🌸🌸<br>🌳</div>
-      <p style="font-size:0.9rem; color:#777;">Musim semi telah tiba di tempat Kiki...</p>
-      <div class="growing-klik-btn" onclick="goToStep('step2')">KLIK</div>
+    <div class="opening-stage-real">
+      <div class="tree-overlay-text">
+        <p style="font-size:0.95rem; color:#383838; margin:0;">Musim semi telah tiba di tempat Kiki...</p>
+      </div>
+
+      <!-- KELOPAK SAKURA REALISTIS DENGAN BUTTON KLIK -->
+      <div class="petal-button-wrapper" onclick="goToStep('step2')">
+        <div class="growing-sakura-petal">
+          <span class="klik-text">KLIK</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- STAGE 2: JAPANESE SCROLL INVITATION -->
   <div id="step2" class="step">
-    <h2>HAPPY BIRTHDAY KIKIII 🌸</h2>
+    <h2>HAPPY BIRTHDAY KIKIII ✨</h2>
     <div class="scroll-box">
       <p id="type-scroll" style="font-size:1.1rem; font-weight:bold; color:var(--kyoto-red); margin-bottom:10px;"></p>
       <div class="hanko-stamps">
@@ -244,10 +265,10 @@
 
   <!-- STAGE 3A: MATCHA JOKES 1 -->
   <div id="step3-matcha1" class="step">
-    <h2>KUIS MATCHA 1 🍵</h2>
+    <h2>KUIS MATCHA 1</h2>
     <div class="matcha-card">
       <p style="color:#2E7D32; font-weight:bold;">Kenapa air mata itu warnanya bening?</p>
-      <div class="matcha-anim-box">🍵🥛</div>
+      <img src="https://cdn-icons-png.flaticon.com/512/3233/3233827.png" class="matcha-img" alt="Matcha Drink">
       <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns1()">LIHAT JAWABAN ➡️</button>
       <div id="ans1" style="display:none; margin-top:12px;">
         <p style="color:#1B5E20; font-weight:bold;">Karna kalo warna hijau ya air matcha WKWKWK 😭</p>
@@ -258,13 +279,13 @@
 
   <!-- STAGE 3B: MATCHA JOKES 2 -->
   <div id="step3-matcha2" class="step">
-    <h2>KUIS MATCHA 2 🍵</h2>
+    <h2>KUIS MATCHA 2</h2>
     <div class="matcha-card">
       <p style="color:#2E7D32; font-weight:bold;">Kenapa kalo ngaduk matcha harus pake kayu?</p>
-      <div class="matcha-anim-box">🍵⛏️</div>
-      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns2()">LIHAT JAWABAN ➡️️</button>
+      <img src="https://cdn-icons-png.flaticon.com/512/3081/3081971.png" class="matcha-img" alt="Matcha Whisk">
+      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns2()">LIHAT JAWABAN ➡️</button>
       <div id="ans2" style="display:none; margin-top:12px;">
-        <p style="color:#1B5E20; font-weight:bold;">Karena kalo pake pacul jadinya matchul 😭⛏️</p>
+        <p style="color:#1B5E20; font-weight:bold;">Karena kalo pake pacul jadinya matchul 😭</p>
         <button class="btn" style="background:#2E7D32;" onclick="goToStep('step4-password')">MASUK KE GERBANG SECRET 🗝️</button>
       </div>
     </div>
@@ -275,7 +296,7 @@
     <h2>GERBANG SECRET 🔐</h2>
     <div class="origami-box">
       <p style="font-size:0.88rem; color:#777;">Ketuk segel Hanko merah buat masukin password ya seng!</p>
-      <div id="seal-trigger" class="hanko-seal" onclick="revealPass()">💌</div>
+      <div id="seal-trigger" class="hanko-seal" onclick="revealPass()">HANKO</div>
 
       <div id="pass-field" style="display:none; margin-top:10px;">
         <input type="password" id="passInput" placeholder="ENTER PASSWORD">
@@ -310,9 +331,9 @@
     <h2>MISI 1: PETIK SAKURA 🌸</h2>
     <p>Tangkap 5 kelopak sakura melayang! Sisa: <b id="sakura-count" style="color:var(--sakura-pink);">5</b></p>
     <div class="game-arena" id="sakura-arena">
-      <div class="floating-sakura" id="target-sakura" onclick="catchSakura()">🌸</div>
+      <div class="real-petal" id="target-sakura" style="cursor:pointer; width:22px; height:28px;" onclick="catchSakura()"></div>
     </div>
-    <button class="btn" id="sakura-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-balloon');">MISI 1 CLEARED! LANJUT ➡️️</button>
+    <button class="btn" id="sakura-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-balloon');">MISI 1 CLEARED! LANJUT ➡️</button>
   </div>
 
   <!-- GAME 2: BALON SAKURA -->
@@ -321,9 +342,9 @@
     <p>Ketuk 3 balon ulang tahun di bawah! Sisa: <b id="balloon-count" style="color:var(--sakura-pink);">3</b></p>
     <div class="game-arena">
       <div class="balloon-box">
-        <div class="balloon" id="b1" onclick="popB('b1')">🎈</div>
-        <div class="balloon" id="b2" onclick="popB('b2')">🎈</div>
-        <div class="balloon" id="b3" onclick="popB('b3')">🎈</div>
+        <img src="https://cdn-icons-png.flaticon.com/512/3592/3592864.png" class="game-item" id="b1" onclick="popB('b1')" alt="Balloon">
+        <img src="https://cdn-icons-png.flaticon.com/512/3592/3592864.png" class="game-item" id="b2" onclick="popB('b2')" alt="Balloon">
+        <img src="https://cdn-icons-png.flaticon.com/512/3592/3592864.png" class="game-item" id="b3" onclick="popB('b3')" alt="Balloon">
       </div>
     </div>
     <button class="btn" id="balloon-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-cake');">MISI 2 CLEARED! LANJUT ➡️</button>
@@ -331,10 +352,10 @@
 
   <!-- GAME 3: TIUP LILIN MATCHA -->
   <div id="game-cake" class="step text-center">
-    <h2>MISI 3: TIUP LILIN MATCHA 🎂</h2>
+    <h2>MISI 3: TIUP LILIN MATCHA</h2>
     <p id="cake-text">Ketuk kue di bawah 5 kali cepat buat tiup apinya! 🥳</p>
-    <div style="font-size:3.8rem; cursor:pointer;" onclick="blowCandle()">
-      <span id="flame-icon" style="display:inline-block; animation:flicker 0.2s infinite alternate;">🔥</span><br>🎂
+    <div style="cursor:pointer;" onclick="blowCandle()">
+      <img id="flame-icon" src="https://cdn-icons-png.flaticon.com/512/2454/2454278.png" style="width:110px; margin:10px auto;" alt="Cake">
     </div>
     <p id="blow-status" style="font-weight:bold; color:var(--kyoto-red);">Ketukan: <span id="tap-count">0</span>/5</p>
     <button class="btn" id="cake-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-box');">MAKE A WISH DONE! LANJUT ➡️</button>
@@ -342,13 +363,13 @@
 
   <!-- GAME 4: OMIKUJI BOX -->
   <div id="game-box" class="step text-center">
-    <h2>MISI 4: PILIH OMIKUJI ⛩️</h2>
+    <h2>MISI 4: PILIH OMIKUJI</h2>
     <p>Pilih 1 kotak keberuntungan yang ada pesan rahasianya seng!</p>
     <div id="boxes-grid" class="grid-boxes">
-      <button class="gift-box-btn" onclick="pickBox(1)">🎁 1</button>
-      <button class="gift-box-btn" onclick="pickBox(2)">🎁 2</button>
-      <button class="gift-box-btn" onclick="pickBox(3)">🎁 3</button>
-      <button class="gift-box-btn" onclick="pickBox(4)">🎁 4</button>
+      <button class="gift-box-btn" onclick="pickBox(1)">BOX 1</button>
+      <button class="gift-box-btn" onclick="pickBox(2)">BOX 2</button>
+      <button class="gift-box-btn" onclick="pickBox(3)">BOX 3</button>
+      <button class="gift-box-btn" onclick="pickBox(4)">BOX 4</button>
     </div>
     <div id="box-result" style="display:none;">
       <p id="box-result-text"></p>
@@ -359,7 +380,7 @@
 
   <!-- SLIDE UCAPAN 1 -->
   <div id="card1" class="step">
-    <h2>HAPPY 26TH BIRTHDAY KIKIII 🥳❤️</h2>
+    <h2>HAPPY 26TH BIRTHDAY KIKIII ❤️</h2>
     <div class="card-style-1">
       <p id="type-card1"></p>
     </div>
@@ -368,7 +389,7 @@
 
   <!-- SLIDE UCAPAN 2 -->
   <div id="card2" class="step">
-    <h2>MAKASIII SAYANGGG 💭</h2>
+    <h2>MAKASIII SAYANGGG ✨</h2>
     <div class="card-style-2">
       <p id="type-card2"></p>
     </div>
@@ -407,7 +428,7 @@
       <b>→ Kiki dimohon menunggu di rumah</b>
     </div>
 
-    <div style="font-size:2.8rem; text-align:center;" class="bounce">🏍💨</div>
+    <div style="font-size:2.8rem; text-align:center;" class="bounce">🏍️</div>
     <div class="progress-bar-bg"><div id="progress-fill" class="progress-bar-fill"></div></div>
     <p id="progress-text" style="font-weight:bold; color:var(--kyoto-red); text-align:center;">0%</p>
 
@@ -422,7 +443,6 @@
   <div id="ending" class="step text-center">
     <h2>HAPPY BIRTHDAY ONCE AGAIN KIKIII 🥳</h2>
     <p id="type-ending"></p>
-    <div style="font-size:2.5rem; margin-top:10px;" class="bounce">🎉🥳🎈✨❤️</div>
   </div>
 
 </div>
@@ -436,7 +456,6 @@
   let isMusicPlaying = false;
   let typingTimeout = null;
 
-  // GAYA PENULISAN KHAS KAMU (TANPA KOMA KAKU, TANPA TITIK-TITIK, HURUF DIPANJANGKAN)
   const cardTexts = {
     'step2': 'UDAH SIAP BELUMMM SENG 😭',
     'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaaa 😭\n\nGimana rasanya makin tua seng WKWKWK\n\nTenang aku masih mau kok nemenin kamu walaupun udah 26 😌',
@@ -446,15 +465,13 @@
     'ending': 'Semoga kamu suka yaa sayang dari semua yang aku kasih hari ini semoga yang paling kamu inget tetep aku 😌\n\nHAPPY BIRTHDAY SEKALI LAGI KIKIII ❤️\nI LOVE YOU SOOO MUCH KIKI ❤️\nTAYANGNYA AKUU ❤️'
   };
 
-  // Falling Sakura Generator
+  // REAL SAKURA FALLING PETALS GENERATOR
   const sc = document.getElementById('sakuraContainer');
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < 25; i++) {
     const p = document.createElement('div');
-    p.className = 'petal';
-    p.style.width = (Math.random() * 12 + 8) + 'px';
-    p.style.height = (Math.random() * 12 + 8) + 'px';
+    p.className = 'real-petal';
     p.style.left = Math.random() * 100 + 'vw';
-    p.style.animationDuration = (Math.random() * 4 + 5) + 's';
+    p.style.animationDuration = (Math.random() * 4 + 4) + 's';
     p.style.animationDelay = (Math.random() * 5) + 's';
     sc.appendChild(p);
   }
@@ -564,7 +581,7 @@
     if (candleTaps < 5) {
       candleTaps++; document.getElementById('tap-count').innerText = candleTaps;
       if (candleTaps === 5) {
-        document.getElementById('flame-icon').innerHTML = '💨';
+        document.getElementById('flame-icon').src = 'https://cdn-icons-png.flaticon.com/512/2454/2454278.png';
         document.getElementById('cake-text').innerHTML = "<b style='color:var(--kyoto-red);'>YEEAY LILINNYA PADAM 🥳✨</b><br>Semoga semua harapan Kiki tahun ini terkabul yaa sayang ❤️";
         document.getElementById('blow-status').style.display = 'none';
         document.getElementById('cake-next-btn').style.display = 'block';
