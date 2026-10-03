@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Mini Game for Kiki 🥳</title>
-  <!-- Google Fonts: Pilihan Font Bersih & Estetik Mirip Gambar -->
+  <!-- Google Fonts: Pilihan Font Bersih & Estetik -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,500;0,700;1,500&family=Sniglet:wght@800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   
@@ -161,7 +161,6 @@
       100% { transform: translateY(-8px) rotate(5deg); }
     }
 
-    /* FONT JUDUL : CUTE & TEGAS (Mirip Chicken Pie/JandaManatee) */
     h2 {
       font-family: 'Sniglet', 'Fredoka', cursive;
       color: #ff2a6d;
@@ -181,7 +180,6 @@
       100% { transform: translateY(2px) scale(0.98); }
     }
 
-    /* FONT TEKS UCAPAN : RINGKAS, RAPI, TIDAK MENUHIN SPACE (Mirip Futura/Crimson) */
     p {
       font-family: 'Nunito', sans-serif;
       color: #383838;
@@ -191,7 +189,6 @@
       margin-bottom: 18px;
       word-wrap: break-word;
       overflow-wrap: break-word;
-      white-space: pre-wrap;
       text-align: center;
       max-width: 100%;
     }
@@ -483,7 +480,7 @@
 
     <!-- Attempt 1 Result -->
     <div id="attempt1-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAHH SAYANG 😭</b>\n\nMasa password aja gak bisa WKWKWK</p>
+      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAHH SAYANG 😭</b><br><br>Masa password aja gak bisa WKWKWK</p>
       <div class="polaroid-frame jumpscare-anim">
         <video id="v-aib1" class="aib-video" playsinline loop>
           <source src="aib1.mp4" type="video/mp4">
@@ -494,7 +491,7 @@
 
     <!-- Attempt 2 Result -->
     <div id="attempt2-res" style="display:none;">
-      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAH LAGI SENG 😭</b>\n\nCoba inget-inget lagi, masa gitu aja lupa.</p>
+      <p><b style="color:#ff2a6d; font-size:1.05rem;">SALAH LAGI SENG 😭</b><br><br>Coba inget-inget lagi, masa gitu aja lupa.</p>
       <div class="polaroid-frame jumpscare-anim">
         <img src="aib2.jpg" alt="Foto Aib 2" class="aib-photo">
       </div>
@@ -503,7 +500,7 @@
 
     <!-- Attempt 3 Result -->
     <div id="attempt3-res" style="display:none;">
-      <p><b>YEEEAY, BENER SAYANG! 🔓</b>\n\nAkhirnya ketemu juga passwordnya, seng 😭</p>
+      <p><b>YEEEAY, BENER SAYANG! 🔓</b><br><br>Akhirnya ketemu juga passwordnya, seng 😭</p>
       <button class="btn" onclick="triggerConfetti(); goToStep('step2');">MASUK 🎁</button>
     </div>
   </div>
@@ -591,7 +588,7 @@
     </div>
   </div>
 
-  <!-- CARD SLIDESHOW (UCAPAN DENGAN FONT CLEAN & TIDAK MENUHIN SPACE) -->
+  <!-- CARD SLIDESHOW -->
   <div id="card1" class="step">
     <h2>HAPPY 26TH BIRTHDAY, KIKIII!! 🥳❤️</h2>
     <p id="type-card1"></p>
@@ -649,7 +646,7 @@
   <!-- STEP 6: FINAL GIFT REVEAL -->
   <div id="step6" class="step">
     <h2>📦 YOUR GIFT IS ON THE WAY</h2>
-    <p>Jadi sekarang tugas kamu cuma satu, seng 😭\n\n<b>TUNGGU DI RUMAH YAAA</b></p>
+    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b style="font-size:1.1rem; color:#ff2a6d;">TUNGGU DI RUMAH YAAA</b></p>
 
     <div style="text-align: left; font-size: 0.85rem; margin: 12px 0; background:rgba(255,255,255,0.85); padding:10px 14px; border-radius:12px; border:2px solid #ffccd5; line-height:1.5;">
       ✓ Hadiah disiapkan<br>
@@ -691,13 +688,13 @@
 
   // Card Text Messages for Typewriter Effect
   const cardTexts = {
-    'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭\n\nGimana rasanya makin tua, seng? WKWKWK\n\nTenang, aku masih mau kok nemenin kamu walaupun udah 26 😌',
-    'card2': 'Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini.\n\nMakasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng.\n\nBahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
-    'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.\n\nI really love having you in my life. Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.',
-    'card4': 'Aku cuma pengen kamu selalu sehat dan bahagia. Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai.\n\nI hope this year brings you lots of good things, sayang ❤️',
-    'card5': 'Jangan lupa buat jaga diri juga yaa seng. Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭\n\nAku kan masih mau punya Kiki yang sehat buat aku gangguin.',
-    'card6': 'Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum. Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.\n\nI LOVE YOU SOOO MUCH, KIKI ❤️',
-    'ending': 'Semoga kamu suka yaa, sayang. Dari semua yang aku kasih hari ini, semoga yang paling kamu inget tetep aku 😌\n\nHAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️\nI LOVE YOU SOOO MUCH, KIKI ❤️\nTAYANGNYA AKUU ❤️'
+    'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭<br><br>Gimana rasanya makin tua, seng? WKWKWK<br><br>Tenang, aku masih mau kok nemenin kamu walaupun udah 26 😌',
+    'card2': 'Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini.<br><br>Makasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng.<br><br>Bahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
+    'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.<br><br>I really love having you in my life. Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.',
+    'card4': 'Aku cuma pengen kamu selalu sehat dan bahagia. Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai.<br><br>I hope this year brings you lots of good things, sayang ❤️',
+    'card5': 'Jangan lupa buat jaga diri juga yaa seng. Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭<br><br>Aku kan masih mau punya Kiki yang sehat buat aku gangguin.',
+    'card6': 'Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum. Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.<br><br>I LOVE YOU SOOO MUCH, KIKI ❤️',
+    'ending': 'Semoga kamu suka yaa, sayang. Dari semua yang aku kasih hari ini, semoga yang paling kamu inget tetep aku 😌<br><br>HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️<br>I LOVE YOU SOOO MUCH, KIKI ❤️<br>TAYANGNYA AKUU ❤️'
   };
 
   // Background Animated Particles Generator
@@ -769,7 +766,7 @@
     flash.classList.add('flash-active');
   }
 
-  /* TYPEWRITER KETIK DENGAN BACA SPASI KETIK SEMPURNA */
+  /* TYPEWRITER DENGAN PENANGANAN TAG HTML/BREAK SECARA MULUS */
   function typeWriter(elementId, text, speed = 25) {
     const elem = document.getElementById(elementId);
     if (!elem) return;
@@ -777,15 +774,13 @@
     let i = 0;
     if (typingTimeout) clearTimeout(typingTimeout);
 
-    const formattedText = text.replace(/\n/g, '<br>');
-
     function type() {
-      if (i < formattedText.length) {
-        if (formattedText.substr(i, 4) === '<br>') {
+      if (i < text.length) {
+        if (text.substr(i, 4) === '<br>') {
           elem.innerHTML += '<br>';
           i += 4;
         } else {
-          elem.innerHTML += formattedText.charAt(i);
+          elem.innerHTML += text.charAt(i);
           i++;
         }
         typingTimeout = setTimeout(type, speed);
