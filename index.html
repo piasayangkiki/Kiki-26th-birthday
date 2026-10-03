@@ -12,7 +12,7 @@
     :root {
       --primary: #ff758c;
       --primary-hover: #ff4b6e;
-      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-bg: rgba(255, 255, 255, 0.96);
       --text-main: #333333;
     }
 
@@ -93,16 +93,16 @@
     /* Container Box / Scrapbook Card */
     .container {
       width: 100%;
-      max-width: 420px;
+      max-width: 380px;
       background: var(--card-bg);
       backdrop-filter: blur(12px);
       border-radius: 28px;
-      padding: 30px 22px;
+      padding: 28px 18px;
       box-shadow: 0 20px 40px rgba(255, 117, 140, 0.35), 0 0 0 8px rgba(255, 255, 255, 0.6);
       position: relative;
       text-align: center;
       z-index: 10;
-      overflow: visible;
+      overflow: hidden;
       perspective: 1000px;
     }
 
@@ -136,23 +136,22 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Animated GIF Corner Stickers */
+    /* Animated Corner Stickers */
     .gif-sticker-topleft {
       position: absolute;
-      top: -25px;
-      left: -20px;
-      width: 65px;
+      top: -10px;
+      left: -10px;
+      width: 50px;
       z-index: 20;
       pointer-events: none;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
       animation: floatSticker 3s infinite ease-in-out alternate;
     }
 
     .gif-sticker-topright {
       position: absolute;
-      top: -25px;
-      right: -20px;
-      width: 60px;
+      top: -10px;
+      right: -10px;
+      width: 50px;
       z-index: 20;
       pointer-events: none;
       animation: floatSticker 2.5s infinite ease-in-out alternate-reverse;
@@ -160,47 +159,55 @@
 
     @keyframes floatSticker {
       0% { transform: translateY(0) rotate(-5deg); }
-      100% { transform: translateY(-10px) rotate(5deg); }
+      100% { transform: translateY(-8px) rotate(5deg); }
     }
 
     /* Moving / Floating Titles */
     h2 {
       color: #ff2a6d;
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 12px;
       text-shadow: 2px 2px 0px #fff;
       animation: titleBounce 2.5s infinite ease-in-out alternate;
       display: inline-block;
+      word-wrap: break-word;
+      max-width: 100%;
     }
 
     @keyframes titleBounce {
-      0% { transform: translateY(0) scale(1) rotate(0deg); }
-      50% { transform: translateY(-5px) scale(1.03) rotate(1deg); }
-      100% { transform: translateY(3px) scale(0.98) rotate(-1deg); }
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-4px) scale(1.02); }
+      100% { transform: translateY(2px) scale(0.98); }
     }
 
+    /* PERBAIKAN UTAMA TEKS: WORD WRAP & WHITE SPACE */
     p {
       color: #4a4a4a;
-      font-size: 1.05rem;
-      line-height: 1.65;
+      font-size: 1rem;
+      line-height: 1.6;
       margin-bottom: 20px;
       font-weight: 500;
       min-height: 48px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: pre-wrap; /* Mencegah teks bablas ke samping & menjaga spasi */
+      text-align: center;
+      max-width: 100%;
     }
 
     /* VARIASI FONT TIAP SLIDE */
-    .font-handwriting h2 { font-family: 'Gaegu', cursive; font-size: 2rem; }
-    .font-handwriting p { font-family: 'Gaegu', cursive; font-size: 1.35rem; font-weight: 700; color: #2d2d2d; }
+    .font-handwriting h2 { font-family: 'Gaegu', cursive; font-size: 1.9rem; }
+    .font-handwriting p { font-family: 'Gaegu', cursive; font-size: 1.3rem; font-weight: 700; color: #2d2d2d; line-height: 1.4; }
 
-    .font-serif h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; letter-spacing: 0.5px; }
-    .font-serif p { font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height: 1.75; font-style: italic; }
+    .font-serif h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 0.5px; }
+    .font-serif p { font-family: 'Playfair Display', serif; font-size: 1.05rem; line-height: 1.7; font-style: italic; }
 
-    .font-soft h2 { font-family: 'Comfortaa', cursive; font-size: 1.45rem; font-weight: 700; }
-    .font-soft p { font-family: 'Quicksand', sans-serif; font-size: 1.05rem; font-weight: 700; }
+    .font-soft h2 { font-family: 'Comfortaa', cursive; font-size: 1.4rem; font-weight: 700; }
+    .font-soft p { font-family: 'Quicksand', sans-serif; font-size: 1rem; font-weight: 700; }
 
-    .font-ending h2 { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #ff2a6d; }
-    .font-ending p { font-family: 'Gaegu', cursive; font-size: 1.35rem; font-weight: 700; }
+    .font-ending h2 { font-family: 'Pacifico', cursive; font-size: 1.45rem; color: #ff2a6d; }
+    .font-ending p { font-family: 'Gaegu', cursive; font-size: 1.3rem; font-weight: 700; }
 
     /* FRAME FOTO GANTENG BLING-BLING */
     .handsome-frame-container {
@@ -213,6 +220,7 @@
       box-shadow: 0 12px 28px rgba(255, 117, 140, 0.4), 0 0 20px rgba(255, 182, 193, 0.8);
       border: 3px solid #ff758c;
       animation: frameFloatBling 3.5s infinite ease-in-out alternate;
+      max-width: 100%;
     }
 
     @keyframes frameFloatBling {
@@ -223,8 +231,8 @@
 
     .handsome-photo {
       width: 100%;
-      max-width: 260px;
-      height: 250px;
+      max-width: 240px;
+      height: 230px;
       object-fit: cover;
       border-radius: 12px;
       display: block;
@@ -232,15 +240,15 @@
 
     .sparkle-badge {
       position: absolute;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       pointer-events: none;
       animation: sparkleGlow 1.5s infinite alternate;
     }
 
-    .sparkle-1 { top: -12px; left: -12px; animation-delay: 0s; }
-    .sparkle-2 { top: -12px; right: -12px; animation-delay: 0.5s; }
-    .sparkle-3 { bottom: 25px; left: -10px; animation-delay: 1s; }
-    .sparkle-4 { bottom: 25px; right: -10px; animation-delay: 0.3s; }
+    .sparkle-1 { top: -10px; left: -10px; animation-delay: 0s; }
+    .sparkle-2 { top: -10px; right: -10px; animation-delay: 0.5s; }
+    .sparkle-3 { bottom: 20px; left: -8px; animation-delay: 1s; }
+    .sparkle-4 { bottom: 20px; right: -8px; animation-delay: 0.3s; }
 
     @keyframes sparkleGlow {
       0% { transform: scale(0.8) rotate(0deg); filter: drop-shadow(0 0 2px gold); }
@@ -250,7 +258,7 @@
     .handsome-caption {
       margin-top: 8px;
       font-family: 'Gaegu', cursive;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #ff2a6d;
       letter-spacing: 0.5px;
@@ -260,7 +268,7 @@
       background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
       color: white;
       border: none;
-      padding: 14px 24px;
+      padding: 14px 20px;
       border-radius: 18px;
       font-weight: 700;
       font-size: 1rem;
@@ -311,7 +319,7 @@
 
     .polaroid-frame {
       background: white;
-      padding: 12px 12px 28px 12px;
+      padding: 10px 10px 24px 10px;
       border-radius: 14px;
       box-shadow: 0 16px 30px rgba(0,0,0,0.3);
       margin: 15px 0;
@@ -323,13 +331,13 @@
 
     @keyframes jumpscareExtreme {
       0% { transform: scale(0.1) rotate(-35deg); opacity: 0; filter: contrast(200%); }
-      60% { transform: scale(1.3) rotate(15deg); opacity: 1; filter: contrast(120%); }
+      60% { transform: scale(1.2) rotate(15deg); opacity: 1; filter: contrast(120%); }
       100% { transform: scale(1) rotate(-3deg); opacity: 1; filter: contrast(100%); }
     }
 
     @keyframes shakeHard {
-      0% { transform: rotate(-5deg) scale(1) translateY(0); }
-      100% { transform: rotate(5deg) scale(1.06) translateY(-4px); }
+      0% { transform: rotate(-4deg) scale(1); }
+      100% { transform: rotate(4deg) scale(1.04); }
     }
 
     .screen-shake {
@@ -345,7 +353,7 @@
 
     .aib-photo, .aib-video {
       width: 100%;
-      height: 230px;
+      height: 220px;
       object-fit: cover;
       border-radius: 8px;
     }
@@ -375,7 +383,7 @@
     .gift-box-btn {
       background: #fff;
       border: 3px dashed #ff758c;
-      padding: 22px 10px;
+      padding: 20px 10px;
       border-radius: 20px;
       font-size: 2.2rem;
       cursor: pointer;
@@ -391,7 +399,7 @@
 
     .heart-arena {
       width: 100%;
-      height: 220px;
+      height: 200px;
       background: radial-gradient(circle, #fff0f3 0%, #ffe3e8 100%);
       border-radius: 20px;
       position: relative;
@@ -402,7 +410,7 @@
 
     .floating-heart {
       position: absolute;
-      font-size: 2.8rem;
+      font-size: 2.6rem;
       cursor: pointer;
       user-select: none;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
@@ -415,7 +423,7 @@
     }
 
     .cake-container {
-      font-size: 4.5rem;
+      font-size: 4rem;
       margin: 15px 0;
       cursor: pointer;
       user-select: none;
@@ -479,9 +487,9 @@
 
 <div class="container" id="mainContainer">
 
-  <!-- Animated GIF Stickers Floating on Corners -->
-  <img src="https://media.giphy.com/media/26hpW38b1ebk7tHqg/giphy.gif" class="gif-sticker-topleft" alt="Sticker">
-  <img src="https://media.giphy.com/media/l41K3o5Tz21gDdt4I/giphy.gif" class="gif-sticker-topright" alt="Sticker">
+  <!-- Corner Stickers (Updated Active URLs) -->
+  <div class="gif-sticker-topleft">🎀</div>
+  <div class="gif-sticker-topright">✨</div>
 
   <!-- STEP 1: PASSWORD -->
   <div id="step1" class="step active">
@@ -606,38 +614,38 @@
   <!-- CARD 1 & 2: HANDWRITING AESTHETIC FONT -->
   <div id="card1" class="step font-handwriting">
     <h2>HAPPY 26TH BIRTHDAY, KIKIII!! 🥳❤️</h2>
-    <p id="type-card1" class="typewriter-text"></p>
+    <p id="type-card1"></p>
     <button class="btn" onclick="goToStep('card2')">LANJUT ➡️</button>
   </div>
 
   <div id="card2" class="step font-handwriting">
     <h2>OKAY, SEKARANG SERIUS DIKIT</h2>
-    <p id="type-card2" class="typewriter-text"></p>
+    <p id="type-card2"></p>
     <button class="btn" onclick="goToStep('card3')">LANJUT ➡️</button>
   </div>
 
   <!-- CARD 3 & 4: CLASSIC ROMANTIC SERIF FONT -->
   <div id="card3" class="step font-serif">
-    <p id="type-card3" class="typewriter-text"></p>
+    <p id="type-card3"></p>
     <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
   </div>
 
   <div id="card4" class="step font-serif">
     <h2>DI UMUR 26 INI...</h2>
-    <p id="type-card4" class="typewriter-text"></p>
+    <p id="type-card4"></p>
     <button class="btn" onclick="goToStep('card5')">LANJUT ➡️</button>
   </div>
 
   <!-- CARD 5 & 6: SOFT MODERN AESTHETIC FONT -->
   <div id="card5" class="step font-soft">
     <h2>NAH, TAPI INI PENTING 😭</h2>
-    <p id="type-card5" class="typewriter-text"></p>
-    <button class="btn" onclick="goToStep('card6')">LANJUT ➡️</button>
+    <p id="type-card5"></p>
+    <button class="btn" onclick="goToStep('card6')">LANJUT ➡️️</button>
   </div>
 
   <div id="card6" class="step font-soft">
     <h2>POKOKNYA...</h2>
-    <p id="type-card6" class="typewriter-text"></p>
+    <p id="type-card6"></p>
 
     <!-- FOTO GANTENG KIKI DENGAN FRAME BLING-BLING -->
     <div class="handsome-frame-container">
@@ -646,7 +654,7 @@
       <span class="sparkle-badge sparkle-3">⭐</span>
       <span class="sparkle-badge sparkle-4">✨</span>
       <img src="ganteng.png" alt="Foto Ganteng Kiki" class="handsome-photo" onerror="this.src='ganteng.jpg'">
-      <div class="handsome-caption">The Birthday Boy ✨❤️️</div>
+      <div class="handsome-caption">The Birthday Boy ✨❤️</div>
     </div>
 
     <button class="btn" onclick="triggerConfetti(); goToStep('step5');">LANJUT ➡️</button>
@@ -662,7 +670,7 @@
   <!-- STEP 6: FINAL GIFT REVEAL -->
   <div id="step6" class="step font-soft">
     <h2>📦 YOUR GIFT IS ON THE WAY</h2>
-    <p>Jadi sekarang tugas kamu cuma satu, seng 😭<br><br><b style="font-size:1.1rem; color:#ff2a6d;">TUNGGU DI RUMAH YAAA</b></p>
+    <p>Jadi sekarang tugas kamu cuma satu, seng 😭\n\n<b>TUNGGU DI RUMAH YAAA</b></p>
 
     <div style="text-align: left; font-size: 0.9rem; margin: 15px 0; background:rgba(255,255,255,0.85); padding:12px 15px; border-radius:12px; border:2px solid #ffccd5;">
       ✓ Hadiah disiapkan<br>
@@ -704,13 +712,13 @@
 
   // Card Text Messages for Typewriter Effect
   const cardTexts = {
-    'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭 Gimana rasanya makin tua, seng? WKWKWK Tenang, aku masih mau kok nemenin kamu walaupun udah 26 😌',
-    'card2': 'Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini. Makasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng. Bahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
-    'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb. I really love having you in my life. Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.',
-    'card4': 'Aku cuma pengen kamu selalu sehat dan bahagia. Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai. I hope this year brings you lots of good things, sayang ❤️',
-    'card5': 'Jangan lupa buat jaga diri juga yaa seng. Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭 Aku kan masih mau punya Kiki yang sehat buat aku gangguin.',
-    'card6': 'Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum. Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya. I LOVE YOU SOOO MUCH, KIKI ❤️',
-    'ending': 'Semoga kamu suka yaa, sayang. Dari semua yang aku kasih hari ini, semoga yang paling kamu inget tetep aku 😌 HAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️ I LOVE YOU SOOO MUCH, KIKI ❤️ TAYANGNYA AKUU ❤️'
+    'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaa 😭\n\nGimana rasanya makin tua, seng? WKWKWK\n\nTenang, aku masih mau kok nemenin kamu walaupun udah 26 😌',
+    'card2': 'Makasih yaa sayang, udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini.\n\nMakasih buat semua hal kecil yang kamu lakuin, buat waktu yang kamu kasih, dan buat semua cerita yang kita bagi bareng.\n\nBahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
+    'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas, tapi aku sayang banget sama kamu, beb.\n\nI really love having you in my life. Aku seneng bisa kenal kamu, bisa deket sama kamu, dan bisa ngelewatin banyak hal bareng kamu.',
+    'card4': 'Aku cuma pengen kamu selalu sehat dan bahagia. Semoga rezekinya makin lancar, semua urusannya dimudahin, dan apa pun yang lagi kamu usahain bisa pelan-pelan tercapai.\n\nI hope this year brings you lots of good things, sayang ❤️',
+    'card5': 'Jangan lupa buat jaga diri juga yaa seng. Jangan kebanyakan begadang, jangan lupa makan, dan jangan sok kuat terus 😭\n\nAku kan masih mau punya Kiki yang sehat buat aku gangguin.',
+    'card6': 'Aku berharap di umur yang baru ini kamu punya banyak alasan buat senyum. Semoga apa yang kamu pengenin bisa satu-satu tercapai, dan semoga aku masih bisa ada di samping kamu buat lihat semuanya.\n\nI LOVE YOU SOOO MUCH, KIKI ❤️',
+    'ending': 'Semoga kamu suka yaa, sayang. Dari semua yang aku kasih hari ini, semoga yang paling kamu inget tetep aku 😌\n\nHAPPY BIRTHDAY SEKALI LAGI, KIKIII ❤️\nI LOVE YOU SOOO MUCH, KIKI ❤️\nTAYANGNYA AKUU ❤️'
   };
 
   // Background Animated Particles Generator
@@ -782,18 +790,26 @@
     flash.classList.add('flash-active');
   }
 
-  /* Typewriter Effect Function */
-  function typeWriter(elementId, text, speed = 28) {
+  /* TYPEWRITER DENGAN FORMAT SPASI DAN ENTER RAPI */
+  function typeWriter(elementId, text, speed = 25) {
     const elem = document.getElementById(elementId);
     if (!elem) return;
-    elem.innerText = '';
+    elem.innerHTML = '';
     let i = 0;
     if (typingTimeout) clearTimeout(typingTimeout);
 
+    // Ubah \n menjadi <br> agar turun baris dengan sempurna
+    const formattedText = text.replace(/\n/g, '<br>');
+
     function type() {
-      if (i < text.length) {
-        elem.innerText += text.charAt(i);
-        i++;
+      if (i < formattedText.length) {
+        if (formattedText.substr(i, 4) === '<br>') {
+          elem.innerHTML += '<br>';
+          i += 4;
+        } else {
+          elem.innerHTML += formattedText.charAt(i);
+          i++;
+        }
         typingTimeout = setTimeout(type, speed);
       }
     }
@@ -826,7 +842,6 @@
       triggerJumpscareFlash();
       triggerShake(container);
       
-      // Pause lagu background & putar video aib1 dengan suara
       pauseMusicForVideo();
       const videoElem = document.getElementById('v-aib1');
       document.getElementById('attempt1-res').style.display = 'block';
@@ -851,12 +866,10 @@
   }
 
   function resetPasswordStep() {
-    // Stop video
     const videoElem = document.getElementById('v-aib1');
     if (videoElem) {
       videoElem.pause();
     }
-    // Lanjutkan musik background
     resumeMusicAfterVideo();
 
     document.getElementById('attempt1-res').style.display = 'none';
