@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kiki's 26th Birthday Journey 🌸✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Kosugi+Maru&family=Nunito:ital,wght@0,600;0,800;1,700&family=Sniglet:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Nunito:ital,wght@0,600;0,800;1,700&family=Sniglet:wght@800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   
   <style>
@@ -26,61 +26,53 @@
       position: relative; font-family: 'Nunito', sans-serif;
     }
 
-    /* SLIDE 1: REALISTIC JAPANESE SPRING SCENE BACKGROUND */
+    /* SLIDE 1: CINEMATIC JAPANESE SPRING OPENING */
     .opening-viewport {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)),
+      background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.45)),
                   url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
       z-index: 100; display: flex; flex-direction: column;
       justify-content: space-between; align-items: center;
       padding: 40px 20px; transition: opacity 0.8s ease, visibility 0.8s;
     }
-
-    .opening-viewport.hidden {
-      opacity: 0; visibility: hidden; pointer-events: none;
-    }
+    .opening-viewport.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
     .opening-title-card {
-      background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px);
       padding: 14px 22px; border-radius: 20px; border: 2px solid var(--sakura-pink);
       box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center;
       animation: fadeInDown 1.2s ease forwards;
     }
-
     @keyframes fadeInDown {
       0% { opacity: 0; transform: translateY(-30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* REAL SAKURA PETALS STORM (BERHAMBURAN) */
+    /* REALISTIC SAKURA PETALS STORM */
     .sakura-storm {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none; overflow: hidden; z-index: 101;
     }
-
     .real-petal-graphics {
-      position: absolute;
-      width: 18px; height: 26px;
+      position: absolute; width: 18px; height: 26px;
       background: linear-gradient(135deg, #FFB7C5 0%, #FF5C8D 100%);
       border-radius: 18px 0 18px 0; opacity: 0.85;
       box-shadow: 0 2px 6px rgba(255, 92, 141, 0.4);
       animation: fallAndSwirl 6s linear infinite;
     }
-
     @keyframes fallAndSwirl {
       0% { transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
       20% { opacity: 0.95; }
       100% { transform: translateY(105vh) translateX(80px) rotate(420deg) scale(1.1); opacity: 0; }
     }
 
-    /* ONE SPECIAL PETAL THAT POP-UPS TO CENTER BUTTON "KLIK" */
+    /* HERO PETAL POP-UP BUTTON */
     .hero-petal-container {
-      position: absolute; top: 45%; left: 50%;
+      position: absolute; top: 48%; left: 50%;
       transform: translate(-50%, -50%); z-index: 102;
     }
-
     .hero-petal-btn {
-      width: 110px; height: 135px;
+      width: 115px; height: 140px;
       background: linear-gradient(135deg, #FF3366, #FF758C);
       clip-path: polygon(50% 0%, 88% 22%, 100% 58%, 50% 100%, 0% 58%, 12% 22%);
       display: flex; justify-content: center; align-items: center;
@@ -88,18 +80,16 @@
       animation: popUpHero 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
       border: none; outline: none;
     }
-
     @keyframes popUpHero {
-      0% { transform: scale(0.7) rotate(-8deg); box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
-      100% { transform: scale(1.3) rotate(8deg); box-shadow: 0 0 40px rgba(255, 51, 102, 0.9); }
+      0% { transform: scale(0.75) rotate(-6deg); box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
+      100% { transform: scale(1.2) rotate(6deg); box-shadow: 0 0 45px rgba(255, 51, 102, 0.95); }
     }
-
     .klik-text-hero {
       color: #FFFFFF; font-family: 'Sniglet', cursive; font-weight: bold;
       font-size: 1.6rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
     }
 
-    /* MAIN CONTAINER CARD */
+    /* GLOBAL APP CONTAINER */
     .container {
       width: 100%; max-width: 390px;
       background: var(--card-bg); backdrop-filter: blur(12px);
@@ -148,12 +138,19 @@
     }
     .btn:active { transform: scale(0.95); }
 
-    /* JAPANESE SCROLL */
+    /* SLIDE 2: STORY SCROLL WITH DUBBING & BABY ANIME */
     .scroll-box {
       background: var(--creamy-vanilla); border: 3px solid var(--kyoto-red);
-      border-radius: 18px; padding: 20px 15px; margin: 15px 0; text-align: center;
-      box-shadow: inset 0 0 15px rgba(192, 0, 50, 0.1);
+      border-radius: 18px; padding: 18px 14px; margin: 12px 0; text-align: center;
+      box-shadow: inset 0 0 15px rgba(192, 0, 50, 0.1); position: relative;
     }
+    .baby-anime-img {
+      width: 100px; height: 100px; object-fit: cover; border-radius: 50%;
+      border: 3px solid var(--sakura-pink); margin: 0 auto 12px auto; display: block;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15); animation: floatBaby 2s infinite ease-in-out alternate;
+    }
+    @keyframes floatBaby { 0% { transform: translateY(0); } 100% { transform: translateY(-6px); } }
+
     .hanko-stamps { display: flex; gap: 12px; margin-top: 15px; }
     .stamp-btn {
       flex: 1; padding: 12px; border-radius: 14px; border: 3px dashed var(--kyoto-red);
@@ -161,14 +158,26 @@
       font-weight: bold; font-size: 1.1rem; cursor: pointer;
     }
 
-    /* MATCHA STYLES */
+    /* SLIDE 3: MATCHA JOKES REALISTIC & THINKING ANIMATION */
     .matcha-card {
       background: #E8F5E9; border: 3px solid #66BB6A;
-      border-radius: 20px; padding: 18px; text-align: center; margin: 12px 0;
+      border-radius: 20px; padding: 18px; text-align: center; margin: 12px 0; position: relative;
     }
-    .matcha-img { width: 90px; height: 90px; object-fit: contain; margin: 10px auto; display: block; }
+    .realistic-matcha-photo {
+      width: 110px; height: 110px; object-fit: cover; border-radius: 16px;
+      margin: 8px auto; display: block; box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      border: 2px solid #A5D6A7;
+    }
+    .thinking-icon-box {
+      position: absolute; top: 10px; right: 15px; font-size: 1.8rem;
+      animation: floatQuestion 1.5s infinite ease-in-out alternate;
+    }
+    @keyframes floatQuestion {
+      0% { transform: translateY(0) rotate(-10deg); }
+      100% { transform: translateY(-8px) rotate(10deg); }
+    }
 
-    /* ORIGAMI ENVELOPE */
+    /* SLIDE 4: ORIGAMI PASSWORD & AIB */
     .origami-box {
       background: #FFE3E8; border: 3px dashed var(--sakura-pink);
       border-radius: 20px; padding: 20px; text-align: center; margin: 12px 0;
@@ -176,17 +185,15 @@
     .hanko-seal {
       width: 70px; height: 70px; background: var(--kyoto-red);
       color: #FFF; border-radius: 50%; margin: 10px auto; display: flex;
-      justify-content: center; align-items: center; font-size: 1rem; font-weight: bold;
+      justify-content: center; align-items: center; font-size: 0.95rem; font-weight: bold;
       cursor: pointer; border: 2px dashed #FFF; box-shadow: 0 6px 14px rgba(192, 0, 50, 0.4);
     }
-
     input[type="password"] {
       width: 100%; padding: 12px; border: 3px solid #FFCCD5;
       border-radius: 16px; margin-bottom: 12px; text-align: center;
       font-size: 1.1rem; letter-spacing: 3px; outline: none; background: #fff;
       color: var(--kyoto-red); font-weight: bold;
     }
-
     .polaroid-frame {
       background: white; padding: 10px 10px 22px 10px;
       border-radius: 14px; box-shadow: 0 14px 25px rgba(0,0,0,0.25);
@@ -196,24 +203,26 @@
     @keyframes jumpscare { 0% { transform: scale(0.2); } 100% { transform: scale(1); } }
     .screen-shake { animation: shake 0.5s ease; }
     @keyframes shake { 10%, 90% { transform: translate3d(-3px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
-
     .aib-photo, .aib-video { width: 100%; height: 190px; object-fit: cover; border-radius: 8px; }
 
-    /* MINI GAMES ARENA */
+    /* SLIDE 5: MINI GAMES ARENA */
     .game-arena {
       width: 100%; height: 180px; background: #FFF0F3;
       border-radius: 18px; position: relative; overflow: hidden; margin: 12px 0;
       border: 3px dashed var(--sakura-pink); display: flex; justify-content: center; align-items: center;
     }
-    .balloon-box { display: flex; justify-content: space-around; width: 100%; }
-    .game-item { width: 50px; height: 50px; cursor: pointer; }
-
+    .balloon-box { display: flex; justify-content: space-around; width: 100%; align-items: center; }
+    .game-item-realistic {
+      width: 65px; height: 65px; object-fit: cover; border-radius: 50%;
+      cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border: 2px solid #fff;
+    }
     .grid-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
     .gift-box-btn {
-      background: #fff; border: 3px dashed var(--sakura-pink); padding: 18px 10px;
-      border-radius: 18px; font-size: 1.1rem; font-weight: bold; color: var(--sakura-pink); cursor: pointer;
+      background: #fff; border: 3px dashed var(--sakura-pink); padding: 16px 10px;
+      border-radius: 18px; font-size: 1rem; font-weight: bold; color: var(--sakura-pink); cursor: pointer;
     }
 
+    /* SLIDE 6: SURAT CINTA & FOTO GANTENG */
     .card-style-1 { background: #FFF; border-left: 6px solid var(--sakura-pink); padding: 15px; border-radius: 12px; }
     .card-style-2 { background: var(--creamy-vanilla); border: 2px dashed var(--kyoto-red); padding: 15px; border-radius: 12px; }
     .card-style-3 { background: #FFF0F3; border-radius: 16px; padding: 15px; transform: rotate(-1.5deg); }
@@ -225,6 +234,7 @@
     }
     .handsome-photo { width: 100%; max-width: 210px; height: 200px; object-fit: cover; border-radius: 12px; display: block; }
 
+    /* SLIDE 7: DELIVERY */
     .progress-bar-bg { width: 100%; background: #FFE3E8; height: 18px; border-radius: 10px; overflow: hidden; margin: 12px 0; border: 2px solid var(--sakura-pink); }
     .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--sakura-pink), #FF85A1); transition: width 0.1s linear; }
 
@@ -242,16 +252,12 @@
 
   <div class="flash-overlay" id="flashOverlay"></div>
 
-  <!-- SLIDE 1: REALISTIC JAPANESE SPRING SCENE (SLIDE PEMBUKA SAKURA) -->
+  <!-- SLIDE 1: CINEMATIC SPRING OPENING -->
   <div class="opening-viewport" id="openingViewport">
     <div class="opening-title-card">
       <p style="font-size:1.05rem; color:#2c2c2c; font-weight:bold; margin:0;">Musim semi telah tiba di tempat Kiki...</p>
     </div>
-
-    <!-- HUJAN KELOPAK SAKURA BERHAMBURAN -->
     <div class="sakura-storm" id="sakuraStorm"></div>
-
-    <!-- HERO PETAL BUTTON "KLIK" MEMBESAR DI TENGAH -->
     <div class="hero-petal-container">
       <button class="hero-petal-btn" onclick="startJourney()">
         <span class="klik-text-hero">KLIK</span>
@@ -260,15 +266,17 @@
   </div>
 
   <button class="music-btn paused" id="musicToggleBtn" onclick="toggleMusic()">🎵</button>
-  <audio id="bgMusic" loop><source src="lagu.mp3" type="audio/mpeg"></audio>
+  <audio id="bgMusic" loop><source src="lagu_jepang.mp3" type="audio/mpeg"></audio>
+  <audio id="dubbingAudio"><source src="dubbing.mp3" type="audio/mpeg"></audio>
 
 <div class="container" id="mainContainer">
 
-  <!-- STAGE 2: JAPANESE SCROLL INVITATION -->
+  <!-- SLIDE 2: STORY SCROLL WITH DUBBING & BABY ANIME -->
   <div id="step2" class="step active">
     <h2>HAPPY BIRTHDAY KIKIII ✨</h2>
     <div class="scroll-box">
-      <p id="type-scroll" style="font-size:1.1rem; font-weight:bold; color:var(--kyoto-red); margin-bottom:10px;"></p>
+      <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=400&auto=format&fit=crop" class="baby-anime-img" alt="Baby Anime">
+      <p id="type-scroll" style="font-size:1.02rem; font-weight:bold; color:var(--kyoto-red); margin-bottom:12px;"></p>
       <div class="hanko-stamps">
         <button class="stamp-btn" onclick="goToStep('step3-matcha1')">YES ❤️</button>
         <button class="stamp-btn" style="opacity:0.7;" onclick="scrollNo()">NO 😜</button>
@@ -276,40 +284,42 @@
     </div>
   </div>
 
-  <!-- STAGE 3A: MATCHA JOKES 1 -->
+  <!-- SLIDE 3A: MATCHA JOKES 1 -->
   <div id="step3-matcha1" class="step">
     <h2>KUIS MATCHA 1</h2>
     <div class="matcha-card">
-      <p style="color:#2E7D32; font-weight:bold;">Kenapa air mata itu warnanya bening?</p>
-      <img src="https://cdn-icons-png.flaticon.com/512/3233/3233827.png" class="matcha-img" alt="Matcha Drink">
-      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns1()">LIHAT JAWABAN ➡️️</button>
+      <div class="thinking-icon-box">🤔❓</div>
+      <p style="color:#2E7D32; font-weight:bold; padding-right:30px;">Kenapa air mata itu warnanya bening?</p>
+      <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=400&auto=format&fit=crop" class="realistic-matcha-photo" alt="Real Matcha">
+      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns1()">LIHAT JAWABAN ➡️</button>
       <div id="ans1" style="display:none; margin-top:12px;">
-        <p style="color:#1B5E20; font-weight:bold;">Karna kalo warna hijau ya air matcha WKWKWK 😭</p>
+        <p style="color:#1B5E20; font-weight:bold;">Karna kalo warna hijau ya air matcha... xixixixi 🍵😭</p>
         <button class="btn" style="background:#2E7D32;" onclick="goToStep('step3-matcha2')">LANJUT KUIS 2 ➡️</button>
       </div>
     </div>
   </div>
 
-  <!-- STAGE 3B: MATCHA JOKES 2 -->
+  <!-- SLIDE 3B: MATCHA JOKES 2 -->
   <div id="step3-matcha2" class="step">
     <h2>KUIS MATCHA 2</h2>
     <div class="matcha-card">
-      <p style="color:#2E7D32; font-weight:bold;">Kenapa kalo ngaduk matcha harus pake kayu?</p>
-      <img src="https://cdn-icons-png.flaticon.com/512/3081/3081971.png" class="matcha-img" alt="Matcha Whisk">
+      <div class="thinking-icon-box">🤨❓</div>
+      <p style="color:#2E7D32; font-weight:bold; padding-right:30px;">Kenapa kalo ngaduk matcha harus pake kayu?</p>
+      <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=400&auto=format&fit=crop" class="realistic-matcha-photo" alt="Real Whisk">
       <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns2()">LIHAT JAWABAN ➡️</button>
       <div id="ans2" style="display:none; margin-top:12px;">
-        <p style="color:#1B5E20; font-weight:bold;">Karena kalo pake pacul jadinya matchul 😭</p>
+        <p style="color:#1B5E20; font-weight:bold;">Karena kalo pake pacul jadinya matchul... xixixixi 😭⛏️</p>
         <button class="btn" style="background:#2E7D32;" onclick="goToStep('step4-password')">MASUK KE GERBANG SECRET 🗝️</button>
       </div>
     </div>
   </div>
 
-  <!-- STAGE 4: ORIGAMI ENVELOPE PASSWORD -->
+  <!-- SLIDE 4: ORIGAMI PASSWORD & AIB -->
   <div id="step4-password" class="step text-center">
     <h2>GERBANG SECRET 🔐</h2>
     <div class="origami-box">
       <p style="font-size:0.88rem; color:#777;">Ketuk segel Hanko merah buat masukin password ya seng!</p>
-      <div id="seal-trigger" class="hanko-seal" onclick="revealPass()">SEGEL</div>
+      <div id="seal-trigger" class="hanko-seal" onclick="revealPass()">SEGEL HANKO</div>
 
       <div id="pass-field" style="display:none; margin-top:10px;">
         <input type="password" id="passInput" placeholder="ENTER PASSWORD">
@@ -339,50 +349,47 @@
     </div>
   </div>
 
-  <!-- GAME 1: PETIK SAKURA -->
+  <!-- SLIDE 5: MINI GAMES (4 GAMES) -->
   <div id="game-sakura" class="step text-center">
     <h2>MISI 1: PETIK SAKURA 🌸</h2>
     <p>Tangkap 5 kelopak sakura melayang! Sisa: <b id="sakura-count" style="color:var(--sakura-pink);">5</b></p>
     <div class="game-arena" id="sakura-arena">
-      <div class="real-petal-graphics" id="target-sakura" style="cursor:pointer; width:22px; height:28px;" onclick="catchSakura()"></div>
+      <div class="real-petal-graphics" id="target-sakura" style="cursor:pointer; width:24px; height:30px;" onclick="catchSakura()"></div>
     </div>
     <button class="btn" id="sakura-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-balloon');">MISI 1 CLEARED! LANJUT ➡️</button>
   </div>
 
-  <!-- GAME 2: BALON SAKURA -->
   <div id="game-balloon" class="step text-center">
     <h2>MISI 2: PECAHKAN BALON 🎈</h2>
     <p>Ketuk 3 balon ulang tahun di bawah! Sisa: <b id="balloon-count" style="color:var(--sakura-pink);">3</b></p>
     <div class="game-arena">
       <div class="balloon-box">
-        <img src="https://cdn-icons-png.flaticon.com/512/3592/3592864.png" class="game-item" id="b1" onclick="popB('b1')" alt="Balloon">
-        <img src="https://cdn-icons-png.flaticon.com/512/3592/3592864.png" class="game-item" id="b2" onclick="popB('b2')" alt="Balloon">
-        <img src="https://cdn-icons-png.flaticon.com/512/3592/3592864.png" class="game-item" id="b3" onclick="popB('b3')" alt="Balloon">
+        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=300&auto=format&fit=crop" class="game-item-realistic" id="b1" onclick="popB('b1')" alt="Balloon">
+        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=300&auto=format&fit=crop" class="game-item-realistic" id="b2" onclick="popB('b2')" alt="Balloon">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=300&auto=format&fit=crop" class="game-item-realistic" id="b3" onclick="popB('b3')" alt="Balloon">
       </div>
     </div>
     <button class="btn" id="balloon-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-cake');">MISI 2 CLEARED! LANJUT ➡️</button>
   </div>
 
-  <!-- GAME 3: TIUP LILIN MATCHA -->
   <div id="game-cake" class="step text-center">
     <h2>MISI 3: TIUP LILIN MATCHA</h2>
     <p id="cake-text">Ketuk kue di bawah 5 kali cepat buat tiup apinya! 🥳</p>
     <div style="cursor:pointer;" onclick="blowCandle()">
-      <img id="flame-icon" src="https://cdn-icons-png.flaticon.com/512/2454/2454278.png" style="width:110px; margin:10px auto;" alt="Cake">
+      <img id="flame-icon" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400&auto=format&fit=crop" style="width:120px; height:120px; object-fit:cover; border-radius:50%; margin:8px auto; border:3px solid var(--sakura-pink);" alt="Cake">
     </div>
     <p id="blow-status" style="font-weight:bold; color:var(--kyoto-red);">Ketukan: <span id="tap-count">0</span>/5</p>
     <button class="btn" id="cake-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-box');">MAKE A WISH DONE! LANJUT ➡️</button>
   </div>
 
-  <!-- GAME 4: OMIKUJI BOX -->
   <div id="game-box" class="step text-center">
     <h2>MISI 4: PILIH OMIKUJI</h2>
     <p>Pilih 1 kotak keberuntungan yang ada pesan rahasianya seng!</p>
     <div id="boxes-grid" class="grid-boxes">
-      <button class="gift-box-btn" onclick="pickBox(1)">BOX 1</button>
-      <button class="gift-box-btn" onclick="pickBox(2)">BOX 2</button>
-      <button class="gift-box-btn" onclick="pickBox(3)">BOX 3</button>
-      <button class="gift-box-btn" onclick="pickBox(4)">BOX 4</button>
+      <button class="gift-box-btn" onclick="pickBox(1)">KOTAK 1</button>
+      <button class="gift-box-btn" onclick="pickBox(2)">KOTAK 2</button>
+      <button class="gift-box-btn" onclick="pickBox(3)">KOTAK 3</button>
+      <button class="gift-box-btn" onclick="pickBox(4)">KOTAK 4</button>
     </div>
     <div id="box-result" style="display:none;">
       <p id="box-result-text"></p>
@@ -391,34 +398,25 @@
     </div>
   </div>
 
-  <!-- SLIDE UCAPAN 1 -->
+  <!-- SLIDE 6: SURAT CINTA & FOTO GANTENG -->
   <div id="card1" class="step text-left">
     <h2>HAPPY 26TH BIRTHDAY KIKIII ❤️</h2>
-    <div class="card-style-1">
-      <p id="type-card1"></p>
-    </div>
+    <div class="card-style-1"><p id="type-card1"></p></div>
     <button class="btn" onclick="goToStep('card2')">LANJUT ➡️</button>
   </div>
 
-  <!-- SLIDE UCAPAN 2 -->
   <div id="card2" class="step text-left">
     <h2>MAKASIII SAYANGGG ✨</h2>
-    <div class="card-style-2">
-      <p id="type-card2"></p>
-    </div>
+    <div class="card-style-2"><p id="type-card2"></p></div>
     <button class="btn" onclick="goToStep('card3')">LANJUT ➡️</button>
   </div>
 
-  <!-- SLIDE UCAPAN 3 -->
   <div id="card3" class="step text-left">
     <h2>I LOVE YOU SOOO MUCHHH ❤️</h2>
-    <div class="card-style-3">
-      <p id="type-card3"></p>
-    </div>
+    <div class="card-style-3"><p id="type-card3"></p></div>
     <button class="btn" onclick="goToStep('card4')">LANJUT ➡️</button>
   </div>
 
-  <!-- SLIDE UCAPAN 4 & FOTO GANTENG -->
   <div id="card4" class="step text-center">
     <h2>THE BIRTHDAY BOY ✨❤️</h2>
     <p id="type-card4"></p>
@@ -429,22 +427,16 @@
     <button class="btn" onclick="triggerConfetti(); goToStep('step-delivery'); startDelivery();">LANJUT KE HADIAH ➡️</button>
   </div>
 
-  <!-- DELIVERY SIMULATION -->
+  <!-- SLIDE 7: DELIVERY SIMULATION -->
   <div id="step-delivery" class="step text-left">
     <h2>YOUR GIFT IS ON THE WAY 🏍️</h2>
     <p>Jadi sekarang tugas kamu cuma satu seng<br><br><b style="color:var(--kyoto-red);">TUNGGU DI RUMAH YAAA</b></p>
-
     <div style="font-size:0.85rem; margin:12px 0; background:#FFF; padding:10px; border-radius:12px; border:2px solid #FFCCD5;">
-      ✓ Hadiah disiapkan<br>
-      ✓ Hadiah dikirim<br>
-      ✓ Dibawa mamang kurir<br>
-      <b>→ Kiki dimohon menunggu di rumah</b>
+      ✓ Hadiah disiapkan<br>✓ Hadiah dikirim<br>✓ Dibawa mamang kurir<br><b>→ Kiki dimohon menunggu di rumah</b>
     </div>
-
     <div style="font-size:2.8rem; text-align:center;" class="bounce">🏍️</div>
     <div class="progress-bar-bg"><div id="progress-fill" class="progress-bar-fill"></div></div>
     <p id="progress-text" style="font-weight:bold; color:var(--kyoto-red); text-align:center;">0%</p>
-
     <div id="delivery-done" style="display:none; text-align:center;">
       <p style="color:var(--kyoto-red); font-weight:bold;">MAMANG KURIR SEDANG MEMBAWA KEBAHAGIAAN KIKI 😭</p>
       <p style="font-size:0.85rem;">Jangan tidur jangan pergi jangan pura-pura ga denger pas mamangnya manggil WKWKWK</p>
@@ -468,9 +460,10 @@
   let candleTaps = 0;
   let isMusicPlaying = false;
   let typingTimeout = null;
+  let dubbingTimer = null;
 
   const cardTexts = {
-    'step2': 'UDAH SIAP BELUMMM SENG 😭',
+    'step2': 'A long time ago, tepatnya pada tanggal 8 Oktober 2000... lahirlah seorang bayi laki-laki yang tadinya disangka bakal jadi pangeran kerajaan Jepang. Tapi, setelah dewasa ternyata malah jadi pawang game garis keras yang doyan bikin darah tinggi WKWKWK... Bayi gemoy itu namanya... Kiki Ahmad Dasuki.',
     'card1': 'cieeee Kiki Ahmad Dasuki sekarang udah 26 tahun ajaaa 😭\n\nGimana rasanya makin tua seng WKWKWK\n\nTenang aku masih mau kok nemenin kamu walaupun udah 26 😌',
     'card2': 'Makasiii yaa sayang udah hadir di hidup aku dan udah nemenin aku sampai sejauh ini\n\nMakasiii buat semua hal kecil yang kamu lakuin buat waktu yang kamu kasih dan buat semua cerita yang kita bagi bareng\n\nBahkan ngobrolin hal random pun tetep seru kalau sama kamu 😭',
     'card3': 'Aku mungkin ga selalu bilang atau nunjukinnya dengan cara yang paling jelas tapi aku sayang banget sama kamu beb\n\nI really love having you in my life aku seneng bisa kenal kamu bisa deket sama kamu dan bisa ngelewatin banyak hal bareng kamu❤️',
@@ -478,7 +471,7 @@
     'ending': 'Semoga kamu suka yaa sayang dari semua yang aku kasih hari ini semoga yang paling kamu inget tetep aku 😌\n\nHAPPY BIRTHDAY SEKALI LAGI KIKIII ❤️\nI LOVE YOU SOOO MUCH KIKI ❤️\nTAYANGNYA AKUU ❤️'
   };
 
-  // REAL SAKURA STORM GENERATOR
+  // REAL SAKURA STORM
   const storm = document.getElementById('sakuraStorm');
   for (let i = 0; i < 30; i++) {
     const p = document.createElement('div');
@@ -490,9 +483,15 @@
   }
 
   function startJourney() {
-    startMusic();
+    startMusic(); // Putar lagu_jepang.mp3 (Slide 1)
     document.getElementById('openingViewport').classList.add('hidden');
     goToStep('step2');
+    
+    // Tepat setelah 15 detik (durasi Slide 1), matikan musik Jepang, lalu putar dubbing suara kamu (43 detik)
+    setTimeout(() => {
+      stopMusic();
+      playDubbing();
+    }, 15000); 
   }
 
   function startMusic() {
@@ -500,11 +499,61 @@
     const btn = document.getElementById('musicToggleBtn');
     audio.play().then(() => { isMusicPlaying = true; btn.classList.remove('paused'); }).catch(e => {});
   }
-  function pauseMusicForVideo() { const audio = document.getElementById('bgMusic'); if (isMusicPlaying) audio.pause(); }
-  function resumeMusicAfterVideo() { const audio = document.getElementById('bgMusic'); if (isMusicPlaying) audio.play(); }
-  function toggleMusic() {
+
+  function stopMusic() {
     const audio = document.getElementById('bgMusic');
     const btn = document.getElementById('musicToggleBtn');
+    audio.pause();
+    audio.currentTime = 0;
+    isMusicPlaying = false;
+    btn.classList.add('paused');
+  }
+
+  function playDubbing() {
+    const dub = document.getElementById('dubbingAudio');
+    const btn = document.getElementById('musicToggleBtn');
+    if (dub) { 
+      dub.currentTime = 0; 
+      dub.play().catch(e => {}); 
+      isMusicPlaying = false;
+      btn.classList.add('paused');
+
+      if (dubbingTimer) clearTimeout(dubbingTimer);
+      dubbingTimer = setTimeout(() => {
+        btn.classList.add('paused');
+      }, 43000); // 43 detik durasi dubbing
+    }
+  }
+
+  function pauseMusicForVideo() { 
+    const audio = document.getElementById('bgMusic'); 
+    const dub = document.getElementById('dubbingAudio');
+    if (isMusicPlaying) audio.pause();
+    if (dub && !dub.paused) dub.pause();
+  }
+
+  function resumeMusicAfterVideo() { 
+    const dub = document.getElementById('dubbingAudio');
+    if (dub && dub.paused) dub.play().catch(e=>{});
+  }
+
+  function toggleMusic() {
+    const audio = document.getElementById('bgMusic');
+    const dub = document.getElementById('dubbingAudio');
+    const btn = document.getElementById('musicToggleBtn');
+    
+    if (dub && !dub.paused) {
+      dub.pause();
+      btn.classList.add('paused');
+      isMusicPlaying = false;
+      return;
+    } else if (dub && dub.paused && dub.currentTime > 0 && dub.currentTime < dub.duration) {
+      dub.play();
+      btn.classList.remove('paused');
+      isMusicPlaying = true;
+      return;
+    }
+
     if (isMusicPlaying) { audio.pause(); btn.classList.add('paused'); isMusicPlaying = false; }
     else { audio.play(); btn.classList.remove('paused'); isMusicPlaying = true; }
   }
@@ -600,7 +649,7 @@
     if (candleTaps < 5) {
       candleTaps++; document.getElementById('tap-count').innerText = candleTaps;
       if (candleTaps === 5) {
-        document.getElementById('flame-icon').src = 'https://cdn-icons-png.flaticon.com/512/2454/2454278.png';
+        document.getElementById('flame-icon').style.opacity = '0.5';
         document.getElementById('cake-text').innerHTML = "<b style='color:var(--kyoto-red);'>YEEAY LILINNYA PADAM 🥳✨</b><br>Semoga semua harapan Kiki tahun ini terkabul yaa sayang ❤️";
         document.getElementById('blow-status').style.display = 'none';
         document.getElementById('cake-next-btn').style.display = 'block';
