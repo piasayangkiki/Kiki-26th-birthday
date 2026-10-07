@@ -19,44 +19,98 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: linear-gradient(-45deg, #FFEAEA, #FFD1DC, #FFF5EA, #FFCCD5);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
+      background: #111;
       color: var(--text-main);
       display: flex; justify-content: center; align-items: center;
-      min-height: 100vh; padding: 15px; overflow-x: hidden;
+      min-height: 100vh; padding: 0; overflow-x: hidden;
       position: relative; font-family: 'Nunito', sans-serif;
     }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* SLIDE 1: REALISTIC JAPANESE SPRING SCENE BACKGROUND */
+    .opening-viewport {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)),
+                  url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
+      z-index: 100; display: flex; flex-direction: column;
+      justify-content: space-between; align-items: center;
+      padding: 40px 20px; transition: opacity 0.8s ease, visibility 0.8s;
     }
 
-    /* REAL SAKURA PETALS ANIMATION */
-    .sakura-container {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 2;
+    .opening-viewport.hidden {
+      opacity: 0; visibility: hidden; pointer-events: none;
     }
-    .real-petal {
+
+    .opening-title-card {
+      background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px);
+      padding: 14px 22px; border-radius: 20px; border: 2px solid var(--sakura-pink);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center;
+      animation: fadeInDown 1.2s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* REAL SAKURA PETALS STORM (BERHAMBURAN) */
+    .sakura-storm {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; overflow: hidden; z-index: 101;
+    }
+
+    .real-petal-graphics {
       position: absolute;
-      width: 16px; height: 22px;
-      background: linear-gradient(135deg, #FFB7C5, #FF5C8D);
-      border-radius: 15px 0 15px 0;
-      opacity: 0.85;
-      box-shadow: 0 2px 5px rgba(255, 92, 141, 0.3);
-      animation: fall 7s linear infinite;
+      width: 18px; height: 26px;
+      background: linear-gradient(135deg, #FFB7C5 0%, #FF5C8D 100%);
+      border-radius: 18px 0 18px 0; opacity: 0.85;
+      box-shadow: 0 2px 6px rgba(255, 92, 141, 0.4);
+      animation: fallAndSwirl 6s linear infinite;
     }
-    @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
-      20% { opacity: 0.9; }
-      100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
+
+    @keyframes fallAndSwirl {
+      0% { transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
+      20% { opacity: 0.95; }
+      100% { transform: translateY(105vh) translateX(80px) rotate(420deg) scale(1.1); opacity: 0; }
+    }
+
+    /* ONE SPECIAL PETAL THAT POP-UPS TO CENTER BUTTON "KLIK" */
+    .hero-petal-container {
+      position: absolute; top: 45%; left: 50%;
+      transform: translate(-50%, -50%); z-index: 102;
+    }
+
+    .hero-petal-btn {
+      width: 110px; height: 135px;
+      background: linear-gradient(135deg, #FF3366, #FF758C);
+      clip-path: polygon(50% 0%, 88% 22%, 100% 58%, 50% 100%, 0% 58%, 12% 22%);
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; box-shadow: 0 0 35px rgba(255, 51, 102, 0.8);
+      animation: popUpHero 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
+      border: none; outline: none;
+    }
+
+    @keyframes popUpHero {
+      0% { transform: scale(0.7) rotate(-8deg); box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
+      100% { transform: scale(1.3) rotate(8deg); box-shadow: 0 0 40px rgba(255, 51, 102, 0.9); }
+    }
+
+    .klik-text-hero {
+      color: #FFFFFF; font-family: 'Sniglet', cursive; font-weight: bold;
+      font-size: 1.6rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    }
+
+    /* MAIN CONTAINER CARD */
+    .container {
+      width: 100%; max-width: 390px;
+      background: var(--card-bg); backdrop-filter: blur(12px);
+      border-radius: 28px; padding: 24px 18px;
+      box-shadow: 0 20px 40px rgba(255, 92, 141, 0.3), 0 0 0 8px rgba(255, 255, 255, 0.7);
+      position: relative; z-index: 10; overflow: hidden; margin: 15px;
     }
 
     .flash-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(192, 0, 50, 0.35); z-index: 99; pointer-events: none;
+      background: rgba(192, 0, 50, 0.35); z-index: 999; pointer-events: none;
       opacity: 0; transition: opacity 0.1s ease-in-out;
     }
     .flash-active { animation: flashAnim 0.4s ease-out; }
@@ -67,19 +121,11 @@
       background: #FFF; border: 3px solid var(--sakura-pink);
       border-radius: 50%; width: 48px; height: 48px; font-size: 1.4rem;
       display: flex; justify-content: center; align-items: center;
-      cursor: pointer; z-index: 100; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      cursor: pointer; z-index: 105; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
       animation: rotateMusic 4s linear infinite;
     }
     .music-btn.paused { animation-play-state: paused; opacity: 0.7; }
     @keyframes rotateMusic { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-    .container {
-      width: 100%; max-width: 390px;
-      background: var(--card-bg); backdrop-filter: blur(12px);
-      border-radius: 28px; padding: 24px 18px;
-      box-shadow: 0 20px 40px rgba(255, 92, 141, 0.3), 0 0 0 8px rgba(255, 255, 255, 0.7);
-      position: relative; z-index: 10; overflow: hidden;
-    }
 
     h2 {
       font-family: 'Kosugi Maru', 'Sniglet', cursive;
@@ -102,42 +148,7 @@
     }
     .btn:active { transform: scale(0.95); }
 
-    /* REAL SAKURA TREE OPENING STAGE */
-    .opening-stage-real {
-      background: #FFFFFF url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
-      border-radius: 22px; padding: 40px 15px; text-align: center;
-      position: relative; border: 3px solid #FFE0E6; min-height: 380px;
-      display: flex; flex-direction: column; justify-content: space-between; align-items: center;
-      box-shadow: inset 0 0 30px rgba(255,255,255,0.8);
-    }
-    .tree-overlay-text {
-      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px);
-      padding: 10px 16px; border-radius: 14px; border: 2px solid var(--sakura-pink);
-    }
-
-    /* GROWING PETAL BUTTON */
-    .petal-button-wrapper {
-      position: relative; width: 100px; height: 100px;
-      display: flex; justify-content: center; align-items: center; margin-bottom: 20px;
-    }
-    .growing-sakura-petal {
-      width: 75px; height: 95px;
-      background: linear-gradient(135deg, #FF5C8D, #FF85A1);
-      clip-path: polygon(50% 0%, 85% 25%, 100% 60%, 50% 100%, 0% 60%, 15% 25%);
-      box-shadow: 0 10px 25px rgba(255, 92, 141, 0.6);
-      display: flex; justify-content: center; align-items: center;
-      cursor: pointer; animation: growPetal 2.5s infinite ease-in-out alternate;
-    }
-    @keyframes growPetal {
-      0% { transform: scale(0.8) rotate(-5deg); box-shadow: 0 5px 15px rgba(255, 92, 141, 0.4); }
-      100% { transform: scale(1.25) rotate(5deg); box-shadow: 0 15px 35px rgba(255, 92, 141, 0.8); }
-    }
-    .klik-text {
-      color: #FFF; font-family: 'Sniglet', cursive; font-weight: bold;
-      font-size: 1.3rem; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    }
-
-    /* SCROLL BOX */
+    /* JAPANESE SCROLL */
     .scroll-box {
       background: var(--creamy-vanilla); border: 3px solid var(--kyoto-red);
       border-radius: 18px; padding: 20px 15px; margin: 15px 0; text-align: center;
@@ -155,7 +166,7 @@
       background: #E8F5E9; border: 3px solid #66BB6A;
       border-radius: 20px; padding: 18px; text-align: center; margin: 12px 0;
     }
-    .matcha-img { width: 100px; height: 100px; object-fit: contain; margin: 10px auto; display: block; }
+    .matcha-img { width: 90px; height: 90px; object-fit: contain; margin: 10px auto; display: block; }
 
     /* ORIGAMI ENVELOPE */
     .origami-box {
@@ -163,9 +174,9 @@
       border-radius: 20px; padding: 20px; text-align: center; margin: 12px 0;
     }
     .hanko-seal {
-      width: 65px; height: 65px; background: var(--kyoto-red);
+      width: 70px; height: 70px; background: var(--kyoto-red);
       color: #FFF; border-radius: 50%; margin: 10px auto; display: flex;
-      justify-content: center; align-items: center; font-size: 1.2rem; font-weight: bold;
+      justify-content: center; align-items: center; font-size: 1rem; font-weight: bold;
       cursor: pointer; border: 2px dashed #FFF; box-shadow: 0 6px 14px rgba(192, 0, 50, 0.4);
     }
 
@@ -200,7 +211,7 @@
     .grid-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
     .gift-box-btn {
       background: #fff; border: 3px dashed var(--sakura-pink); padding: 18px 10px;
-      border-radius: 18px; font-size: 1.5rem; font-weight: bold; color: var(--sakura-pink); cursor: pointer;
+      border-radius: 18px; font-size: 1.1rem; font-weight: bold; color: var(--sakura-pink); cursor: pointer;
     }
 
     .card-style-1 { background: #FFF; border-left: 6px solid var(--sakura-pink); padding: 15px; border-radius: 12px; }
@@ -223,36 +234,38 @@
 
     .bounce { animation: bounceAnim 0.8s infinite alternate ease-in-out; }
     @keyframes bounceAnim { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
   </style>
 </head>
 <body>
 
   <div class="flash-overlay" id="flashOverlay"></div>
-  <div class="sakura-container" id="sakuraContainer"></div>
+
+  <!-- SLIDE 1: REALISTIC JAPANESE SPRING SCENE (SLIDE PEMBUKA SAKURA) -->
+  <div class="opening-viewport" id="openingViewport">
+    <div class="opening-title-card">
+      <p style="font-size:1.05rem; color:#2c2c2c; font-weight:bold; margin:0;">Musim semi telah tiba di tempat Kiki...</p>
+    </div>
+
+    <!-- HUJAN KELOPAK SAKURA BERHAMBURAN -->
+    <div class="sakura-storm" id="sakuraStorm"></div>
+
+    <!-- HERO PETAL BUTTON "KLIK" MEMBESAR DI TENGAH -->
+    <div class="hero-petal-container">
+      <button class="hero-petal-btn" onclick="startJourney()">
+        <span class="klik-text-hero">KLIK</span>
+      </button>
+    </div>
+  </div>
 
   <button class="music-btn paused" id="musicToggleBtn" onclick="toggleMusic()">🎵</button>
   <audio id="bgMusic" loop><source src="lagu.mp3" type="audio/mpeg"></audio>
 
 <div class="container" id="mainContainer">
 
-  <!-- STAGE 1: REAL JAPANESE TREE OPENING -->
-  <div id="step1" class="step active">
-    <div class="opening-stage-real">
-      <div class="tree-overlay-text">
-        <p style="font-size:0.95rem; color:#383838; margin:0;">Musim semi telah tiba di tempat Kiki...</p>
-      </div>
-
-      <!-- KELOPAK SAKURA REALISTIS DENGAN BUTTON KLIK -->
-      <div class="petal-button-wrapper" onclick="goToStep('step2')">
-        <div class="growing-sakura-petal">
-          <span class="klik-text">KLIK</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- STAGE 2: JAPANESE SCROLL INVITATION -->
-  <div id="step2" class="step">
+  <div id="step2" class="step active">
     <h2>HAPPY BIRTHDAY KIKIII ✨</h2>
     <div class="scroll-box">
       <p id="type-scroll" style="font-size:1.1rem; font-weight:bold; color:var(--kyoto-red); margin-bottom:10px;"></p>
@@ -269,7 +282,7 @@
     <div class="matcha-card">
       <p style="color:#2E7D32; font-weight:bold;">Kenapa air mata itu warnanya bening?</p>
       <img src="https://cdn-icons-png.flaticon.com/512/3233/3233827.png" class="matcha-img" alt="Matcha Drink">
-      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns1()">LIHAT JAWABAN ➡️</button>
+      <button class="btn" style="background:#4CAF50;" onclick="showMatchaAns1()">LIHAT JAWABAN ➡️️</button>
       <div id="ans1" style="display:none; margin-top:12px;">
         <p style="color:#1B5E20; font-weight:bold;">Karna kalo warna hijau ya air matcha WKWKWK 😭</p>
         <button class="btn" style="background:#2E7D32;" onclick="goToStep('step3-matcha2')">LANJUT KUIS 2 ➡️</button>
@@ -296,7 +309,7 @@
     <h2>GERBANG SECRET 🔐</h2>
     <div class="origami-box">
       <p style="font-size:0.88rem; color:#777;">Ketuk segel Hanko merah buat masukin password ya seng!</p>
-      <div id="seal-trigger" class="hanko-seal" onclick="revealPass()">HANKO</div>
+      <div id="seal-trigger" class="hanko-seal" onclick="revealPass()">SEGEL</div>
 
       <div id="pass-field" style="display:none; margin-top:10px;">
         <input type="password" id="passInput" placeholder="ENTER PASSWORD">
@@ -331,7 +344,7 @@
     <h2>MISI 1: PETIK SAKURA 🌸</h2>
     <p>Tangkap 5 kelopak sakura melayang! Sisa: <b id="sakura-count" style="color:var(--sakura-pink);">5</b></p>
     <div class="game-arena" id="sakura-arena">
-      <div class="real-petal" id="target-sakura" style="cursor:pointer; width:22px; height:28px;" onclick="catchSakura()"></div>
+      <div class="real-petal-graphics" id="target-sakura" style="cursor:pointer; width:22px; height:28px;" onclick="catchSakura()"></div>
     </div>
     <button class="btn" id="sakura-next-btn" style="display:none;" onclick="triggerConfetti(); goToStep('game-balloon');">MISI 1 CLEARED! LANJUT ➡️</button>
   </div>
@@ -379,7 +392,7 @@
   </div>
 
   <!-- SLIDE UCAPAN 1 -->
-  <div id="card1" class="step">
+  <div id="card1" class="step text-left">
     <h2>HAPPY 26TH BIRTHDAY KIKIII ❤️</h2>
     <div class="card-style-1">
       <p id="type-card1"></p>
@@ -388,7 +401,7 @@
   </div>
 
   <!-- SLIDE UCAPAN 2 -->
-  <div id="card2" class="step">
+  <div id="card2" class="step text-left">
     <h2>MAKASIII SAYANGGG ✨</h2>
     <div class="card-style-2">
       <p id="type-card2"></p>
@@ -397,7 +410,7 @@
   </div>
 
   <!-- SLIDE UCAPAN 3 -->
-  <div id="card3" class="step">
+  <div id="card3" class="step text-left">
     <h2>I LOVE YOU SOOO MUCHHH ❤️</h2>
     <div class="card-style-3">
       <p id="type-card3"></p>
@@ -465,15 +478,21 @@
     'ending': 'Semoga kamu suka yaa sayang dari semua yang aku kasih hari ini semoga yang paling kamu inget tetep aku 😌\n\nHAPPY BIRTHDAY SEKALI LAGI KIKIII ❤️\nI LOVE YOU SOOO MUCH KIKI ❤️\nTAYANGNYA AKUU ❤️'
   };
 
-  // REAL SAKURA FALLING PETALS GENERATOR
-  const sc = document.getElementById('sakuraContainer');
-  for (let i = 0; i < 25; i++) {
+  // REAL SAKURA STORM GENERATOR
+  const storm = document.getElementById('sakuraStorm');
+  for (let i = 0; i < 30; i++) {
     const p = document.createElement('div');
-    p.className = 'real-petal';
+    p.className = 'real-petal-graphics';
     p.style.left = Math.random() * 100 + 'vw';
-    p.style.animationDuration = (Math.random() * 4 + 4) + 's';
-    p.style.animationDelay = (Math.random() * 5) + 's';
-    sc.appendChild(p);
+    p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    p.style.animationDelay = (Math.random() * 4) + 's';
+    storm.appendChild(p);
+  }
+
+  function startJourney() {
+    startMusic();
+    document.getElementById('openingViewport').classList.add('hidden');
+    goToStep('step2');
   }
 
   function startMusic() {
@@ -523,7 +542,7 @@
   function showMatchaAns1() { document.getElementById('ans1').style.display = 'block'; }
   function showMatchaAns2() { document.getElementById('ans2').style.display = 'block'; }
 
-  function revealPass() { startMusic(); document.getElementById('seal-trigger').style.display = 'none'; document.getElementById('pass-field').style.display = 'block'; }
+  function revealPass() { document.getElementById('seal-trigger').style.display = 'none'; document.getElementById('pass-field').style.display = 'block'; }
 
   function checkPassword() {
     const val = document.getElementById('passInput').value.trim();
